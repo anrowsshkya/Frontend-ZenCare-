@@ -1,0 +1,134 @@
+/*Style file for Login.js and SignUp.js*/
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #f8f8f8;
+}
+
+.container {
+    display: flex;
+    width: 80%;
+    max-width: 1000px;
+    background: white;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.login-section,
+.signup-section {
+    width: 50%;
+    padding: 40px;
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+p {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.signup-btn,
+.login-btn {
+    width: 100%;
+    padding: 10px;
+    background: #2662c3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.google-btn {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.google-btn img {
+    width: 20px;
+    margin-right: 10px;
+}
+
+.forgot-password,
+.register-text a,
+.login-text a {
+    color: #2662c3;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.forgot-password {
+    font-size: 14px;
+    display: block;
+    margin-bottom: 20px;
+}
+
+.register-text,
+.login-text {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.image-section {
+    width: 50%;
+    background: #f3f3f3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+.image-section h3 {
+    font-size: 18px;
+    color: #333;
+}
+
+.image-section h1 {
+    font-size: 28px;
+    color: #2662c3;
+    margin-bottom: 20px;
+}
+
+.image-section img {
+    width: 80%;
+}
