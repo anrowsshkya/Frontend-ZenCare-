@@ -1,17 +1,21 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "./HomePage.css";
 
 const ZenCare = () => {
+    const navigate = useNavigate();
+
+
     return (
-        <div className="container">
+        <div className="container_home">
 
             {/* ------------------------------------------Header Part------------------------------------------ */}
 
             <header className="navbar">
                 <h1 className="logo">ZenCare</h1>
                 <div className="auth-buttons">
-                    <button className="login">Login</button>
-                    <button className="signup">Signup</button>
+                    <button className="login" onClick={() => navigate("/login")}>Login</button>
+                    <button className="signup" onClick={() => navigate("/signup")}>Signup</button>
                 </div>
             </header>
 

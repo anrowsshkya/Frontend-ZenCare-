@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Redirect after signup
-import google from "../../assets/google.png";
-import doctor1 from "../../assets/doctor1.jpg";
-import "./styles.css"; 
+// import google from "../../assets/google.png";
+// import doctor1 from "../../assets/doctor1.jpg";
+import "./styles.css";
 import { registerUser } from "../api"; // Import API function
 
 const SignUp = () => {
@@ -17,20 +17,20 @@ const SignUp = () => {
     setError(""); // Clear previous errors
 
     if (password !== confirmPassword) {
-      setError(<span style={{color:'red'}}>Password does not match</span>);
+      setError(<span style={{ color: 'red' }}>Password does not match</span>);
       return;
     }
 
     setLoading(true); // Start loading
     try {
-      const response = await registerUser({ email, password, password2:confirmPassword }); // Call API function
+      const response = await registerUser({ email, password, password2: confirmPassword }); // Call API function
 
       if (response.status === 201) {
-        alert(<span style={{color:'green'}}>Account created successfully!</span>);
+        alert(<span style={{ color: 'green' }}>Account created successfully!</span>);
         navigate("/login"); // Redirect to login page
       }
     } catch (err) {
-      setError(<span style={{color:'red'}}>{err.response?.data?.error || "Registration failed. Try again."}</span>);
+      setError(<span style={{ color: 'red' }}>{err.response?.data?.error || "Registration failed. Try again."}</span>);
     } finally {
       setLoading(false); // Stop loading
     }
@@ -40,7 +40,7 @@ const SignUp = () => {
     <div className="container">
       <div className="signup-section">
         <h2>Sign Up</h2>
-        <p>Create an account by entering your details</p>
+        <p id="instructions">Create an account by entering your details</p>
 
         {error && <p className="error-message">{error}</p>} {/* Display error */}
 
@@ -68,7 +68,7 @@ const SignUp = () => {
       <div className="image-section">
         <h3>Join us today</h3>
         <h1>Welcome Aboard</h1>
-        <img src={doctor1} alt="Doctor Illustration" />
+        <img src="/photos/about2.jpg" alt="About" className="about-img" />
       </div>
     </div>
   );
