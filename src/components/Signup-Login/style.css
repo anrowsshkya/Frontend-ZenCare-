@@ -11,7 +11,7 @@ body {
     align-items: center;
     height: 100vh;
     background: #f8f8f8;
-    
+
 }
 
 .signup-container {
@@ -23,7 +23,8 @@ body {
     overflow: hidden;
 }
 
-.signup-left, .signup-right {
+.signup-left,
+.signup-right {
     padding: 30px;
     flex: 1;
     display: flex;
@@ -40,7 +41,8 @@ body {
     background: #d3d3d3;
 }
 
-h2, h3 {
+h2,
+h3 {
     color: #1D4189;
 }
 
