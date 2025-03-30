@@ -12,21 +12,30 @@ const Login = () => {
   const navigate = useNavigate();
 
   const handleLogin = async () => {
+    console.log("Login button clicked");
     setError("");
 
     try {
       const response = await loginUser({ email, password });
+
+      console.log("Login Response:", response); // Debugging API response
 
       if (response.status === 200) {
         // Successful login: store tokens
         localStorage.setItem("access_token", response.data.access);
         localStorage.setItem("refresh_token", response.data.refresh);
         alert(<span style={{ color: 'green' }}>Login Successfull!</span>);
-        navigate("/dashboard"); // Redirect to dashboard
+
+        // console.log("Navigating to PatientHome...");
+        // navigate("/PatientHome"); // Redirect to dashboard
       }
     } catch (err) {
       // Handle API errors
       setError(<span style={{ color: 'red' }}>{err.response?.data?.error || "Invalid credentials"}</span>);
+    }
+    finally {
+      console.log("Navigating to PatientHome..."); // Always log this
+      navigate("/PatientHome"); // Redirect to dashboard
     }
   };
 
