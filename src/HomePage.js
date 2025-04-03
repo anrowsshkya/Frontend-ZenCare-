@@ -14,8 +14,8 @@ const ZenCare = () => {
             <header className="navbar">
                 <h1 className="logo">ZenCare</h1>
                 <div className="auth-buttons">
-                    <button className="login" onClick={() => navigate("/login")}>Login</button>
-                    <button className="signup" onClick={() => navigate("/signup")}>Signup</button>
+                    <button className="login" onClick={() => navigate("/login")}>LOGIN</button>
+                    <button className="signup" onClick={() => navigate("/signup")}>SIGN UP</button>
                 </div>
             </header>
 

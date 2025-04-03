@@ -35,6 +35,11 @@ body {
 h2 {
     font-size: 24px;
     margin-bottom: 10px;
+    color: #1D4189;
+}
+
+p {
+    color: black;
 }
 
 #instructions {
@@ -55,6 +60,7 @@ label {
     margin-bottom: 15px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    background-color: white;
 }
 
 #password {
@@ -63,6 +69,7 @@ label {
     margin-bottom: 15px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    background-color: white;
 }
 
 #confirm-password {
@@ -71,6 +78,7 @@ label {
     margin-bottom: 15px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    background-color: white;
 }
 
 .signup-btn,
