@@ -37,7 +37,7 @@ const ZenCare = () => {
                 <div className="about-info">
                     <h3>About</h3>
                     <p>Awarded with the top doctor app since 2020. With the collection of most exceptional doctors. We have the greatest appointment system.</p>
-                    <a href="#">Learn more</a>
+                    <a onClick={() => navigate("/about")} className="learn-more">Learn more</a>
                 </div>
                 <img src="/photos/about2.jpg" alt="About" className="about-img" />
             </section>
