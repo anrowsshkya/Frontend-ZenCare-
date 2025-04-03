@@ -1,3 +1,7 @@
+.aboutPage-section {
+    padding: 50px 150px;
+}
+
 /* General Page Styling */
 .aboutPage-container {
     font-family: Inter, sans-serif;
@@ -10,13 +14,9 @@
 .aboutPage-navbar {
     width: 100%;
     max-width: 1440px;
-    height: 100px;
+    height: 120px;
     background: #E0F2FE;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 40px;
-    flex-shrink: 0;
+    padding: 40px 40px;
     margin: 0 auto;
     /* Centers the navbar */
 }
@@ -30,8 +30,8 @@
 
 /* Navigation */
 .aboutPage-navLinks {
-    list-style: none;
-    padding: 0;
+    padding: 0px;
+    padding-top: 20px;
     display: flex;
     gap: 20px;
 }
@@ -47,7 +47,7 @@
 }
 
 /* Responsive Fix */
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
     .aboutPage-navbar {
         flex-direction: column;
         height: auto;
@@ -55,11 +55,9 @@
     }
 
     .aboutPage-navLinks {
-        flex-direction: column;
-        text-align: center;
         gap: 10px;
     }
-}
+} */
 
 /* About Section */
 .aboutPage-aboutSection {
