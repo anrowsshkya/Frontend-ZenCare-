@@ -26,7 +26,7 @@ const About = () => {
                         for all your healthcare needs. Book your appointment today and take the first
                         step toward better health!
                     </p>
-                    <img src="about-image.jpg" alt="Doctor consultation" />
+                    <img src="/photos/about_page.webp" alt="Doctor consultation" />
                 </div>
             </section>
 
