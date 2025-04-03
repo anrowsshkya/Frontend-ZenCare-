@@ -228,9 +228,11 @@ body {
 .footer h2 {
     font-size: 22px;
     margin-bottom: 10px;
+    color: white;
 }
 
 .footer p {
     font-size: 14px;
     margin: 5px 0;
+    color: white;
 }

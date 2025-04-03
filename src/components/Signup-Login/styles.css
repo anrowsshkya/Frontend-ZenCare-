@@ -61,6 +61,7 @@ label {
     border: 1px solid #ccc;
     border-radius: 5px;
     background-color: white;
+    color: black;
 }
 
 #password {
@@ -70,6 +71,7 @@ label {
     border: 1px solid #ccc;
     border-radius: 5px;
     background-color: white;
+    color: black;
 }
 
 #confirm-password {
