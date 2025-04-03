@@ -1,110 +1,151 @@
-/* General Styles */
-body {
-    font-family: Arial, sans-serif;
+/* General Page Styling */
+.aboutPage-container {
+    font-family: Inter, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #E0F2FE;
     color: #1D4189;
 }
 
-/* Navbar */
-.navbar {
-    background-color: white;
-    padding: 15px 40px;
+/* Navbar Styling */
+.aboutPage-navbar {
+    width: 100%;
+    max-width: 1440px;
+    height: 100px;
+    background: #E0F2FE;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 2px solid #1D4189;
+    padding: 20px 40px;
+    flex-shrink: 0;
+    margin: 0 auto;
+    /* Centers the navbar */
 }
 
-.logo {
+/* ZenCare Logo */
+.aboutPage-logo {
     font-size: 24px;
     font-weight: bold;
     color: #1D4189;
 }
 
-.navbar ul {
+/* Navigation */
+.aboutPage-navLinks {
     list-style: none;
     padding: 0;
     display: flex;
     gap: 20px;
 }
 
-.navbar ul li {
+.aboutPage-navLinks li {
     display: inline;
 }
 
-.navbar ul li a {
+.aboutPage-navLinks li a {
     text-decoration: none;
     color: #1D4189;
     font-weight: bold;
 }
 
+/* Responsive Fix */
+@media (max-width: 768px) {
+    .aboutPage-navbar {
+        flex-direction: column;
+        height: auto;
+        padding: 10px;
+    }
+
+    .aboutPage-navLinks {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+}
+
 /* About Section */
-.about-section {
+.aboutPage-aboutSection {
     padding: 40px;
     background-color: white;
 }
 
-.about-section h2 {
-    font-size: 22px;
+.aboutPage-aboutHeading {
+    width: 166px;
+    height: 67px;
     color: #1D4189;
+    font-family: Inter;
+    font-size: 55px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-decoration: underline;
 }
 
-.about-content {
+.aboutPage-aboutContent {
     display: flex;
     align-items: center;
     gap: 20px;
+    width: 587px;
+    height: 261px;
+    flex-shrink: 0;
 }
 
-.about-content img {
-    width: 200px;
+.aboutPage-aboutContent p {
+    font-size: 24px;
+    font-weight: 500;
+    color: #1D4189;
+}
+
+/* Image Styling */
+.aboutPage-aboutImage {
+    width: 481px;
+    height: 336px;
+    flex-shrink: 0;
     border-radius: 10px;
+    object-fit: cover;
 }
 
-/* How It Works */
-.how-it-works {
+/* How It Works Section */
+.aboutPage-howItWorks {
     padding: 40px;
 }
 
-.how-it-works h2 {
+.aboutPage-sectionTitle {
     font-size: 22px;
     color: #1D4189;
 }
 
-.how-it-works ol {
+.aboutPage-howItWorks ol {
     padding-left: 20px;
 }
 
-.how-it-works li {
+.aboutPage-howItWorks li {
     margin-bottom: 15px;
 }
 
 /* Help Section */
-.help {
+.aboutPage-help {
     padding: 40px;
     background-color: white;
 }
 
-.help h2 {
+.aboutPage-help h2 {
     font-size: 22px;
     color: #1D4189;
 }
 
 /* Footer */
-.footer {
+.aboutPage-footer {
     background-color: #1D4189;
     color: white;
     text-align: center;
     padding: 20px;
 }
 
-.footer h2 {
+.aboutPage-footer h2 {
     font-size: 22px;
     margin-bottom: 10px;
 }
 
-.footer p {
+.aboutPage-footer p {
     font-size: 14px;
     margin: 5px 0;
 }
