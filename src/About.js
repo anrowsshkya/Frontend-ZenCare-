@@ -4,18 +4,17 @@ import "./About.css";
 const About = () => {
     return (
         <div className="aboutPage-container">
-            <header className="aboutPage-navbar">
-                <h1 className="aboutPage-logo">ZenCare</h1>
-                <nav>
-                    <ul className="aboutPage-navLinks">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">Find Doctors</a></li>
-                    </ul>
-                </nav>
+            <header className="navbar">
+                <h1 className="logo-about">ZenCare</h1>
             </header>
 
+            <nav className="navigation">
+                <a href="#">Home</a>  | <a href="#">Find Doctors</a>
+            </nav>
+
+
             <section className="aboutPage-section">
-                <h2 className="aboutPage-heading">About</h2>
+                <h2 className="aboutPage-heading-first">About</h2>
                 <div className="aboutPage-content">
                     <p className="aboutPage-text">
                         Welcome to ZenCare, where your health is our priority. We provide seamless
@@ -24,14 +23,17 @@ const About = () => {
                         booking system and expert medical care, we ensure a hassle-free experience
                         for all your healthcare needs. Book your appointment today and take the first
                         step toward better health!
+                        <br />
+                        Our platform is designed with your convenience in mind-offering both in-person visits and secure virtual consultations from the comfort of your home. With an intuitive booking system, flexible scheduling, and transparent doctor profiles, ZenCare empowers you to take charge of your health with confidence.
                     </p>
                     <img src="/photos/about_page.webp" alt="Doctor about page" className="aboutPage-image" />
                 </div>
+
             </section>
 
             <section className="aboutPage-howItWorks">
-                <h2 className="aboutPage-heading">How it Works</h2>
-                <ol className="aboutPage-steps">
+                <h4 className="aboutPage-heading-second">How it Works</h4>
+                <ol className="aboutPage-steps-ol">
                     <li className="aboutPage-step">
                         <strong>Find a Doctor</strong> <br />
                         Browse our list of experienced doctors in various specialties using the
@@ -61,10 +63,12 @@ const About = () => {
             </section>
 
             <section className="aboutPage-help">
-                <h2 className="aboutPage-heading">Help</h2>
-                <p className="aboutPage-text">If you need any kind of assistance, please feel free to contact us at</p>
-                <p className="aboutPage-contact">Phone: <strong>9876543210</strong></p>
-                <p className="aboutPage-contact">Email: <strong>assistant@gmail.com</strong></p>
+                <h2 className="aboutPage-heading-third">Help</h2>
+                <div className="aboutPage-contact">
+                    <p>If you need any kind of assistance, please feel free to contact us at</p>
+                    <p>Phone: <strong>9876543210</strong></p>
+                    <p>Email: <strong>assistant@gmail.com</strong></p>
+                </div>
             </section>
 
             <footer className="aboutPage-footer">

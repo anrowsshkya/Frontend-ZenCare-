@@ -1,149 +1,115 @@
-.aboutPage-section {
-    padding: 50px 150px;
-}
-
-/* General Page Styling */
-.aboutPage-container {
-    font-family: Inter, sans-serif;
+body {
     margin: 0;
-    padding: 0;
-    color: #1D4189;
-}
-
-/* Navbar Styling */
-.aboutPage-navbar {
-    width: 100%;
-    max-width: 1440px;
-    height: 120px;
-    background: #E0F2FE;
-    padding: 40px 40px;
-    margin: 0 auto;
-    /* Centers the navbar */
-}
-
-/* ZenCare Logo */
-.aboutPage-logo {
-    font-size: 24px;
-    font-weight: bold;
-    color: #1D4189;
-}
-
-/* Navigation */
-.aboutPage-navLinks {
-    padding: 0px;
-    padding-top: 20px;
-    display: flex;
-    gap: 20px;
-}
-
-.aboutPage-navLinks li {
-    display: inline;
-}
-
-.aboutPage-navLinks li a {
-    text-decoration: none;
-    color: #1D4189;
-    font-weight: bold;
-}
-
-/* Responsive Fix */
-/* @media (max-width: 768px) {
-    .aboutPage-navbar {
-        flex-direction: column;
-        height: auto;
-        padding: 10px;
-    }
-
-    .aboutPage-navLinks {
-        gap: 10px;
-    }
-} */
-
-/* About Section */
-.aboutPage-aboutSection {
-    padding: 40px;
+    font-family: Arial, sans-serif;
     background-color: white;
 }
 
-.aboutPage-aboutHeading {
-    width: 166px;
-    height: 67px;
+/* ------------------------------------ Container ------------------------------------ */
+.aboutPage-container {
+    height: 100%;
+    width: 100%;
+}
+
+.logo-about {
+    font-size: 28px;
+    font-weight: bold;
+    padding-top: 10px;
+    padding-bottom: 10px;
     color: #1D4189;
-    font-family: Inter;
-    font-size: 55px;
-    font-style: normal;
+}
+
+/* ------------------------------------ Section Padding ------------------------------------ */
+.aboutPage-section {
+    padding: 50px 100px;
+    background-color: white;
+}
+
+/* ------------------------------------ About Section ------------------------------------ */
+.aboutPage-heading-first {
+    color: #1D4189;
+    font-size: 30px;
     font-weight: 700;
-    line-height: normal;
     text-decoration: underline;
 }
 
-.aboutPage-aboutContent {
+.aboutPage-content {
     display: flex;
     align-items: center;
-    gap: 20px;
-    width: 587px;
-    height: 261px;
-    flex-shrink: 0;
+    gap: 40px;
+    flex-wrap: wrap;
+    /* responsive stacking */
 }
 
-.aboutPage-aboutContent p {
-    font-size: 24px;
+.aboutPage-text {
+    flex: 1;
+    min-width: 300px;
+    font-size: 18px;
     font-weight: 500;
     color: #1D4189;
 }
 
-/* Image Styling */
-.aboutPage-aboutImage {
-    width: 481px;
-    height: 336px;
-    flex-shrink: 0;
+.aboutPage-image {
+    flex: 1;
+    max-width: 500px;
+    width: 100%;
     border-radius: 10px;
     object-fit: cover;
 }
 
-/* How It Works Section */
+/* ------------------------------------ How It Works ------------------------------------ */
 .aboutPage-howItWorks {
-    padding: 40px;
-}
-
-.aboutPage-sectionTitle {
-    font-size: 22px;
+    padding: 40px 100px;
+    background-color: white;
     color: #1D4189;
 }
 
-.aboutPage-howItWorks ol {
+.aboutPage-heading-second {
+    font-size: 22px;
+    color: #1D4189;
+    padding-bottom: 20px;
+}
+
+.aboutPage-steps-ol {
     padding-left: 20px;
 }
 
-.aboutPage-howItWorks li {
+.aboutPage-steps {
     margin-bottom: 15px;
 }
 
-/* Help Section */
+/* ------------------------------------ Help Section ------------------------------------ */
 .aboutPage-help {
-    padding: 40px;
+    padding: 0px 100px;
     background-color: white;
+    padding-bottom: 20px;
 }
 
-.aboutPage-help h2 {
+.aboutPage-heading-third {
     font-size: 22px;
+    color: #1D4189;
+    text-decoration: underline;
+}
+
+.aboutPage-contact p {
+    font-size: 18px;
     color: #1D4189;
 }
 
-/* Footer */
+/* ------------------------------------ Footer ------------------------------------ */
 .aboutPage-footer {
     background-color: #1D4189;
-    color: white;
     text-align: center;
     padding: 20px;
 }
 
-.aboutPage-footer h2 {
+.aboutPage-footerHeading {
     font-size: 22px;
     margin-bottom: 10px;
+    color: white;
 }
 
-.aboutPage-footer p {
+.aboutPage-footerText {
     font-size: 14px;
     margin: 5px 0;
+    color: white;
 }
