@@ -1,5 +1,7 @@
-import React from "react";
+// import React from "react";
 import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import UserInfo from './UserInfo';
 import "./HomePage.css";
 
 const ZenCare = () => {
@@ -10,6 +12,25 @@ const ZenCare = () => {
         console.log("Profile image clicked!");
         // navigate("/PatientHome"); // Change the path as needed
     };
+
+    const [showModal, setShowModal] = useState(
+        localStorage.getItem("showUserInfoModal") === "true" && !localStorage.getItem("userInfoSubmitted")
+    );
+
+    const handleModalClose = () => {
+        localStorage.setItem("userInfoSubmitted", "true"); // Marking that the user info has been submitted
+        localStorage.removeItem("showUserInfoModal"); // Remove the flag to show the modal
+        setShowModal(false); // Close the modal
+
+        // Log the user info from localStorage
+        const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+        console.log("User Info Submitted:", userInfo)
+    };
+    React.useEffect(() => {
+        if (localStorage.getItem("userInfoSubmitted")) {
+            navigate("/PatientHome"); // Automatically navigate if the info is already submitted
+        }
+    }, [navigate]);
 
     return (
         <div className="container_home">
@@ -96,6 +117,10 @@ const ZenCare = () => {
                 <p>We provide you with utmost care and don't worry about your privacy. We have excellent security and privacy system.</p>
                 <p>&copy; Copy Rights Reserved</p>
             </footer>
+
+
+            {showModal && <UserInfo onClose={() => setShowModal(false)} />}
+
         </div>
     );
 };

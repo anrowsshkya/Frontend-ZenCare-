@@ -33,10 +33,16 @@ const Login = () => {
       // Handle API errors
       setError(<span style={{ color: 'red' }}>{err.response?.data?.error || "Invalid credentials"}</span>);
     }
-    finally {
-      console.log("Navigating to PatientHome..."); // Always log this
-      navigate("/PatientHome"); // Redirect to dashboard
+    // finally {
+    //   console.log("Navigating to PatientHome..."); // Always log this
+    //   navigate("/PatientHome"); // Redirect to dashboard
+    // }
+
+    if (!localStorage.getItem("userInfoSubmitted")) {
+      localStorage.setItem("showUserInfoModal", "true");
     }
+    navigate("/PatientHome");
+
   };
 
   return (

@@ -1,0 +1,145 @@
+/* .userinfo-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.userinfo-modal {
+    background: white;
+    padding: 25px 30px;
+    border-radius: 10px;
+    width: 400px;
+    max-width: 90%;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25);
+}
+
+.userinfo-modal h2 {
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 1.4rem;
+    color: #333;
+}
+
+.userinfo-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.userinfo-modal input,
+.userinfo-modal select {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.userinfo-modal input:focus,
+.userinfo-modal select:focus {
+    outline: none;
+    border-color: #3f82e0;
+}
+
+.userinfo-submit-btn {
+    margin-top: 20px;
+    width: 100%;
+    padding: 12px;
+    background-color: #3f82e0;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.userinfo-submit-btn:hover {
+    background-color: #2c68c7;
+} */
+
+.userinfo-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    /* shadow effect */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.userinfo-modal {
+    background: #fff;
+    padding: 25px 30px;
+    border-radius: 12px;
+    width: 420px;
+    max-width: 90%;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.userinfo-modal h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.userinfo-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.userinfo-modal input,
+.userinfo-modal select {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.userinfo-modal input:focus,
+.userinfo-modal select:focus {
+    outline: none;
+    border-color: #3f82e0;
+}
+
+.userinfo-submit-btn {
+    margin-top: 20px;
+    width: 100%;
+    padding: 12px;
+    background-color: #3f82e0;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.userinfo-submit-btn:hover {
+    background-color: #2c68c7;
+}
