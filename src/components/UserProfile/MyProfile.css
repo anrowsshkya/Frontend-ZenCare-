@@ -1,0 +1,196 @@
+.MyProfile .mp-topbar {
+    margin-top: 0px;
+    display: flex;
+    /* align-items: center; */
+    justify-content: space-between;
+    background-color: #E0F2FE; 
+    padding: 10px 20px;
+    color: white;
+    height: 100px;
+    border-bottom: 1px solid black;
+  }
+  
+  .MyProfile .ZenCare h1 {
+    margin-top: 10px;
+    font-size: 28px;
+    color: #2B4D90;
+  }
+  
+  .MyProfile .top-btn,
+  .MyProfile .top-btn2 {
+    background-color: #E0F2FE;
+    color: #2B4D90;
+    border: none;
+    padding: 8px 16px;
+    margin-left: 500px;
+    border-radius: 4px;
+    font-weight: bold;
+    margin-top: 30px;
+    align-items: center;
+  }
+  
+  .MyProfile .top-btn {
+    margin-left: 500px;
+  }
+  
+  .MyProfile .top-btn2 {
+    margin-left: 20px;
+  }
+  
+  .MyProfile .mp-profile {
+    height: 60px;
+    border: 1px solid #2B4D90;
+    border-radius: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: 20px;
+    margin-top: 20px;
+  }
+  
+  .MyProfile .mp-profile img {
+    height: 40px;
+    width: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+  
+  .MyProfile .profile-name {
+    color: #2B4D90;
+    font-weight: bold;
+  }
+  
+  .MyProfile .top-btn:hover,
+  .MyProfile .top-btn2:hover {
+    background-color: #e6e6e6;
+  }
+
+  .MyProfile .sidebar{
+    background-color: #E0F2FE;
+    width: 250px;
+    height: 765px;
+    margin-top: 1px;
+    display: flex;
+    flex-direction: column;
+  }
+  .MyProfile .sidebar .button{
+    background-color: #E0F2FE;
+    color: #2B4D90;
+    font-weight: bold;
+    border: 1px solid #2B4D90;
+    margin-top: 50px;
+    margin-left: 20px;
+    margin-right: 20px;
+  } 
+  .MyProfile .sidebar .button2{
+    background-color: #E0F2FE;
+    color: #D91316;
+    font-weight: bold;
+    border: 1px solid #2B4D90;
+    margin-top: 175px;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+
+  .MyProfile .sidebar .button:hover{
+    font-weight: bold;
+    background-color: #2B4D90;
+    color: #E0F2FE;
+  }
+  .MyProfile .sidebar .button2:hover{
+    font-weight: bold;
+    background-color: #D91316;
+    color: #E0F2FE;
+  }
+  .MyProfile .bdy-container{
+    position: relative;
+    top: 25px;
+  }
+  .MyProfile .bdy-container .myprofile {
+    position: absolute;
+    color: #2B4D90;
+    font-weight: bold;
+    font-size: 20px;
+    margin-left: -300px;
+    top: -750px;
+  }
+  .MyProfile .bdy-container .content-user {
+    position: absolute;
+    background-color: #E0F2FE;
+    margin-left: 275px;
+    top: -680px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    /* gap: 40px; */
+    border: 1px solid #2B4D90;
+    border-radius: 10px;
+    width: 880px;
+    height: 200px;
+  }
+  .MyProfile .bdy-container .content-user img {
+    height: 150px;
+    width: 150px;
+    border-radius: 20px;
+    object-fit: cover;
+    border: 2px solid #2B4D90;
+  } 
+  .MyProfile .bdy-container .content-user .content-button{
+    position: inherit;
+    background-color: #2B4D90;
+    margin-left: 750px;
+    bottom: 80px;
+    font-weight: bold;
+    width: 100px;
+  }
+  .MyProfile .bdy-container .content-user .content-name{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    color: #2B4D90;
+    font-size: 20px;
+    margin-top: 10px;
+    top: -120px;
+    margin-right: 300px;
+    font-weight: bold;
+  }
+  .MyProfile .bdy-container .content-user .content-button:hover{
+    background-color: #FFFFFF;
+    color: #2B4D90;
+    font-weight: bold;
+  }
+  .MyProfile .bdy2-container{
+    position: relative;
+  }
+  .MyProfile .bdy2-container .persona-info{
+    position: relative;
+    color: #2B4D90;
+    font-weight: bold;
+    font-size: 20px;
+    margin-left: -380px;
+    top: -450px;
+  }
+  .MyProfile .bdy-container .user-info{
+    position: absolute;
+    background-color: #E0F2FE;
+    width: 880px;
+    height: 250px;
+    margin-left: 275px;
+    padding: 20px;
+    color: #2B4D90;
+    border-radius: 20px;
+    border: 1px solid #2B4D90;
+    top: -380px;
+  }
+  .MyProfile .bdy-container .user-info h3{
+    display: flex;
+    /* flex-direction: column; */
+    
+  }
+  .MyProfile .bdy-container .user-info span{
+    position: relative;
+    top: -25px;
+    font-weight: bold;
+  }
