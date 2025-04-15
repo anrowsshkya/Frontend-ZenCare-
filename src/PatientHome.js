@@ -53,7 +53,8 @@ const ZenCare = () => {
             {/* ------------------------Navigation--------------------- */}
 
             <nav className="navigation">
-                <a href="#">Home</a>  | <a href="#">Find Doctors</a>
+                <a href="#">Home</a>  |  <a onClick={() => navigate("/find-doctor")}>Find Doctors</a>
+
             </nav>
             <section className="hero">
                 <div className="hero-text">

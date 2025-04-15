@@ -6,6 +6,7 @@ import SignUp from "./components/Signup-Login/SignUp";
 import PatientHome from "./PatientHome";
 import About from "./About";
 import About_Patient from "./About_Patient";
+import FindDoctor from "./FindDoctors/FindDoctor";
 import "./App.css";
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
           <Route path="/PatientHome" element={<PatientHome />} />
           <Route path="/about" element={<About />} />
           <Route path="/about_patient" element={<About_Patient />} />
+          <Route path="/find-doctor" element={<FindDoctor />} />
         </Routes>
       </div>
     </Router>
