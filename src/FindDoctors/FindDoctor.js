@@ -1,7 +1,15 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./FindDoctor.css";
 
 const FindDoctor = () => {
+
+    const navigate = useNavigate();
+
+    const handleViewProfile = (doctor) => {
+        navigate(`/doctor/${doctor.id}`, { state: { doctor } });
+    };
+
     const [specialty, setSpecialty] = useState("PEDIATRICS");
     const [doctorGroups, setDoctorGroups] = useState({});
     const [loading, setLoading] = useState(false);
@@ -15,6 +23,15 @@ const FindDoctor = () => {
                 title: "Pediatrician",
                 experience: "12 years",
                 profileImage: "/photos/profile_image.png",
+                workExperience: [
+                    "Dr. Ayesha Khan",
+                    "Senior Consultant, Rainbow Kids Hospital. (2020 - Present)",
+                    "Pediatrician, City Health Center. (2015 - 2020)"
+                ],
+                educationTraining: [
+                    "MBBS, LMN Medical College",
+                    "PG Diploma in Child Health, UVW Hospital"
+                ]
             },
             {
                 id: 3,
@@ -22,6 +39,15 @@ const FindDoctor = () => {
                 title: "Pediatrician",
                 experience: "9 years",
                 profileImage: "/photos/profile_image.png",
+                workExperience: [
+                    "Dr. Maya Das",
+                    "Senior Consultant, Rainbow Kids Hospital. (2020 - Present)",
+                    "Pediatrician, City Health Center. (2015 - 2020)"
+                ],
+                educationTraining: [
+                    "MBBS, LMN Medical College",
+                    "PG Diploma in Child Health, UVW Hospital"
+                ]
             }
         ],
         "CARDIOLOGY": [
@@ -31,6 +57,15 @@ const FindDoctor = () => {
                 title: "Cardiologist",
                 experience: "15 years",
                 profileImage: "/photos/profile_image.png",
+                workExperience: [
+                    "Dr. John Smith",
+                    "Senior Consultant, Rainbow Kids Hospital. (2020 - Present)",
+                    "Pediatrician, City Health Center. (2015 - 2020)"
+                ],
+                educationTraining: [
+                    "MBBS, LMN Medical College",
+                    "PG Diploma in Child Health, UVW Hospital"
+                ]
             }
         ],
         "NEUROLOGY": [
@@ -40,6 +75,15 @@ const FindDoctor = () => {
                 title: "Neurologist",
                 experience: "20 years",
                 profileImage: "/photos/profile_image.png",
+                workExperience: [
+                    "Dr. Ravi Patel",
+                    "Senior Consultant, Rainbow Kids Hospital. (2020 - Present)",
+                    "Pediatrician, City Health Center. (2015 - 2020)"
+                ],
+                educationTraining: [
+                    "MBBS, LMN Medical College",
+                    "PG Diploma in Child Health, UVW Hospital"
+                ]
             }
         ],
         "DERMATOLOGY": [
@@ -49,6 +93,15 @@ const FindDoctor = () => {
                 title: "Dermatologist",
                 experience: "7 years",
                 profileImage: "/photos/profile_image.png",
+                workExperience: [
+                    "Dr. Sara Lee",
+                    "Senior Consultant, Rainbow Kids Hospital. (2020 - Present)",
+                    "Pediatrician, City Health Center. (2015 - 2020)"
+                ],
+                educationTraining: [
+                    "MBBS, LMN Medical College",
+                    "PG Diploma in Child Health, UVW Hospital"
+                ]
             }
         ]
     };
@@ -132,8 +185,7 @@ const FindDoctor = () => {
                             <p>{doc.title}</p>
                             <p>Experience: {doc.experience}</p>
                             <button className="book-btn">Book Appointment</button>
-                            <button className="profile-btn">View Profile</button>
-                        </div>
+                            <button className="profile-btn" onClick={() => handleViewProfile(doc)}>View Profile</button>                        </div>
                     ))}
                 </div>
             )}

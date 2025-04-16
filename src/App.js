@@ -7,6 +7,7 @@ import PatientHome from "./PatientHome";
 import About from "./About";
 import About_Patient from "./About_Patient";
 import FindDoctor from "./FindDoctors/FindDoctor";
+import DoctorProfile from "./FindDoctors/DoctorProfile";
 import "./App.css";
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/about_patient" element={<About_Patient />} />
           <Route path="/find-doctor" element={<FindDoctor />} />
+          <Route path="/doctor/:id" element={<DoctorProfile />} />
         </Routes>
       </div>
     </Router>
