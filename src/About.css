@@ -1,0 +1,115 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: white;
+}
+
+/* ------------------------------------ Container ------------------------------------ */
+.aboutPage-container {
+    height: 100%;
+    width: 100%;
+}
+
+.logo-about {
+    font-size: 28px;
+    font-weight: bold;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: #1D4189;
+}
+
+/* ------------------------------------ Section Padding ------------------------------------ */
+.aboutPage-section {
+    padding: 50px 100px;
+    background-color: white;
+}
+
+/* ------------------------------------ About Section ------------------------------------ */
+.aboutPage-heading-first {
+    color: #1D4189;
+    font-size: 30px;
+    font-weight: 700;
+    text-decoration: underline;
+}
+
+.aboutPage-content {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    /* responsive stacking */
+}
+
+.aboutPage-text {
+    flex: 1;
+    min-width: 300px;
+    font-size: 18px;
+    font-weight: 500;
+    color: #1D4189;
+}
+
+.aboutPage-image {
+    flex: 1;
+    max-width: 500px;
+    width: 100%;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+/* ------------------------------------ How It Works ------------------------------------ */
+.aboutPage-howItWorks {
+    padding: 40px 100px;
+    background-color: white;
+    color: #1D4189;
+}
+
+.aboutPage-heading-second {
+    font-size: 22px;
+    color: #1D4189;
+    padding-bottom: 20px;
+}
+
+.aboutPage-steps-ol {
+    padding-left: 20px;
+}
+
+.aboutPage-steps {
+    margin-bottom: 15px;
+}
+
+/* ------------------------------------ Help Section ------------------------------------ */
+.aboutPage-help {
+    padding: 0px 100px;
+    background-color: white;
+    padding-bottom: 20px;
+}
+
+.aboutPage-heading-third {
+    font-size: 22px;
+    color: #1D4189;
+    text-decoration: underline;
+}
+
+.aboutPage-contact p {
+    font-size: 18px;
+    color: #1D4189;
+}
+
+/* ------------------------------------ Footer ------------------------------------ */
+.aboutPage-footer {
+    background-color: #1D4189;
+    text-align: center;
+    padding: 20px;
+}
+
+.aboutPage-footerHeading {
+    font-size: 22px;
+    margin-bottom: 10px;
+    color: white;
+}
+
+.aboutPage-footerText {
+    font-size: 14px;
+    margin: 5px 0;
+    color: white;
+}

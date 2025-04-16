@@ -1,15 +1,36 @@
-import React from "react";
+// import React from "react";
 import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import UserInfo from './UserInfo';
 import "./HomePage.css";
 
 const ZenCare = () => {
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
     // Function to handle profile image click
     const handleClick = () => {
         console.log("Profile image clicked!");
         // navigate("/PatientHome"); // Change the path as needed
     };
+
+    const [showModal, setShowModal] = useState(
+        localStorage.getItem("showUserInfoModal") === "true" && !localStorage.getItem("userInfoSubmitted")
+    );
+
+    const handleModalClose = () => {
+        localStorage.setItem("userInfoSubmitted", "true"); // Marking that the user info has been submitted
+        localStorage.removeItem("showUserInfoModal"); // Remove the flag to show the modal
+        setShowModal(false); // Close the modal
+
+        // Log the user info from localStorage
+        const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+        console.log("User Info Submitted:", userInfo)
+    };
+    React.useEffect(() => {
+        if (localStorage.getItem("userInfoSubmitted")) {
+            navigate("/PatientHome"); // Automatically navigate if the info is already submitted
+        }
+    }, [navigate]);
 
     return (
         <div className="container_home">
@@ -32,7 +53,8 @@ const ZenCare = () => {
             {/* ------------------------Navigation--------------------- */}
 
             <nav className="navigation">
-                <a href="#">Home</a>  | <a href="#">Find Doctors</a>
+                <a href="#">Home</a>  |  <a onClick={() => navigate("/find-doctor")}>Find Doctors</a>
+
             </nav>
             <section className="hero">
                 <div className="hero-text">
@@ -47,8 +69,7 @@ const ZenCare = () => {
                 <div className="about-info">
                     <h3>About</h3>
                     <p>Awarded with the top doctor app since 2020. With the collection of most exceptional doctors. We have the greatest appointment system.</p>
-                    <a href="#">Learn more</a>
-                </div>
+                    <a onClick={() => navigate("/about_patient")} className="learn-more">Learn more</a>                </div>
                 <img src="/photos/about2.jpg" alt="About" className="about-img" />
             </section>
 
@@ -97,6 +118,10 @@ const ZenCare = () => {
                 <p>We provide you with utmost care and don't worry about your privacy. We have excellent security and privacy system.</p>
                 <p>&copy; Copy Rights Reserved</p>
             </footer>
+
+
+            {showModal && <UserInfo onClose={() => setShowModal(false)} />}
+
         </div>
     );
 };

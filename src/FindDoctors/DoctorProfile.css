@@ -1,0 +1,108 @@
+.profile-container {
+    padding: 0px 50px;
+    padding-top: 15px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.profile-card {
+    display: flex;
+    flex-wrap: wrap;
+    /* Responsive fix */
+    align-items: flex-start;
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.profile-photo {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+    background-color: #f0f0f0;
+}
+
+.profile-info {
+    padding-top: 30px;
+    flex: 1;
+    min-width: 250px;
+}
+
+.profile-info h2 {
+    font-size: 20px;
+    color: #1D4189;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.profile-info h3 {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.profile-info p {
+    font-size: 16px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.book-appointment {
+    background-color: #4B5563;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.journey-section {
+    display: flex;
+    justify-content: space-between;
+    gap: 60px;
+    flex-wrap: wrap;
+    /* Responsive fix */
+}
+
+.work-experience,
+.education-training {
+    flex: 1;
+    min-width: 280px;
+}
+
+h3 {
+    color: #1D4189;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+ul li {
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #333;
+}
+
+/* Responsive layout for small screens */
+@media (max-width: 768px) {
+    .profile-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .profile-info {
+        padding-top: 20px;
+    }
+
+    .journey-section {
+        flex-direction: column;
+        gap: 30px;
+    }
+}

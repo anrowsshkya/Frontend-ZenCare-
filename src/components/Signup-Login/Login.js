@@ -33,10 +33,16 @@ const Login = () => {
       // Handle API errors
       setError(<span style={{ color: 'red' }}>{err.response?.data?.error || "Invalid credentials"}</span>);
     }
-    finally {
-      console.log("Navigating to PatientHome..."); // Always log this
-      navigate("/PatientHome"); // Redirect to dashboard
+    // finally {
+    //   console.log("Navigating to PatientHome..."); // Always log this
+    //   navigate("/PatientHome"); // Redirect to dashboard
+    // }
+
+    if (!localStorage.getItem("userInfoSubmitted")) {
+      localStorage.setItem("showUserInfoModal", "true");
     }
+    navigate("/PatientHome");
+
   };
 
   return (
@@ -72,7 +78,7 @@ const Login = () => {
       <div className="image-section">
         <h3>Nice to see you again</h3>
         <h1>Welcome back</h1>
-        <img src="/photos/about2.jpg" alt="About" className="about-img" />
+        <img src="/photos/Doctor.jpg" alt="Login" />
       </div>
     </div>
   );
