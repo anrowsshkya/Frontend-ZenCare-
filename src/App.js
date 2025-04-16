@@ -10,6 +10,7 @@ import About_Patient from "./About_Patient";
 import FindDoctor from "./FindDoctors/FindDoctor";
 import DoctorProfile from "./FindDoctors/DoctorProfile";
 import PopUp from "./PopUpHomepage/PopUp";
+import TopDoctors from "./TopDoc/TopDoctors"
 import "./App.css";
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
           <Route path="/find-doctor" element={<FindDoctor />} />
           <Route path="/doctor/:id" element={<DoctorProfile />} />
           <Route path="/pop-up" element={<PopUp />} />
+          <Route path="/topdoc" element={<TopDoctors />} />
         </Routes>
       </div>
     </Router>
