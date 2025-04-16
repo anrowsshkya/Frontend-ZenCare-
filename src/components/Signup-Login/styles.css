@@ -12,7 +12,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    /* height: 100vh; */
     background: #f8f8f8;
 }
 
@@ -35,6 +35,11 @@ body {
 h2 {
     font-size: 24px;
     margin-bottom: 10px;
+    color: #1D4189;
+}
+
+p {
+    color: black;
 }
 
 #instructions {
@@ -49,12 +54,33 @@ label {
     margin-bottom: 5px;
 }
 
-input {
+#email {
     width: 100%;
     padding: 10px;
     margin-bottom: 15px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    background-color: white;
+    color: black;
+}
+
+#password {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: white;
+    color: black;
+}
+
+#confirm-password {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: white;
 }
 
 .signup-btn,

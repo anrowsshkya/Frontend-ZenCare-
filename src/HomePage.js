@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./HomePage.css";
 
 const ZenCare = () => {
     const navigate = useNavigate();
 
+    const [showPopup, setShowPopup] = useState(false);
+
+    const isLoggedIn = localStorage.getItem("userInfoSubmitted") === "true";
+
+    const handleProtectedClick = () => {
+        navigate("/pop-up");
+    };
 
     return (
         <div className="container_home">
@@ -14,15 +21,15 @@ const ZenCare = () => {
             <header className="navbar">
                 <h1 className="logo">ZenCare</h1>
                 <div className="auth-buttons">
-                    <button className="login" onClick={() => navigate("/login")}>Login</button>
-                    <button className="signup" onClick={() => navigate("/signup")}>Signup</button>
+                    <button className="login" onClick={() => navigate("/login")}>LOGIN</button>
+                    <button className="signup" onClick={() => navigate("/signup")}>SIGN UP</button>
                 </div>
             </header>
 
             {/* ------------------------Navigation--------------------- */}
 
             <nav className="navigation">
-                <a href="#">Find Doctors</a>  | <a href="#">Book Appointments</a>
+                <a href="#">Home</a>  | <a onClick={handleProtectedClick}>Find Doctors</a>
             </nav>
             <section className="hero">
                 <div className="hero-text">
@@ -37,7 +44,7 @@ const ZenCare = () => {
                 <div className="about-info">
                     <h3>About</h3>
                     <p>Awarded with the top doctor app since 2020. With the collection of most exceptional doctors. We have the greatest appointment system.</p>
-                    <a href="#">Learn more</a>
+                    <a onClick={() => navigate("/about")} className="learn-more">Learn more</a>
                 </div>
                 <img src="/photos/about2.jpg" alt="About" className="about-img" />
             </section>
@@ -53,7 +60,7 @@ const ZenCare = () => {
                         <li>Dr. Sushi Gautam</li>
                         <li>Dr. Brook Magar</li>
                     </ol>
-                    <a href="#">Learn more</a>
+                    <a onClick={handleProtectedClick}>Learn more</a>
                 </div>
             </section>
 

@@ -68,7 +68,7 @@ const SignUp = () => {
       <div className="image-section">
         <h3>Join us today</h3>
         <h1>Welcome Aboard</h1>
-        <img src="/photos/about2.jpg" alt="About" className="about-img" />
+        <img src="/photos/doctor1.jpg" alt="signUP" />
       </div>
     </div>
   );

@@ -14,14 +14,23 @@ const Login = () => {
 
   // Function to handle login button click
   const handleLogin = async () => {
+
     // Clear previous errors before starting a new login attempt
+
+    console.log("Login button clicked");
+
     setError("");
 
     try {
       // Send login request with email and password
       const response = await loginUser({ email, password });
 
+
       // If login is successful (status 200), store tokens in localStorage
+
+      console.log("Login Response:", response); // Debugging API response
+
+
       if (response.status === 200) {
         localStorage.setItem("access_token", response.data.access);
         localStorage.setItem("refresh_token", response.data.refresh);
@@ -31,11 +40,25 @@ const Login = () => {
 
         // Redirect the user to the dashboard page
         navigate("/dashboard");
+
+        // console.log("Navigating to PatientHome...");
+        // navigate("/PatientHome"); // Redirect to dashboard
+
       }
     } catch (err) {
       // If something goes wrong, show the error message (from server or default)
       setError(<span style={{ color: 'red' }}>{err.response?.data?.error || "Invalid credentials"}</span>);
     }
+    // finally {
+    //   console.log("Navigating to PatientHome..."); // Always log this
+    //   navigate("/PatientHome"); // Redirect to dashboard
+    // }
+
+    if (!localStorage.getItem("userInfoSubmitted")) {
+      localStorage.setItem("showUserInfoModal", "true");
+    }
+    navigate("/PatientHome");
+
   };
 
   return (
@@ -75,7 +98,7 @@ const Login = () => {
       <div className="image-section">
         <h3>Nice to see you again</h3>
         <h1>Welcome back</h1>
-        <img src="/photos/about2.jpg" alt="About" className="about-img" />
+        <img src="/photos/Doctor.jpg" alt="Login" />
       </div>
     </div>
   );
