@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./HomePage.css";
 
 const ZenCare = () => {
     const navigate = useNavigate();
 
+    const [showPopup, setShowPopup] = useState(false);
+
+    const isLoggedIn = localStorage.getItem("userInfoSubmitted") === "true";
+
+    const handleProtectedClick = () => {
+        navigate("/pop-up");
+    };
 
     return (
         <div className="container_home">
@@ -22,7 +29,7 @@ const ZenCare = () => {
             {/* ------------------------Navigation--------------------- */}
 
             <nav className="navigation">
-                <a href="#">Home</a>  | <a href="#">Find Doctors</a>
+                <a href="#">Home</a>  | <a onClick={handleProtectedClick}>Find Doctors</a>
             </nav>
             <section className="hero">
                 <div className="hero-text">
@@ -53,7 +60,7 @@ const ZenCare = () => {
                         <li>Dr. Sushi Gautam</li>
                         <li>Dr. Brook Magar</li>
                     </ol>
-                    <a href="#">Learn more</a>
+                    <a onClick={handleProtectedClick}>Learn more</a>
                 </div>
             </section>
 
