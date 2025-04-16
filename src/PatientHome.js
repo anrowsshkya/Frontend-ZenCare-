@@ -3,8 +3,13 @@ import { useNavigate } from "react-router-dom";
 import "./HomePage.css";
 
 const ZenCare = () => {
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
+    // Function to handle profile image click
+    const handleClick = () => {
+        console.log("Profile image clicked!");
+        // navigate("/PatientHome"); // Change the path as needed
+    };
 
     return (
         <div className="container_home">
@@ -13,9 +18,14 @@ const ZenCare = () => {
 
             <header className="navbar">
                 <h1 className="logo">ZenCare</h1>
-                <div className="auth-buttons">
-                    <button className="login" onClick={() => navigate("/login")}>Login</button>
-                    <button className="signup" onClick={() => navigate("/signup")}>Signup</button>
+                <div className="profile-button">
+                    <input
+                        type="image"
+                        src="/photos/profile_image.png"
+                        alt="button"
+                        onClick={handleClick}
+                        style={{ width: '50px', height: 'auto' }}
+                    />
                 </div>
             </header>
 

@@ -27,16 +27,13 @@ body {
     color: #1D4189;
 }
 
-.auth-buttons button {
-    margin: 5px;
+.profilebutton input {
     padding: 8px 15px;
-    border-radius: 5px;
-    border: none;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 10px;
 }
 
-.login {
+/* .login {
     background-color: white;
     border: 1px solid #1D4189;
     color: #1D4189;
@@ -45,7 +42,7 @@ body {
 .signup {
     background-color: #1D4189;
     color: white;
-}
+} */
 
 .navigation {
     background-color: #E0F2FE;
