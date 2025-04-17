@@ -1,14 +1,18 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+
 import "./DoctorDashboard.css";
 
 const DoctorDashboard = () => {
+    const navigate = useNavigate();
+
     return (
         <div className="doctor-dashboard">
             <aside className="sidebar">
                 <div className="logo">ZenCare</div>
                 <nav>
                     <button className="nav-btn">Dashboard</button>
-                    <button className="nav-btn">Appointments</button>
+                    <button className="nav-btn" onClick={() => navigate("/appointments-doctor")}>Appointments</button>
                     <button className="nav-btn">Patient Records</button>
                     <button className="nav-btn logout">Log out</button>
                 </nav>
