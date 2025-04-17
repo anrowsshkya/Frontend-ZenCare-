@@ -30,12 +30,20 @@ const FindDoctor = () => {
                 }
 
                 acc[profession].push({
+                    ...doc,
                     id: doc.id,
                     name: `Dr. ${doc.full_name}`,
-                    title: doc.profession,
+                    title: doc.profession_display || doc.profession,
                     phone: doc.phone_number,
                     address: doc.address,
-                    profileImage: "/photos/profile_image.png", // Placeholder image
+                    profileImage: "/photos/profile_image.png",
+                    experience: doc.experience_years || "Not specified",
+                    consultationFee: doc.consultation_fee || 0,
+                    workExperience: doc.work_experience ? doc.work_experience.split(",").map(item => item.trim()) : [],
+                    educationTraining: [
+                        ...(doc.education ? doc.education.split(",").map(item => item.trim()) : []),
+                        ...(doc.training ? doc.training.split(",").map(item => item.trim()) : [])
+                    ],
                 });
 
                 return acc;

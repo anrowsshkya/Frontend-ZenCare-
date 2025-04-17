@@ -44,7 +44,10 @@ const DoctorProfile = () => {
                         <h2>PROFILE</h2>
                         <h3>{doctor.name}</h3>
                         <p><strong>{doctor.title}</strong></p>
-                        <p>Experience: {doctor.experience}</p>
+                        <p>Experience: {doctor.experience}</p> {/* This now works */}
+                        <p>Phone: {doctor.phone}</p>
+                        <p>Address: {doctor.address}</p>
+                        <p>Consultation Fee: ${doctor.consultationFee}</p>
                         <button className="book-appointment">BOOK AN APPOINTMENT</button>
                     </div>
                 </div>
@@ -62,13 +65,16 @@ const DoctorProfile = () => {
                     <div className="education-training">
                         <h3>EDUCATION & TRAINING</h3>
                         <ul>
-                            {(Array.isArray(doctor.educationTraining) ? doctor.educationTraining : []).map((item, index) => (
-                                <li key={index}><strong>{item}</strong></li>
-                            ))}
+                            <ul>
+                                {(Array.isArray(doctor.educationTraining) ? doctor.educationTraining : []).map((item, index) => (
+                                    <li key={index}><strong>{item}</strong></li>
+                                ))}
+                            </ul>
                         </ul>
                     </div>
                 </div>
             </div>
+
             {/* --------------------------------------Footer Part----------------------------------------------- */}
             <footer className="footer">
                 <h2>ZenCare</h2>
@@ -76,7 +82,6 @@ const DoctorProfile = () => {
                 <p>We provide you with utmost care and don't worry about your privacy. We have excellent security and privacy system.</p>
                 <p>&copy; Copy Rights Reserved</p>
             </footer>
-
         </div>
     );
 };
