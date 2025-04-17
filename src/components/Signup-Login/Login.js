@@ -5,6 +5,12 @@ import { useNavigate, Link } from "react-router-dom";
 import "./styles.css";
 import { loginUser } from "../api";
 
+const hardcodedUsers = {
+  doctor: { email: "doctor@gmail.com", password: "doctor123456789" },
+  labtech: { email: "labtech@gmail.com", password: "lab123456789" },
+};
+
+
 const Login = () => {
   // State to hold the email, password input value
   const [email, setEmail] = useState("");
@@ -21,6 +27,28 @@ const Login = () => {
 
     setError("");
 
+
+    // Check hardcoded users first
+    if (
+      email === hardcodedUsers.doctor.email &&
+      password === hardcodedUsers.doctor.password
+    ) {
+      localStorage.setItem("userRole", "doctor");
+      alert("Doctor Login Successful!");
+      navigate("/doc-dash");
+      return;
+    }
+
+    if (
+      email === hardcodedUsers.labtech.email &&
+      password === hardcodedUsers.labtech.password
+    ) {
+      localStorage.setItem("userRole", "labtech");
+      alert("Lab Technician Login Successful!");
+      navigate("/lab-tech-dash");
+      return;
+    }
+
     try {
       // Send login request with email and password
       const response = await loginUser({ email, password });
@@ -34,6 +62,12 @@ const Login = () => {
       if (response.status === 200) {
         localStorage.setItem("access_token", response.data.access);
         localStorage.setItem("refresh_token", response.data.refresh);
+
+        if (!localStorage.getItem("userInfoSubmitted")) {
+          localStorage.setItem("showUserInfoModal", "true");
+        }
+        navigate("/PatientHome");
+
 
         // Show success alert (Note: JSX in alert won't render as HTML)
         alert(<span style={{ color: 'green' }}>Login Successfull!</span>);
@@ -54,10 +88,6 @@ const Login = () => {
     //   navigate("/PatientHome"); // Redirect to dashboard
     // }
 
-    if (!localStorage.getItem("userInfoSubmitted")) {
-      localStorage.setItem("showUserInfoModal", "true");
-    }
-    navigate("/PatientHome");
 
   };
 

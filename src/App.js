@@ -10,7 +10,11 @@ import About_Patient from "./About_Patient";
 import FindDoctor from "./FindDoctors/FindDoctor";
 import DoctorProfile from "./FindDoctors/DoctorProfile";
 import PopUp from "./PopUpHomepage/PopUp";
-import TopDoctors from "./TopDoc/TopDoctors"
+import TopDoctors from "./TopDoc/TopDoctors";
+import DoctorDashboard from "./DoctorSide/DoctorDashboard";
+import LabTechDashboard from "./LabTechSide/LabTechDashboard";
+import AdminDashboard from "./AdminSide/AdminDashboard"
+
 import "./App.css";
 
 function App() {
@@ -29,6 +33,9 @@ function App() {
           <Route path="/doctor/:id" element={<DoctorProfile />} />
           <Route path="/pop-up" element={<PopUp />} />
           <Route path="/topdoc" element={<TopDoctors />} />
+          <Route path="/doc-dash" element={<DoctorDashboard />} />
+          <Route path="/lab-tech-dash" element={<LabTechDashboard />} />
+          <Route path="/admin-dash" element={<AdminDashboard />} />
         </Routes>
       </div>
     </Router>
