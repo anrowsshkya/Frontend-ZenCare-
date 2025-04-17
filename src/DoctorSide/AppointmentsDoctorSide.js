@@ -77,7 +77,7 @@ const AppointmentsDoctorSide = () => {
                                     <td>{appt.date}</td>
                                     <td>{appt.time}</td>
                                     <td>
-                                        <span className="status confirmed">{appt.status}</span>
+                                        <span className="status confirmed" onClick={() => navigate("/view-appointment-doctor")}>{appt.status}</span>
                                     </td>
                                 </tr>
                             ))}

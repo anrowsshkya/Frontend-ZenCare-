@@ -14,7 +14,8 @@ import TopDoctors from "./TopDoc/TopDoctors";
 import DoctorDashboard from "./DoctorSide/DoctorDashboard";
 import LabTechDashboard from "./LabTechSide/LabTechDashboard";
 // import AdminDashboard from "./AdminSide/AdminDashboard"
-import AppointmentsDoctorSide from "./DoctorSide/AppointmentsDoctorSide"
+import AppointmentsDoctorSide from "./DoctorSide/AppointmentsDoctorSide";
+import ViewAppointmentDoctor from "./DoctorSide/ViewAppointmentDoctor";
 
 import "./App.css";
 
@@ -38,6 +39,7 @@ function App() {
           <Route path="/lab-tech-dash" element={<LabTechDashboard />} />
           {/* <Route path="/admin-dash" element={<AdminDashboard />} /> */}
           <Route path="/appointments-doctor" element={<AppointmentsDoctorSide />} />
+          <Route path="/view-appointment-doctor" element={<ViewAppointmentDoctor />} />
         </Routes>
       </div>
     </Router>
