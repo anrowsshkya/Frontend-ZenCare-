@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import user from "../../assets/circle-user.png";
+import axios from "axios"; // You can use fetch if you prefer
 import "./AppointmentForm.css";
 
 const AppointmentForm = () => {
@@ -8,27 +9,46 @@ const AppointmentForm = () => {
   const navigate = useNavigate();
   const doctor = location.state?.doctor;
   const [description, setDescription] = useState("");
+  const [selectedDay, setSelectedDay] = useState("Monday"); // default day for now
+  const [bookedSlot, setBookedSlot] = useState(null);
+  const userId = 456; // Replace this with the actual logged-in user's ID (probably from context or localStorage)
 
-  const handleClick = () => {
-    navigate("/");
+  // Function to handle booking the appointment
+  const handleBookAppointment = async () => {
+    if (!bookedSlot) {
+      alert("Please select a time slot.");
+      return;
+    }
+
+    try {
+      const response = await axios.post("/api/appointments", {
+        doctorId: doctor.id,
+        userId: userId,
+        date: selectedDay,  // Use the selected day
+        time: bookedSlot,   // Use the selected time slot
+        description: description,
+      });
+
+      if (response.status === 200) {
+        alert("Appointment booked successfully!");
+        navigate("/"); // Redirect to home or appointment confirmation page
+      } else {
+        alert("Failed to book appointment.");
+      }
+    } catch (error) {
+      console.error("Error booking appointment:", error);
+      alert("There was an error booking the appointment.");
+    }
   };
 
   const allDays = [
-    "Sunday", "Monday", "Tuesday", "Wednesday",
-    "Thursday", "Friday", "Saturday"
+    "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
   ];
   const todayIndex = new Date().getDay();
   const orderedDays = [
     ...allDays.slice(todayIndex),
     ...allDays.slice(0, todayIndex)
   ];
-  const [selectedDay, setSelectedDay] = useState(orderedDays[0]);
-
-  const timeSlots = [
-    "09:00 AM", "09:45 AM", "10:25 AM", "11:00 AM",
-    "11:45 PM", "01:30 PM", "03:00 PM", "03:45 PM"
-  ];
-  const [bookedSlot, setBookedSlot] = useState(null);
 
   const handleTimeClick = (slot) => {
     setBookedSlot(bookedSlot === slot ? null : slot);
@@ -36,7 +56,6 @@ const AppointmentForm = () => {
 
   return (
     <div className="container_home">
-      {/* Header */}
       <header className="navbar">
         <h1 className="logo">ZenCare</h1>
         <div className="profile-button">
@@ -44,34 +63,36 @@ const AppointmentForm = () => {
             type="image"
             src="/photos/profile_image.png"
             alt="Profile"
-            onClick={handleClick}
+            onClick={() => navigate("/")}
             style={{ width: "50px", height: "auto" }}
           />
         </div>
       </header>
 
-      {/* Navigation */}
       <nav className="navigation">
         <a href="#">Home</a> | <a href="#">Find Doctors</a>
       </nav>
 
-      {/* Profile Content */}
       <div className="profile-container">
         <div className="profile-card">
-          <img src={user} alt="Doctor" className="profile-photo" />
-          <div className="profile-info">
-            <h2>PROFILE</h2>
-            <h3>Susma Giri</h3>
-            <p><strong>Cardiology</strong></p>
-            <p>Experience: 9 years</p>
-            <span className="price">Rs. 700</span>
-          </div>
+            <img
+              src={doctor?.profileImage || user}
+              alt="Doctor"
+              className="profile-photo"
+            />
+            <div className="profile-info">
+              <h2>PROFILE</h2>
+              <h3>{doctor?.name || "Doctor Name"}</h3>
+              <p><strong>{doctor?.title || "Specialty"}</strong></p>
+              <p>Experience: {doctor?.experience || "N/A"}</p>
+              <span className="price">Rs. 700</span>
+            </div>
         </div>
       </div>
 
       {/* Day Selector */}
       <div className="selector-section">
-        <h3 className="section-heading">Choose a day for an appointment</h3>
+        <h3>Choose a day for an appointment</h3>
         <div className="day-selector">
           {orderedDays.map((day) => (
             <button
@@ -87,14 +108,13 @@ const AppointmentForm = () => {
 
       {/* Time Selector */}
       <div className="selector-section">
-        <h3 className="section-heading">Choose a time for an appointment</h3>
+        <h3>Choose a time for an appointment</h3>
         <div className="time-selector">
-          {timeSlots.map((slot, index) => (
+          {["09:00 AM", "09:45 AM", "10:25 AM", "11:00 AM", "11:45 PM", "01:30 PM", "03:00 PM", "03:45 PM"].map((slot, index) => (
             <button
               key={index}
               className={`time-button ${bookedSlot === slot ? "booked" : ""}`}
               onClick={() => handleTimeClick(slot)}
-              disabled={bookedSlot !== null && bookedSlot !== slot}
             >
               {slot}
             </button>
@@ -113,8 +133,9 @@ const AppointmentForm = () => {
           rows={4}
         ></textarea>
       </div>
+
       <div className="last">
-        <button className="lastbutton">Book Appointment</button>
+        <button className="lastbutton" onClick={handleBookAppointment}>Book Appointment</button>
       </div>
     </div>
   );
