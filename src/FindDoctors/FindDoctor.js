@@ -4,123 +4,50 @@ import "./FindDoctor.css";
 import { findDoctor } from "../components/api";
 
 const FindDoctor = () => {
-
     const navigate = useNavigate();
 
     const handleViewProfile = (doctor) => {
         navigate(`/doctor/${doctor.id}`, { state: { doctor } });
     };
 
-    const [specialty, setSpecialty] = useState("PEDIATRICS");
+    const [specialty, setSpecialty] = useState("");
     const [doctorGroups, setDoctorGroups] = useState({});
     const [loading, setLoading] = useState(false);
-
-    // Dummy grouped data (simulate API structure)
-    const dummyGroupedData = {
-        "PEDIATRICS": [
-            {
-                id: 1,
-                name: "Dr. Ayesha Khan",
-                title: "Pediatrician",
-                experience: "12 years",
-                profileImage: "/photos/profile_image.png",
-                workExperience: [
-                    "Dr. Ayesha Khan",
-                    "Senior Consultant, Rainbow Kids Hospital. (2020 - Present)",
-                    "Pediatrician, City Health Center. (2015 - 2020)"
-                ],
-                educationTraining: [
-                    "MBBS, LMN Medical College",
-                    "PG Diploma in Child Health, UVW Hospital"
-                ]
-            },
-            {
-                id: 3,
-                name: "Dr. Maya Das",
-                title: "Pediatrician",
-                experience: "9 years",
-                profileImage: "/photos/profile_image.png",
-                workExperience: [
-                    "Dr. Maya Das",
-                    "Senior Consultant, Rainbow Kids Hospital. (2020 - Present)",
-                    "Pediatrician, City Health Center. (2015 - 2020)"
-                ],
-                educationTraining: [
-                    "MBBS, LMN Medical College",
-                    "PG Diploma in Child Health, UVW Hospital"
-                ]
-            }
-        ],
-        "CARDIOLOGY": [
-            {
-                id: 2,
-                name: "Dr. John Smith",
-                title: "Cardiologist",
-                experience: "15 years",
-                profileImage: "/photos/profile_image.png",
-                workExperience: [
-                    "Dr. John Smith",
-                    "Senior Consultant, Rainbow Kids Hospital. (2020 - Present)",
-                    "Pediatrician, City Health Center. (2015 - 2020)"
-                ],
-                educationTraining: [
-                    "MBBS, LMN Medical College",
-                    "PG Diploma in Child Health, UVW Hospital"
-                ]
-            }
-        ],
-        "NEUROLOGY": [
-            {
-                id: 4,
-                name: "Dr. Ravi Patel",
-                title: "Neurologist",
-                experience: "20 years",
-                profileImage: "/photos/profile_image.png",
-                workExperience: [
-                    "Dr. Ravi Patel",
-                    "Senior Consultant, Rainbow Kids Hospital. (2020 - Present)",
-                    "Pediatrician, City Health Center. (2015 - 2020)"
-                ],
-                educationTraining: [
-                    "MBBS, LMN Medical College",
-                    "PG Diploma in Child Health, UVW Hospital"
-                ]
-            }
-        ],
-        "DERMATOLOGY": [
-            {
-                id: 5,
-                name: "Dr. Sara Lee",
-                title: "Dermatologist",
-                experience: "7 years",
-                profileImage: "/photos/profile_image.png",
-                workExperience: [
-                    "Dr. Sara Lee",
-                    "Senior Consultant, Rainbow Kids Hospital. (2020 - Present)",
-                    "Pediatrician, City Health Center. (2015 - 2020)"
-                ],
-                educationTraining: [
-                    "MBBS, LMN Medical College",
-                    "PG Diploma in Child Health, UVW Hospital"
-                ]
-            }
-        ]
-    };
+    const [availableSpecialties, setAvailableSpecialties] = useState([]);
 
     // Fetch doctors (placeholder for API)
     const fetchDoctors = async () => {
         setLoading(true);
         try {
-            // TODO: Replace with actual API call later
-            // const response = await fetch('/api/doctors');
-            // const data = await response.json(); // Should return grouped data by specialty
-            // setDoctorGroups(data);
+            const response = await findDoctor(); // Actual API call
+            const doctors = response.data.results;
 
-            const doctore = await findDoctor();
-            console.log(doctore);
+            // Group doctors by profession
+            const grouped = doctors.reduce((acc, doc) => {
+                const profession = doc.profession?.toLowerCase() || "other";
+                if (!acc[profession]) {
+                    acc[profession] = [];
+                }
 
+                acc[profession].push({
+                    id: doc.id,
+                    name: `Dr. ${doc.full_name}`,
+                    title: doc.profession,
+                    phone: doc.phone_number,
+                    address: doc.address,
+                    profileImage: "/photos/profile_image.png", // Placeholder image
+                });
 
-            setDoctorGroups(dummyGroupedData);
+                return acc;
+            }, {});
+
+            setDoctorGroups(grouped);
+
+            const specialties = Object.keys(grouped);
+            setAvailableSpecialties(specialties);
+            if (specialties.length > 0) {
+                setSpecialty(specialties[0]); // Default to the first available
+            }
         } catch (error) {
             console.error("Error fetching doctors:", error);
         } finally {
@@ -167,10 +94,11 @@ const FindDoctor = () => {
                     value={specialty}
                     onChange={(e) => setSpecialty(e.target.value)}
                 >
-                    <option value="PEDIATRICS">PEDIATRICS</option>
-                    <option value="CARDIOLOGY">CARDIOLOGY</option>
-                    <option value="NEUROLOGY">NEUROLOGY</option>
-                    <option value="DERMATOLOGY">DERMATOLOGY</option>
+                    {availableSpecialties.map((spec) => (
+                        <option key={spec} value={spec}>
+                            {spec.charAt(0).toUpperCase() + spec.slice(1)}
+                        </option>
+                    ))}
                 </select>
             </div>
 
@@ -188,9 +116,11 @@ const FindDoctor = () => {
                             />
                             <h3>{doc.name}</h3>
                             <p>{doc.title}</p>
-                            <p>Experience: {doc.experience}</p>
+                            <p>Phone: {doc.phone}</p>
+                            <p>Address: {doc.address}</p>
                             <button className="book-btn">Book Appointment</button>
-                            <button className="profile-btn" onClick={() => handleViewProfile(doc)}>View Profile</button>                        </div>
+                            <button className="profile-btn" onClick={() => handleViewProfile(doc)}>View Profile</button>
+                        </div>
                     ))}
                 </div>
             )}
