@@ -70,3 +70,26 @@ export const findDoctor = async () => {
     throw (error);
   }
 };
+
+
+
+
+
+
+// ================================
+// Function to UserInfo a New User
+// ================================
+export const userInfo = async (formData, token) => {
+  try {
+    const response = await axios.put(`${API_BASE_URL}/complete-profile/`, formData, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response;
+  } catch (error) {
+    console.error("API Error:", error.response?.data || error.message);
+    throw (error);
+  }
+};
