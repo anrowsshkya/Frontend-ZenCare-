@@ -10,6 +10,10 @@ const FindDoctor = () => {
         navigate(`/doctor/${doctor.id}`, { state: { doctor } });
     };
 
+    const handleBookAppointment = (doctor) => {
+        navigate("/Form", { state: { doctor } }); // Navigate with doctor info
+    };
+
     const [specialty, setSpecialty] = useState("PEDIATRICS");
     const [doctorGroups, setDoctorGroups] = useState({});
     const [loading, setLoading] = useState(false);
@@ -184,7 +188,7 @@ const FindDoctor = () => {
                             <h3>{doc.name}</h3>
                             <p>{doc.title}</p>
                             <p>Experience: {doc.experience}</p>
-                            <button className="book-btn">Book Appointment</button>
+                            <button className="book-btn" onClick={() => handleBookAppointment(doc)}>Book Appointment</button>
                             <button className="profile-btn" onClick={() => handleViewProfile(doc)}>View Profile</button>                        </div>
                     ))}
                 </div>
