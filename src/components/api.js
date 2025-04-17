@@ -93,3 +93,29 @@ export const userInfo = async (formData, token) => {
     throw (error);
   }
 };
+
+
+
+// ================================
+// Function to userProfile a New User
+// ================================
+export const userProfile = async () => {
+  console.log(token);
+
+  try {
+    // Make POST request to backend with user data
+    const response = await axios.get(`${API_BASE_URL}/profile-details/`, {
+      headers: {
+        "Content-Type": "application/json", // Ensures data is sent in JSON format
+        "Authorization": `Bearer ${token}`, // attach token here
+
+      },
+    });
+    return response; // Return the response data (e.g., success message)
+  } catch (error) {
+    // Log error message from server or general error
+    console.error("Error:", error.response ? error.response.data : error.message);
+    throw (error);
+  }
+};
+
