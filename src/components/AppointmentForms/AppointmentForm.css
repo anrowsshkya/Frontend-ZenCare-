@@ -1,0 +1,118 @@
+.profile-container .profile-card .price {
+  border: 1px solid red;
+  border-radius: 20px;
+  background-color: red;
+  font-weight: bold;
+  font-size: 15px; /* Increase the font size to make it larger */
+  padding: 10px 20px; /* Add padding for better appearance */
+  color: white;
+  margin-top: 20px;
+  display: block;
+  text-align: center;
+  width: 125px;
+}
+
+.section-heading {
+  text-align: center;
+  font-size: 20px;
+  margin-bottom: 15px;
+  color: #1D4189;
+  font-weight: bold;
+}
+
+.day-selector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.day-button {
+  margin-top: 20px;
+  margin-bottom: 30px;
+  margin-left: 20px;
+  padding: 10px 16px;
+  border: 2px solid #1D4189;
+  background-color: white;
+  color: #1D4189;
+  font-weight: 600;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  /* REMOVE any margin-left */
+}
+
+.day-button:hover {
+  background-color: #e6f0ff;
+}
+
+.day-button.selected {
+  background-color: #1D4189;
+  color: white;
+}
+
+.time-selector {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px 0;
+  
+}
+
+.time-button {
+  margin-top: 20px;
+  margin-bottom: 30px;
+  margin-left: 20px;
+  padding: 10px 16px;
+  border: 2px solid #1D4189;
+  background-color: white;
+  color: #1D4189;
+  font-weight: 600;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.time-button:hover {
+  background-color: #0056b3;
+}
+
+.time-button.booked {
+  background-color: gray;
+  opacity: 0.6;
+}
+
+.description-section {
+  margin-top: -5px;
+  text-align: center;
+  background-color: white;
+}
+
+.description-box {
+  background-color: white;
+  margin-top: 15px;
+  width: 60%;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 2px solid #aaa;
+  resize: vertical;
+  min-height: 100px;
+}
+.last {
+  background-color: white;
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+}
+.lastbutton {
+  background-color: #1D4189;
+  font-weight: bold;
+  height: 50px;
+  width: 300px;
+}
+.lastbutton:hover{
+  background-color: #0056b3;
+}
