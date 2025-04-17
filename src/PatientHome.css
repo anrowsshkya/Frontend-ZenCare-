@@ -4,7 +4,7 @@ body {
     background-color: white;
 }
 
-.container {
+.container_home {
     height: 100vh;
     width: 100vw;
     align-items: center;
@@ -18,7 +18,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0px 30px;
+    padding: 10px 45px;
 }
 
 .logo {
@@ -27,16 +27,13 @@ body {
     color: #1D4189;
 }
 
-.auth-buttons button {
-    margin: 5px;
+.profilebutton input {
     padding: 8px 15px;
-    border-radius: 5px;
-    border: none;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 10px;
 }
 
-.login {
+/* .login {
     background-color: white;
     border: 1px solid #1D4189;
     color: #1D4189;
@@ -45,11 +42,12 @@ body {
 .signup {
     background-color: #1D4189;
     color: white;
-}
+} */
 
 .navigation {
     background-color: #E0F2FE;
-    padding: 5px 12px;
+    text-align: left;
+    padding: 10px 30px;
     font-size: 16px;
     font-weight: bold;
     color: #1D4189;
@@ -71,12 +69,14 @@ body {
 .hero {
     background: url("/public/photos/home.avif") no-repeat center;
     background-size: cover;
-    padding: 150px 40px;
+    padding: 170px 40px;
     color: #1D4189;
 }
 
 .hero-text {
     max-width: 600px;
+    text-align: left;
+    padding-left: 10px;
     /* Adjust width to align with the image reference */
 }
 
@@ -99,6 +99,7 @@ body {
 
 .about {
     display: flex;
+    text-align: left;
     align-items: center;
     justify-content: center;
     background-color: white;
@@ -108,7 +109,7 @@ body {
 
 .about-img {
     flex: 1;
-    max-width: 400px;
+    max-width: 500px;
     /* Adjust image width */
     border-radius: 10px;
     padding-left: 100px;
@@ -133,6 +134,7 @@ body {
 
 .about a {
     font-size: 15px;
+    text-decoration: underline;
 }
 
 
@@ -175,13 +177,14 @@ body {
 
 .top-doctors a {
     font-size: 15px;
+    text-decoration: underline;
 }
 
 
 
 /* ====================================================Review Section ========================================= */
 
-.reviews {
+/* .reviews {
     background-color: #E0F2FE;
     color: #1D4189;
     padding: 40px;
@@ -207,7 +210,7 @@ body {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-}
+} */
 
 
 /* ================================================Footer Section ============================================ */
