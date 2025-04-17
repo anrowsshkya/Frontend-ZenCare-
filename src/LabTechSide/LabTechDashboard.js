@@ -1,7 +1,10 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "./LabTechDashboard.css";
 
 const LabTechDashboard = () => {
+    const navigate = useNavigate();
+
     return (
         <div className="labtech-dashboard">
             <aside className="sidebar">
@@ -9,7 +12,7 @@ const LabTechDashboard = () => {
                 <nav>
                     <button className="nav-btn">Dashboard</button>
                     <button className="nav-btn">Lab Reports</button>
-                    <button className="nav-btn logout">Log out</button>
+                    <button className="nav-btn logout" onClick={() => navigate("/login")}>Log out</button>
                 </nav>
             </aside>
 
