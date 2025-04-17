@@ -1,56 +1,37 @@
-.appointment-form {
-    max-width: 800px;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: #f9f9f9;
+/* Navbar container */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #e3f2fd;
+  padding: 15px 40px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.form-header {
-    text-align: center;
-    color: #007bff; /* Blue header color */
-    margin-bottom: 20px;
+/* ZenCare logo */
+.logo {
+  font-size: 28px;
+  font-weight: bold;
+  color: #1D4189;
+  margin: 0;
 }
 
-label {
-    display: block;
-    margin-bottom: 10px;
-    font-weight: bold;
+/* Navigation links */
+.navigation {
+  display: flex;
+  gap: 30px;
 }
 
-.row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
+.navigation a {
+  text-decoration: none;
+  color: #1D4189;
+  font-weight: bold;
+  font-size: 18px;
 }
 
-input, select, textarea {
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-textarea {
-    height: 100px;
-}
-
-button.submit-button {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    text-align: center;
-}
-
-button.submit-button:hover {
-    background-color: #0056b3;
+/* Profile image */
+.profile-button input[type="image"] {
+  border-radius: 50%;
+  border: 2px solid #1D4189;
+  cursor: pointer;
 }

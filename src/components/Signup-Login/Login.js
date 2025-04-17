@@ -6,7 +6,7 @@ import "./styles.css";
 import { loginUser } from "../api";
 
 const Login = () => {
-  // State to hold the email, password input value
+  // State to hold the email, passwords input value
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
