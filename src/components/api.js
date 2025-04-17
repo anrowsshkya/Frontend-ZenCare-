@@ -38,3 +38,19 @@ export const loginUser = async (userData) => {
     console.error("Error:", error.response ? error.response.data : error.message);
   }
 };
+
+
+
+export const getAppointments = async () => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/appointment/`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching appointments:", error.response?.data || error.message);
+    return [];
+  }
+};
