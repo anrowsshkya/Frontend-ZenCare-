@@ -33,6 +33,7 @@ const Login = () => {
       email === hardcodedUsers.doctor.email &&
       password === hardcodedUsers.doctor.password
     ) {
+      localStorage.clear();
       localStorage.setItem("userRole", "doctor");
       alert("Doctor Login Successful!");
       navigate("/doc-dash");
@@ -63,10 +64,6 @@ const Login = () => {
         localStorage.setItem("access_token", response.data.access);
         localStorage.setItem("refresh_token", response.data.refresh);
 
-        if (!localStorage.getItem("userInfoSubmitted")) {
-          localStorage.setItem("showUserInfoModal", "true");
-        }
-        navigate("/PatientHome");
 
 
         // Show success alert (Note: JSX in alert won't render as HTML)
@@ -79,6 +76,7 @@ const Login = () => {
         // navigate("/PatientHome"); // Redirect to dashboard
 
       }
+
     } catch (err) {
       // If something goes wrong, show the error message (from server or default)
       setError(<span style={{ color: 'red' }}>{err.response?.data?.error || "Invalid credentials"}</span>);
@@ -87,6 +85,11 @@ const Login = () => {
     //   console.log("Navigating to PatientHome..."); // Always log this
     //   navigate("/PatientHome"); // Redirect to dashboard
     // }
+
+    if (!localStorage.getItem("userInfoSubmitted")) {
+      localStorage.setItem("showUserInfoModal", "true");
+    }
+    navigate("/PatientHome");
 
 
   };

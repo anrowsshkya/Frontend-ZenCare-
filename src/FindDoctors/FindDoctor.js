@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./FindDoctor.css";
+import { findDoctor } from "../components/api";
 
 const FindDoctor = () => {
 
@@ -115,6 +116,10 @@ const FindDoctor = () => {
             // const data = await response.json(); // Should return grouped data by specialty
             // setDoctorGroups(data);
 
+            const doctore = await findDoctor();
+            console.log(doctore);
+
+
             setDoctorGroups(dummyGroupedData);
         } catch (error) {
             console.error("Error fetching doctors:", error);
@@ -143,7 +148,7 @@ const FindDoctor = () => {
                         type="image"
                         src="/photos/profile_image.png"
                         alt="Profile"
-                        onClick={handleClick}
+                        onClick={() => navigate("/MyProfile")}
                         style={{ width: '50px', height: 'auto' }}
                     />
                 </div>
@@ -151,7 +156,7 @@ const FindDoctor = () => {
 
             {/* ------------------------Navigation--------------------- */}
             <nav className="navigation">
-                <a href="#">Home</a> | <a href="#">Find Doctors</a>
+                <a onClick={() => navigate("/PatientHome")}>Home</a> | <a href="#">Find Doctors</a>
             </nav>
 
             {/* -------------------- Filter by Specialty -------------------- */}

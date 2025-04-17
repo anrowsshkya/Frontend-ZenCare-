@@ -147,7 +147,7 @@ const FindDoctor = () => {
             </header>
 
             <nav className="navigation">
-                <a href="#">Home</a> | <a href="#">Find Doctors</a>
+                <a onClick={() => navigate("/PatientHome")}>Home</a> | <a onClick={() => navigate("/find-doctor")}>Find Doctors</a>
             </nav>
 
             {loading ? (

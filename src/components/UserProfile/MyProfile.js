@@ -1,24 +1,26 @@
 import React from 'react';
 import user from "../../assets/circle-user.png";
 import user1 from "../../assets/content-user.png";
+import { useNavigate } from "react-router-dom";
 import './MyProfile.css';
 
 const MyProfile = () => {
+  const navigate = useNavigate();
   return (
     <div className='MyProfile'>
-      
+
       {/* Top Navigation Bar */}
       <div className='mp-topbar'>
         {/* Brand Name */}
         <div className='ZenCare'><h1>ZenCare</h1></div>
 
         {/* Navigation Buttons */}
-        <button className='top-btn'>Find Doctors</button>
-        <button className='top-btn2'>Book Appointment</button>
+        <button className='top-btn' onClick={() => navigate("/PatientHome")}>Home</button>
+        <button className='top-btn2' onClick={() => navigate("/find-doctor")}>Find Doctors</button>
 
         {/* User Profile Icon and Name */}
         <div className='mp-profile'>
-          <img src={user} alt='Profile'/>
+          <img src={user} alt='Profile' />
           <span className='profile-name'>Pratik Karki</span>
         </div>
       </div>
@@ -30,7 +32,7 @@ const MyProfile = () => {
         <button className='button'>Appointments</button>
         <button className='button'>Lab Reports</button>
         <button className='button'>Change Password</button>
-        <button className='button2'>Log Out</button>
+        <button className='button2' onClick={() => navigate("/login")}>Log Out</button>
       </div>
 
       {/* Main Profile Content Area */}

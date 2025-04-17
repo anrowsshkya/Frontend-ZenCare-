@@ -25,7 +25,7 @@ const DoctorProfile = () => {
                         type="image"
                         src="/photos/profile_image.png"
                         alt="Profile"
-                        onClick={handleClick}
+                        onClick={() => navigate("/MyProfile")}
                         style={{ width: '50px', height: 'auto' }}
                     />
                 </div>
@@ -33,7 +33,7 @@ const DoctorProfile = () => {
 
             {/* Navigation */}
             <nav className="navigation">
-                <a href="#">Home</a> | <a href="#">Find Doctors</a>
+                <a onClick={() => navigate("/PatientHome")}>Home</a> | <a onClick={() => navigate("/find-doctor")}>Find Doctors</a>
             </nav>
 
             {/* Profile Content */}

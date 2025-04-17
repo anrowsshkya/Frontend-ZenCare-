@@ -13,7 +13,7 @@ import PopUp from "./PopUpHomepage/PopUp";
 import TopDoctors from "./TopDoc/TopDoctors";
 import DoctorDashboard from "./DoctorSide/DoctorDashboard";
 import LabTechDashboard from "./LabTechSide/LabTechDashboard";
-import AdminDashboard from "./AdminSide/AdminDashboard"
+// import AdminDashboard from "./AdminSide/AdminDashboard"
 import AppointmentsDoctorSide from "./DoctorSide/AppointmentsDoctorSide"
 
 import "./App.css";
@@ -36,7 +36,7 @@ function App() {
           <Route path="/topdoc" element={<TopDoctors />} />
           <Route path="/doc-dash" element={<DoctorDashboard />} />
           <Route path="/lab-tech-dash" element={<LabTechDashboard />} />
-          <Route path="/admin-dash" element={<AdminDashboard />} />
+          {/* <Route path="/admin-dash" element={<AdminDashboard />} /> */}
           <Route path="/appointments-doctor" element={<AppointmentsDoctorSide />} />
         </Routes>
       </div>

@@ -1,7 +1,10 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "./About.css";
 
 const About = () => {
+    const navigate = useNavigate();
+
     return (
         <div className="aboutPage-container">
             <header className="navbar">
@@ -9,7 +12,7 @@ const About = () => {
             </header>
 
             <nav className="navigation">
-                <a href="#">Home</a>  | <a href="#">Find Doctors</a>
+                <a onClick={() => navigate("/PatientHome")}>Home</a> | <a onClick={() => navigate("/find-doctor")}>Find Doctors</a>
             </nav>
 
 
