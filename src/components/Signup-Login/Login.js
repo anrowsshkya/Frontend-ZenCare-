@@ -4,6 +4,8 @@ import { useNavigate, Link } from "react-router-dom";
 // import doctor from "/photos/about2.jpg";
 import "./styles.css";
 import { loginUser } from "../api";
+import { userProfile } from "../api";
+
 
 const hardcodedUsers = {
   doctor: { email: "doctor@gmail.com", password: "doctor123456789" },
@@ -70,10 +72,29 @@ const Login = () => {
         alert(<span style={{ color: 'green' }}>Login Successfull!</span>);
 
         // Redirect the user to the dashboard page
-        navigate("/dashboard");
+        // navigate("/dashboard");
 
         // console.log("Navigating to PatientHome...");
         // navigate("/PatientHome"); // Redirect to dashboard
+        // Check profile existence
+
+        try {
+          const token = localStorage.getItem("access_token");
+          const profileResponse = await userProfile(token);
+          const data = profileResponse.data;
+
+          if (data && data.first_name && data.last_name) {
+            localStorage.setItem("userInfoSubmitted", "true");
+            localStorage.removeItem("showUserInfoModal");
+          } else {
+            localStorage.setItem("showUserInfoModal", "true");
+          }
+        } catch (profileErr) {
+          console.warn("Profile check failed:", profileErr);
+          localStorage.setItem("showUserInfoModal", "true");
+        }
+
+        navigate("/PatientHome");
 
       }
 
