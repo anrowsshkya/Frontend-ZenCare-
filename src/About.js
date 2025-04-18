@@ -1,7 +1,14 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+
 import "./About.css";
 
 const About = () => {
+    const navigate = useNavigate();
+    const handleProtectedClick = () => {
+        navigate("/pop-up");
+    };
+
     return (
         <div className="aboutPage-container">
             <header className="navbar">
@@ -9,7 +16,7 @@ const About = () => {
             </header>
 
             <nav className="navigation">
-                <a href="#">Home</a>  | <a href="#">Find Doctors</a>
+                <a onClick={() => navigate("/")}>Home</a> | <a onClick={handleProtectedClick}>Find Doctors</a>
             </nav>
 
 

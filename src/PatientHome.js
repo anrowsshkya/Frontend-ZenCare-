@@ -10,7 +10,7 @@ const ZenCare = () => {
     // Function to handle profile image click
     const handleClick = () => {
         console.log("Profile image clicked!");
-        // navigate("/PatientHome"); // Change the path as needed
+        navigate("/MyProfile");
     };
 
     const [showModal, setShowModal] = useState(
@@ -84,7 +84,7 @@ const ZenCare = () => {
                         <li>Dr. Sushi Gautam</li>
                         <li>Dr. Brook Magar</li>
                     </ol>
-                    <a href="#">Learn more</a>
+                    <a onClick={() => navigate("/topdoc")} className="learn-more">Learn more</a>
                 </div>
             </section>
 
