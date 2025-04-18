@@ -16,6 +16,7 @@ import LabTechDashboard from "./LabTechSide/LabTechDashboard";
 // import AdminDashboard from "./AdminSide/AdminDashboard"
 import AppointmentsDoctorSide from "./DoctorSide/AppointmentsDoctorSide";
 import ViewAppointmentDoctor from "./DoctorSide/ViewAppointmentDoctor";
+import AppointmentForm from "./components/AppointmentForms/AppointmentForm";
 
 import "./App.css";
 
@@ -40,6 +41,8 @@ function App() {
           {/* <Route path="/admin-dash" element={<AdminDashboard />} /> */}
           <Route path="/appointments-doctor" element={<AppointmentsDoctorSide />} />
           <Route path="/view-appointment-doctor" element={<ViewAppointmentDoctor />} />
+          <Route path="/Form" element={<AppointmentForm />} />
+          {/* Add more routes as needed */}
         </Routes>
       </div>
     </Router>
