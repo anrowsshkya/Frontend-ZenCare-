@@ -88,10 +88,12 @@ const Login = () => {
             localStorage.removeItem("showUserInfoModal");
           } else {
             localStorage.setItem("showUserInfoModal", "true");
+            localStorage.removeItem("userInfoSubmitted");
           }
         } catch (profileErr) {
           console.warn("Profile check failed:", profileErr);
           localStorage.setItem("showUserInfoModal", "true");
+          localStorage.removeItem("userInfoSubmitted");
         }
 
         navigate("/PatientHome");
