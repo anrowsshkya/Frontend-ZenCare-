@@ -11,6 +11,14 @@ const DoctorProfile = () => {
         navigate("/"); // Back to home
     };
 
+    const handleBookAppointment = () => {
+        if (doctor) {
+            navigate("/Form", { state: { doctor } });
+        } else {
+          navigate("/Form"); // If doctor data isn't available, navigate without passing state
+        }
+    };
+
     if (!doctor) {
         return <div className="container_home">No doctor info available.</div>;
     }
