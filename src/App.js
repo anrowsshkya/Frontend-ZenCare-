@@ -10,7 +10,8 @@ import About_Patient from "./About_Patient";
 import FindDoctor from "./FindDoctors/FindDoctor";
 import DoctorProfile from "./FindDoctors/DoctorProfile";
 import PopUp from "./PopUpHomepage/PopUp";
-import AppointmentForm from "./components/AppointmentForm/AppointmentForm";
+import AppointmentForm from "./components/AppointmentForms/AppointmentForm";
+import LoginOption from "./components/Signup-Login/LoginOption";
 import "./App.css";
 
 function App() {
@@ -28,8 +29,8 @@ function App() {
           <Route path="/find-doctor" element={<FindDoctor />} />
           <Route path="/doctor/:id" element={<DoctorProfile />} />
           <Route path="/pop-up" element={<PopUp />} />
-          <Route path="/MyProfile" element={<MyProfile/>}/>
-          <Route path="/AppointmentForm" element={<AppointmentForm/>}/>
+          <Route path="/Form" element={<AppointmentForm />} />
+          <Route path="/LoginOption" element={<LoginOption />} />
         </Routes>
       </div>
     </Router>

@@ -30,13 +30,16 @@ const Login = () => {
 
       console.log("Login Response:", response); // Debugging API response
 
-
-      if (response.status === 200) {
-        localStorage.setItem("access_token", response.data.access);
-        localStorage.setItem("refresh_token", response.data.refresh);
+      
+      
+     
+        console.log(response.access);
+        localStorage.setItem("access_token", response.access);
+        localStorage.setItem("refresh_token", response.refresh);
 
         // Show success alert (Note: JSX in alert won't render as HTML)
-        alert(<span style={{ color: 'green' }}>Login Successfull!</span>);
+        console.log("Login Successful!");
+
 
         // Redirect the user to the dashboard page
         navigate("/dashboard");
@@ -44,7 +47,7 @@ const Login = () => {
         // console.log("Navigating to PatientHome...");
         // navigate("/PatientHome"); // Redirect to dashboard
 
-      }
+      
     } catch (err) {
       // If something goes wrong, show the error message (from server or default)
       setError(<span style={{ color: 'red' }}>{err.response?.data?.error || "Invalid credentials"}</span>);
@@ -72,7 +75,7 @@ const Login = () => {
         {error && <p className="error-message">{error}</p>}
 
         {/* Email input field */}
-        <label htmlFor="email">Enter your email address</label>
+        <label htmlFor="email" className="email-label">Enter your email address</label>
         <input type="email" id="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
 
         {/* Password input field */}

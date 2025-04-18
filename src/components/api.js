@@ -39,18 +39,34 @@ export const loginUser = async (userData) => {
   }
 };
 
-
-
-export const getAppointments = async () => {
+export const book = async (appointmentData) => {
+  const token = localStorage.getItem("access_token");
   try {
-    const response = await axios.get(`${API_BASE_URL}/appointment/`, {
+    // Transform the data to match the expected field names
+    const formattedData = {
+      // Send doctor as a primary key value
+      doctor: appointmentData.doctorId,
+      doctor_name: appointmentData.doctorName, // Include doctor's name
+      appointment_date: appointmentData.date, // Should be in YYYY-MM-DD format
+      appointment_time: appointmentData.time, // Should be in hh:mm format
+      description: appointmentData.description,
+      user: appointmentData.userId // Send user as a primary key value
+    };
+    
+    console.log("Sending to API:", formattedData);
+    
+    // Make POST request to backend with appointment data
+    const response = await axios.post(`${API_BASE_URL}/appointment/create/`, formattedData, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
       },
     });
-    return response.data;
+    return response; // Return the response data (e.g., success message)
   } catch (error) {
-    console.error("Error fetching appointments:", error.response?.data || error.message);
-    return [];
+    // Log the full error response
+    console.error("Error booking appointment:", error.response ? error.response.data : error.message);
+    console.error("Full error response:", error.response);
+    throw error; // Re-throw the error to be handled by the component
   }
 };

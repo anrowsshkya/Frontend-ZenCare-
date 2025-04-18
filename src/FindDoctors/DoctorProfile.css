@@ -24,6 +24,7 @@
 }
 
 .profile-info {
+    margin-top: 10px;
     padding-top: 30px;
     flex: 1;
     min-width: 250px;
