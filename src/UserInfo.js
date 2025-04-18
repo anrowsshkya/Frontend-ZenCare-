@@ -1,49 +1,70 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./UserInfo.css";
+import { userInfo } from "./components/api";
 
 const UserInfo = ({ onClose }) => {
     const navigate = useNavigate();
 
+    // Initial state for the form fields, matching the API payload
     const [formData, setFormData] = useState({
-        firstName: "",
-        lastName: "",
-        phone1: "",
+        first_name: "",
+        last_name: "",
+        phone_number: "",
         phone2: "",
-        dob: "",
+        date_of_birth: "",
         email: "",
         address: "",
         city: "",
         state: "",
         country: "",
-        gender: "Female",
+        gender: ""
     });
 
+    // Check if it's the first login
+    useEffect(() => {
+        const userInfoSubmitted = localStorage.getItem("userInfoSubmitted");
+        if (userInfoSubmitted === "true") {
+            // If the user info has been submitted, navigate directly to the PatientHome page
+            navigate("/PatientHome");
+        }
+    }, [navigate]);
+
+    // Handle input changes and update formData state
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prev) => ({ ...prev, [name]: value }));
     };
 
+    // Handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            // Store user info in localStorage (can be replaced with API later)
+            // Retrieve the token from localStorage
+            const token = localStorage.getItem("access_token");
+
+            // Send formData to the API using the userInfo function
+            await userInfo(formData, token);
+
+            // Optionally store in localStorage
             localStorage.setItem("userInfo", JSON.stringify(formData));
             localStorage.setItem("userInfoSubmitted", "true");
-            localStorage.removeItem("showUserInfoModal"); // Optional cleanup
+            localStorage.removeItem("showUserInfoModal");
 
-            console.log("User Info Stored:", formData);
+            console.log("User Info sent to API:", formData);
 
-            // Close modal if handler provided (to update ZenCare state)
+            // Close the modal if the onClose callback exists
             if (onClose) {
-                onClose();
+                onClose(); // Close the modal
             }
 
-            // Navigate to PatientHome
+            // Navigate to the PatientHome page after closing the modal
             navigate("/PatientHome");
+
         } catch (error) {
-            console.error("Error submitting user info", error);
+            // Handle errors
+            console.error("Error submitting user info:", error);
         }
     };
 
@@ -52,32 +73,112 @@ const UserInfo = ({ onClose }) => {
             <div className="userinfo-modal">
                 <h2>User Information</h2>
                 <form onSubmit={handleSubmit}>
+                    {/* First Name and Last Name */}
                     <div className="userinfo-row">
-                        <input name="firstName" required placeholder="First Name" onChange={handleChange} />
-                        <input name="lastName" required placeholder="Last Name" onChange={handleChange} />
+                        <input
+                            name="first_name"
+                            required
+                            placeholder="First Name"
+                            value={formData.first_name}
+                            onChange={handleChange}
+                        />
+                        <input
+                            name="last_name"
+                            required
+                            placeholder="Last Name"
+                            value={formData.last_name}
+                            onChange={handleChange}
+                        />
                     </div>
+
+                    {/* Phone Numbers */}
                     <div className="userinfo-row">
-                        <input name="phone1" required placeholder="Phone Number" onChange={handleChange} />
-                        <input name="phone2" placeholder="Phone Number 2" onChange={handleChange} />
+                        <input
+                            name="phone_number"
+                            required
+                            placeholder="Phone Number"
+                            value={formData.phone_number}
+                            onChange={handleChange}
+                        />
+                        <input
+                            name="phone2"
+                            placeholder="Phone Number 2"
+                            value={formData.phone2}
+                            onChange={handleChange}
+                        />
                     </div>
+
+                    {/* Date of Birth and Email */}
                     <div className="userinfo-row">
-                        <input name="dob" required type="date" onChange={handleChange} />
-                        <input name="email" required type="email" placeholder="Email" onChange={handleChange} />
+                        <input
+                            name="date_of_birth"
+                            required
+                            type="date"
+                            value={formData.date_of_birth}
+                            onChange={handleChange}
+                        />
+                        <input
+                            name="email"
+                            required
+                            type="email"
+                            placeholder="Email"
+                            value={formData.email}
+                            onChange={handleChange}
+                        />
                     </div>
-                    <input name="address" placeholder="Address" onChange={handleChange} />
+
+                    {/* Address */}
+                    <input
+                        name="address"
+                        placeholder="Address"
+                        value={formData.address}
+                        onChange={handleChange}
+                    />
+
+                    {/* City, State, and Country */}
                     <div className="userinfo-row">
-                        <input name="city" placeholder="City" onChange={handleChange} />
-                        <input name="state" placeholder="State" onChange={handleChange} />
+                        <input
+                            name="city"
+                            placeholder="City"
+                            value={formData.city}
+                            onChange={handleChange}
+                        />
+                        <input
+                            name="state"
+                            placeholder="State"
+                            value={formData.state}
+                            onChange={handleChange}
+                        />
                     </div>
+
                     <div className="userinfo-row">
-                        <input name="country" placeholder="Country" onChange={handleChange} />
-                        <select name="gender" onChange={handleChange}>
-                            <option>Female</option>
-                            <option>Male</option>
-                            <option>Other</option>
+                        <input
+                            name="country"
+                            placeholder="Country"
+                            value={formData.country}
+                            onChange={handleChange}
+                        />
+                    </div>
+
+                    <div className="userinfo-row">
+                        <select
+                            name="gender"
+                            value={formData.gender}
+                            onChange={handleChange}
+                        >
+                            <option value="">Select Gender</option>
+                            <option value="M">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
+                            <option value="prefer_not_to_say">Prefer not to say</option>
                         </select>
                     </div>
-                    <button type="submit" className="userinfo-submit-btn">Finish</button>
+
+
+                    {/* Submit Button */}
+                    <button type="submit" className="userinfo-submit-btn">
+                        Finish
+                    </button>
                 </form>
             </div>
         </div>

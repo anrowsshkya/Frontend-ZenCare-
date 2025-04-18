@@ -10,8 +10,13 @@ import About_Patient from "./About_Patient";
 import FindDoctor from "./FindDoctors/FindDoctor";
 import DoctorProfile from "./FindDoctors/DoctorProfile";
 import PopUp from "./PopUpHomepage/PopUp";
-import AppointmentForm from "./components/AppointmentForms/AppointmentForm";
-import LoginOption from "./components/Signup-Login/LoginOption";
+import TopDoctors from "./TopDoc/TopDoctors";
+import DoctorDashboard from "./DoctorSide/DoctorDashboard";
+import LabTechDashboard from "./LabTechSide/LabTechDashboard";
+// import AdminDashboard from "./AdminSide/AdminDashboard"
+import AppointmentsDoctorSide from "./DoctorSide/AppointmentsDoctorSide";
+import ViewAppointmentDoctor from "./DoctorSide/ViewAppointmentDoctor";
+
 import "./App.css";
 
 function App() {
@@ -29,8 +34,12 @@ function App() {
           <Route path="/find-doctor" element={<FindDoctor />} />
           <Route path="/doctor/:id" element={<DoctorProfile />} />
           <Route path="/pop-up" element={<PopUp />} />
-          <Route path="/Form" element={<AppointmentForm />} />
-          <Route path="/LoginOption" element={<LoginOption />} />
+          <Route path="/topdoc" element={<TopDoctors />} />
+          <Route path="/doc-dash" element={<DoctorDashboard />} />
+          <Route path="/lab-tech-dash" element={<LabTechDashboard />} />
+          {/* <Route path="/admin-dash" element={<AdminDashboard />} /> */}
+          <Route path="/appointments-doctor" element={<AppointmentsDoctorSide />} />
+          <Route path="/view-appointment-doctor" element={<ViewAppointmentDoctor />} />
         </Routes>
       </div>
     </Router>

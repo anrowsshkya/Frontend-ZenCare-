@@ -4,6 +4,14 @@ import { useNavigate, Link } from "react-router-dom";
 // import doctor from "/photos/about2.jpg";
 import "./styles.css";
 import { loginUser } from "../api";
+import { userProfile } from "../api";
+
+
+const hardcodedUsers = {
+  doctor: { email: "doctor@gmail.com", password: "doctor123456789" },
+  labtech: { email: "labtech@gmail.com", password: "lab123456789" },
+};
+
 
 const Login = () => {
   // State to hold the email, passwords input value
@@ -21,6 +29,29 @@ const Login = () => {
 
     setError("");
 
+
+    // Check hardcoded users first
+    if (
+      email === hardcodedUsers.doctor.email &&
+      password === hardcodedUsers.doctor.password
+    ) {
+      localStorage.clear();
+      localStorage.setItem("userRole", "doctor");
+      alert("Doctor Login Successful!");
+      navigate("/doc-dash");
+      return;
+    }
+
+    if (
+      email === hardcodedUsers.labtech.email &&
+      password === hardcodedUsers.labtech.password
+    ) {
+      localStorage.setItem("userRole", "labtech");
+      alert("Lab Technician Login Successful!");
+      navigate("/lab-tech-dash");
+      return;
+    }
+
     try {
       // Send login request with email and password
       const response = await loginUser({ email, password });
@@ -30,24 +61,45 @@ const Login = () => {
 
       console.log("Login Response:", response); // Debugging API response
 
-      
-      
-     
-        console.log(response.access);
-        localStorage.setItem("access_token", response.access);
-        localStorage.setItem("refresh_token", response.refresh);
+
+      if (response.status === 200) {
+        localStorage.setItem("access_token", response.data.access);
+        localStorage.setItem("refresh_token", response.data.refresh);
+
+
 
         // Show success alert (Note: JSX in alert won't render as HTML)
-        console.log("Login Successful!");
-
+        alert(<span style={{ color: 'green' }}>Login Successfull!</span>);
 
         // Redirect the user to the dashboard page
-        navigate("/dashboard");
+        // navigate("/dashboard");
 
         // console.log("Navigating to PatientHome...");
         // navigate("/PatientHome"); // Redirect to dashboard
+        // Check profile existence
 
-      
+        try {
+          const token = localStorage.getItem("access_token");
+          const profileResponse = await userProfile(token);
+          const data = profileResponse.data;
+
+          if (data && data.first_name && data.last_name) {
+            localStorage.setItem("userInfoSubmitted", "true");
+            localStorage.removeItem("showUserInfoModal");
+          } else {
+            localStorage.setItem("showUserInfoModal", "true");
+            localStorage.removeItem("userInfoSubmitted");
+          }
+        } catch (profileErr) {
+          console.warn("Profile check failed:", profileErr);
+          localStorage.setItem("showUserInfoModal", "true");
+          localStorage.removeItem("userInfoSubmitted");
+        }
+
+        navigate("/PatientHome");
+
+      }
+
     } catch (err) {
       // If something goes wrong, show the error message (from server or default)
       setError(<span style={{ color: 'red' }}>{err.response?.data?.error || "Invalid credentials"}</span>);
@@ -61,6 +113,7 @@ const Login = () => {
       localStorage.setItem("showUserInfoModal", "true");
     }
     navigate("/PatientHome");
+
 
   };
 

@@ -64,7 +64,7 @@ const AppointmentForm = () => {
   
       if (response.status === 200 || response.status === 201) {
         alert("Appointment booked successfully!");
-        navigate("/"); // Redirect to home or appointment confirmation page
+        navigate("/PatientHome"); // Redirect to home or appointment confirmation page
       } else {
         alert("Failed to book appointment.");
       }
