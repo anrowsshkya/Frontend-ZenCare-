@@ -17,7 +17,7 @@ const SignUp = () => {
     setError(""); // Clear previous errors
 
     if (password !== confirmPassword) {
-      setError(<span style={{ color: 'red' }}>Password does not match</span>);
+      setError("Password does not match");
       return;
     }
 
@@ -26,11 +26,11 @@ const SignUp = () => {
       const response = await registerUser({ email, password, password2: confirmPassword }); // Call API function
 
       if (response.status === 201) {
-        alert(<span style={{ color: 'green' }}>Account created successfully!</span>);
+        console.log("Registration Successful:", response.data); // Debugging API response
         navigate("/login"); // Redirect to login page
       }
     } catch (err) {
-      setError(<span style={{ color: 'red' }}>{err.response?.data?.error || "Registration failed. Try again."}</span>);
+      setError(err.response?.data?.error || "Registration failed. Try again.");
     } finally {
       setLoading(false); // Stop loading
     }

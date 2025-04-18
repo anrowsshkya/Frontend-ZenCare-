@@ -14,7 +14,7 @@ const hardcodedUsers = {
 
 
 const Login = () => {
-  // State to hold the email, password input value
+  // State to hold the email, passwords input value
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -128,7 +128,7 @@ const Login = () => {
         {error && <p className="error-message">{error}</p>}
 
         {/* Email input field */}
-        <label htmlFor="email">Enter your email address</label>
+        <label htmlFor="email" className="email-label">Enter your email address</label>
         <input type="email" id="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
 
         {/* Password input field */}

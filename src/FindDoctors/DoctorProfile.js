@@ -11,6 +11,14 @@ const DoctorProfile = () => {
         navigate("/"); // Back to home
     };
 
+    const handleBookAppointment = () => {
+        if (doctor) {
+            navigate("/Form", { state: { doctor } });
+        } else {
+          navigate("/Form"); // If doctor data isn't available, navigate without passing state
+        }
+    };
+
     if (!doctor) {
         return <div className="container_home">No doctor info available.</div>;
     }
@@ -44,6 +52,8 @@ const DoctorProfile = () => {
                         <h2>PROFILE</h2>
                         <h3>{doctor.name}</h3>
                         <p><strong>{doctor.title}</strong></p>
+                        <p>Experience: {doctor.experience}</p>
+                        <button className="book-appointment" onClick={handleBookAppointment}>BOOK AN APPOINTMENT</button>
                         <p>Experience: {doctor.experience}</p> {/* This now works */}
                         <p>Phone: {doctor.phone}</p>
                         <p>Address: {doctor.address}</p>
