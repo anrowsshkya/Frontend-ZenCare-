@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { findDoctor } from "../components/api";
 import "./TopDoctors.css";
 
-const FindDoctor = () => {
+const TopDoctors = () => {
     const navigate = useNavigate();
     const [doctors, setDoctors] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -11,111 +12,44 @@ const FindDoctor = () => {
         navigate(`/doctor/${doctor.id}`, { state: { doctor } });
     };
 
-    const dummyGroupedData = {
-        "PEDIATRICS": [
-            {
-                id: 1,
-                name: "Dr. Ayesha Khan",
-                title: "Pediatrician",
-                experience: "12 years",
-                profileImage: "/photos/profile_image.png",
-                workExperience: [
-                    "Dr. Ayesha Khan",
-                    "Senior Consultant, Rainbow Kids Hospital. (2020 - Present)",
-                    "Pediatrician, City Health Center. (2015 - 2020)"
-                ],
-                educationTraining: [
-                    "MBBS, LMN Medical College",
-                    "PG Diploma in Child Health, UVW Hospital"
-                ]
-            },
-            {
-                id: 3,
-                name: "Dr. Maya Das",
-                title: "Pediatrician",
-                experience: "9 years",
-                profileImage: "/photos/profile_image.png",
-                workExperience: [
-                    "Dr. Maya Das",
-                    "Senior Consultant, Rainbow Kids Hospital. (2020 - Present)",
-                    "Pediatrician, City Health Center. (2015 - 2020)"
-                ],
-                educationTraining: [
-                    "MBBS, LMN Medical College",
-                    "PG Diploma in Child Health, UVW Hospital"
-                ]
-            }
-        ],
-        "CARDIOLOGY": [
-            {
-                id: 2,
-                name: "Dr. John Smith",
-                title: "Cardiologist",
-                experience: "15 years",
-                profileImage: "/photos/profile_image.png",
-                workExperience: [
-                    "Dr. John Smith",
-                    "Senior Consultant, Rainbow Kids Hospital. (2020 - Present)",
-                    "Pediatrician, City Health Center. (2015 - 2020)"
-                ],
-                educationTraining: [
-                    "MBBS, LMN Medical College",
-                    "PG Diploma in Child Health, UVW Hospital"
-                ]
-            }
-        ],
-        "NEUROLOGY": [
-            {
-                id: 4,
-                name: "Dr. Ravi Patel",
-                title: "Neurologist",
-                experience: "20 years",
-                profileImage: "/photos/profile_image.png",
-                workExperience: [
-                    "Dr. Ravi Patel",
-                    "Senior Consultant, Rainbow Kids Hospital. (2020 - Present)",
-                    "Pediatrician, City Health Center. (2015 - 2020)"
-                ],
-                educationTraining: [
-                    "MBBS, LMN Medical College",
-                    "PG Diploma in Child Health, UVW Hospital"
-                ]
-            }
-        ],
-        "DERMATOLOGY": [
-            {
-                id: 5,
-                name: "Dr. Sara Lee",
-                title: "Dermatologist",
-                experience: "7 years",
-                profileImage: "/photos/profile_image.png",
-                workExperience: [
-                    "Dr. Sara Lee",
-                    "Senior Consultant, Rainbow Kids Hospital. (2020 - Present)",
-                    "Pediatrician, City Health Center. (2015 - 2020)"
-                ],
-                educationTraining: [
-                    "MBBS, LMN Medical College",
-                    "PG Diploma in Child Health, UVW Hospital"
-                ]
-            }
-        ]
+    const handleBookAppointment = (doctor) => {
+        navigate("/Form", { state: { doctor } });
     };
 
     const fetchDoctors = async () => {
         setLoading(true);
         try {
-            // Combine all doctors from all specialties
-            const allDoctors = Object.values(dummyGroupedData).flat();
+            const response = await findDoctor();
+            const fetchedDoctors = response.data.results;
 
-            // Sort descending by experience
-            const sortedDoctors = allDoctors.sort((a, b) => {
-                const expA = parseInt(a.experience);
-                const expB = parseInt(b.experience);
+            // Transform doctor data
+            const enrichedDoctors = fetchedDoctors.map((doc) => ({
+                ...doc,
+                id: doc.id,
+                name: `Dr. ${doc.full_name}`,
+                title: doc.profession_display || doc.profession,
+                phone: doc.phone_number,
+                address: doc.address,
+                profileImage: doc.profileImage || "/photos/profile_image.png",
+                experience: doc.experience_years || "Not specified",
+                consultationFee: doc.consultation_fee || 0,
+                workExperience: doc.work_experience
+                    ? doc.work_experience.split(",").map(item => item.trim())
+                    : [],
+                educationTraining: [
+                    ...(doc.education ? doc.education.split(",").map(item => item.trim()) : []),
+                    ...(doc.training ? doc.training.split(",").map(item => item.trim()) : [])
+                ],
+            }));
+
+            // Sort by experience (descending)
+            enrichedDoctors.sort((a, b) => {
+                const expA = parseInt(a.experience) || 0;
+                const expB = parseInt(b.experience) || 0;
                 return expB - expA;
             });
 
-            setDoctors(sortedDoctors);
+            setDoctors(enrichedDoctors);
         } catch (error) {
             console.error("Error fetching doctors:", error);
         } finally {
@@ -127,10 +61,6 @@ const FindDoctor = () => {
         fetchDoctors();
     }, []);
 
-    const handleClick = () => {
-        console.log("Profile image clicked!");
-    };
-
     return (
         <div className="container_home">
             <header className="navbar">
@@ -140,18 +70,19 @@ const FindDoctor = () => {
                         type="image"
                         src="/photos/profile_image.png"
                         alt="Profile"
-                        onClick={handleClick}
-                        style={{ width: '50px', height: 'auto' }}
+                        onClick={() => navigate("/MyProfile")}
+                        style={{ width: "50px", height: "auto" }}
                     />
                 </div>
             </header>
 
             <nav className="navigation">
-                <a onClick={() => navigate("/PatientHome")}>Home</a> | <a onClick={() => navigate("/find-doctor")}>Find Doctors</a>
+                <a onClick={() => navigate("/PatientHome")}>Home</a> |{" "}
+                <a onClick={() => navigate("/find-doctor")}>Find Doctors</a>
             </nav>
 
             {loading ? (
-                <p style={{ paddingLeft: "45px" }}>Loading doctors...</p>
+                <p style={{ paddingLeft: "45px" }}>Loading top doctors...</p>
             ) : (
                 <div className="doctor-grid">
                     {doctors.map((doc) => (
@@ -162,10 +93,13 @@ const FindDoctor = () => {
                                 className="doctor-image"
                             />
                             <h3>{doc.name}</h3>
-                            <p>{doc.title}</p>
-                            <p>Experience: {doc.experience}</p>
-                            <button className="book-btn">Book Appointment</button>
-                            <button className="profile-btn" onClick={() => handleViewProfile(doc)}>View Profile</button>
+                            <p>Experience: {doc.experience} years</p>
+                            <button className="book-btn" onClick={() => handleBookAppointment(doc)}>
+                                Book Appointment
+                            </button>
+                            <button className="profile-btn" onClick={() => handleViewProfile(doc)}>
+                                View Profile
+                            </button>
                         </div>
                     ))}
                 </div>
@@ -174,4 +108,4 @@ const FindDoctor = () => {
     );
 };
 
-export default FindDoctor;
+export default TopDoctors;
