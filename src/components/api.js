@@ -99,7 +99,7 @@ export const userInfo = async (formData, token) => {
 // ================================
 // Function to userProfile a New User
 // ================================
-export const userProfile = async () => {
+export const userProfile = async (token) => {
   console.log(token);
 
   try {
