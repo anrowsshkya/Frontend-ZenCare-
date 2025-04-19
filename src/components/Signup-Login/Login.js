@@ -1,36 +1,24 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-// import google from "../../assets/google.png";
-// import doctor from "/photos/about2.jpg";
 import "./styles.css";
 import { loginUser } from "../api";
-import { userProfile } from "../api";
-
 
 const hardcodedUsers = {
   doctor: { email: "doctor@gmail.com", password: "doctor123456789" },
   labtech: { email: "labtech@gmail.com", password: "lab123456789" },
 };
 
-
 const Login = () => {
-  // State to hold the email, passwords input value
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  // Function to handle login button click
   const handleLogin = async () => {
-
-    // Clear previous errors before starting a new login attempt
-
     console.log("Login button clicked");
+    setError(""); // Clear previous error
 
-    setError("");
-
-
-    // Check hardcoded users first
+    // Check hardcoded Doctor
     if (
       email === hardcodedUsers.doctor.email &&
       password === hardcodedUsers.doctor.password
@@ -42,19 +30,22 @@ const Login = () => {
       return;
     }
 
+    // Check hardcoded Lab Tech
     if (
       email === hardcodedUsers.labtech.email &&
       password === hardcodedUsers.labtech.password
     ) {
+      localStorage.clear();
       localStorage.setItem("userRole", "labtech");
+      localStorage.setItem("email", email);
       alert("Lab Technician Login Successful!");
       navigate("/lab-tech-dash");
       return;
     }
 
     try {
-      // Send login request with email and password
       const response = await loginUser({ email, password });
+
 
       localStorage.setItem("access_token", response.data.access);
       // If login is successful (status 200), store tokens in localStorage
@@ -63,94 +54,89 @@ const Login = () => {
 
 
       if (response.status === 200) {
-        localStorage.setItem("access_token", response.data.access);
-        localStorage.setItem("refresh_token", response.data.refresh);
+        const data = response.data;
 
+        // Store tokens and user info in localStorage
+        localStorage.setItem("access_token", data.access);
+        localStorage.setItem("refresh_token", data.refresh);
+        localStorage.setItem("user_id", data.user_id);
+        localStorage.setItem("user_type", data.user_type.toLowerCase());
 
+        // Handle based on user_type
+        const userType = data.user_type.toLowerCase();
 
-        // Show success alert (Note: JSX in alert won't render as HTML)
-        alert(<span style={{ color: 'green' }}>Login Successfull!</span>);
+        if (userType === "doctor") {
+          localStorage.setItem("email", email);
+          alert("Doctor Login Successful!");
+          navigate("/doc-dash");
+        } else if (userType === "patient") {
+          alert("Patient Login Successful!");
 
-        // Redirect the user to the dashboard page
-        // navigate("/dashboard");
-
-        // console.log("Navigating to PatientHome...");
-        // navigate("/PatientHome"); // Redirect to dashboard
-        // Check profile existence
-
-        try {
-          const token = localStorage.getItem("access_token");
-          const profileResponse = await userProfile(token);
-          const data = profileResponse.data;
-
-          if (data && data.first_name && data.last_name) {
+          // Profile completion logic
+          if (data.is_profile_completed) {
             localStorage.setItem("userInfoSubmitted", "true");
             localStorage.removeItem("showUserInfoModal");
           } else {
             localStorage.setItem("showUserInfoModal", "true");
             localStorage.removeItem("userInfoSubmitted");
           }
-        } catch (profileErr) {
-          console.warn("Profile check failed:", profileErr);
-          localStorage.setItem("showUserInfoModal", "true");
-          localStorage.removeItem("userInfoSubmitted");
+
+          navigate("/PatientHome");
+        } else {
+          alert("Unknown user type!");
         }
-
-        navigate("/PatientHome");
-
       }
-
     } catch (err) {
-      // If something goes wrong, show the error message (from server or default)
-      setError(<span style={{ color: 'red' }}>{err.response?.data?.error || "Invalid credentials"}</span>);
+      console.error("Login error:", err.response?.data || err.message);
+      setError(
+        <span style={{ color: "red" }}>
+          {err.response?.data?.error || "Invalid credentials"}
+        </span>
+      );
     }
-    // finally {
-    //   console.log("Navigating to PatientHome..."); // Always log this
-    //   navigate("/PatientHome"); // Redirect to dashboard
-    // }
-
-    if (!localStorage.getItem("userInfoSubmitted")) {
-      localStorage.setItem("showUserInfoModal", "true");
-    }
-    navigate("/PatientHome");
-
-
   };
 
   return (
-    // Main container wrapping the login form and the image section
     <div className="container">
       <div className="login-section">
         <h2>Log in</h2>
         <p>Log in with your data that you entered during registration</p>
 
-        {/* Show error message if any */}
         {error && <p className="error-message">{error}</p>}
 
-        {/* Email input field */}
-        <label htmlFor="email" className="email-label">Enter your email address</label>
-        <input type="email" id="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+        <label htmlFor="email" className="email-label">
+          Enter your email address
+        </label>
+        <input
+          type="email"
+          id="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
 
-        {/* Password input field */}
         <label htmlFor="password">Enter your password</label>
-        <input type="password" id="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+        <input
+          type="password"
+          id="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
 
-        {/* Link to forgot password page */}
-        <Link to="/forgotPassword" className="forgot-password">Forget Password?</Link>
+        <Link to="/forgotPassword" className="forgot-password">
+          Forget Password?
+        </Link>
 
-        {/* Button to trigger login */}
-        <button className="login-btn" onClick={handleLogin}>Log in</button>
+        <button className="login-btn" onClick={handleLogin}>
+          Log in
+        </button>
 
-        {/* Google login button (currently commented out) */}
-        {/* <button className="google-btn"><img src={google} alt="Google Logo" />Sign in with Google</button> */}
-
-        {/* Navigation link to sign-up page if the user doesn't have an account */}
         <p className="register-text">
           Don't have an account? <a href="/SignUp">Register</a>
         </p>
       </div>
 
-      {/* Right side section with a welcome message and image */}
       <div className="image-section">
         <h3>Nice to see you again</h3>
         <h1>Welcome back</h1>
