@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import user from "../../assets/circle-user.png";
 import { useNavigate, useLocation } from "react-router-dom";
 import { userProfile, getAppointments } from "../api";
+import '../UserProfile/MyProfile.css';
+import './Cancel.css';
 import axios from 'axios';
 
 const Cancel = () => {
@@ -28,9 +30,11 @@ const Cancel = () => {
         setProfileData(profileRes.data);
 
         const appointmentsData = await getAppointments(token);
+        console.log("Fetched appointments:", appointmentsData);
+
         if (Array.isArray(appointmentsData)) {
           setAppointments(appointmentsData);
-        } else if (appointmentsData?.results) {
+        } else if (appointmentsData && appointmentsData.results) {
           setAppointments(appointmentsData.results);
         } else {
           setAppointments([]);
@@ -69,110 +73,82 @@ const Cancel = () => {
     }
   };
 
-  if (loading) return <div style={{ textAlign: "center", marginTop: "50px" }}>Loading...</div>;
-  if (error) return <div style={{ color: "red", textAlign: "center", marginTop: "20px" }}>{error}</div>;
+  if (loading) return (
+    <div style={{
+      textAlign: 'center',
+      marginTop: '50px',
+      fontSize: '18px',
+      color: '#333',
+    }}>
+      Loading...
+    </div>
+  );
+
+  if (error) return (
+    <div style={{
+      color: 'red',
+      textAlign: 'center',
+      fontWeight: 'bold',
+      marginTop: '30px',
+      fontSize: '18px',
+    }}>
+      {error}
+    </div>
+  );
 
   return (
-    <div style={{ display: "flex", minHeight: "100vh", fontFamily: "sans-serif" }}>
-      
+    <div className='MyProfile'>
+      {/* Topbar */}
+      <div className='mp-topbar'>
+        <div className='ZenCare'><h1>ZenCare</h1></div>
+        <div className='mp-nav-buttons'>
+          <button className='top-btn' onClick={() => navigate("/PatientHome")}>Home</button>
+          <button className='top-btn2' onClick={() => navigate("/find-doctor")}>Find Doctors</button>
+        </div>
+        <div className='mp-profile'>
+          <img src={user} alt='Profile' />
+          <span className='profile-name'>
+            {profileData ? `${profileData.first_name} ${profileData.last_name}` : 'User'}
+          </span>
+        </div>
+      </div>
+
       {/* Sidebar */}
-      <div style={{
-        width: "220px",
-        backgroundColor: "#f0f4f8",
-        padding: "20px",
-        display: "flex",
-        flexDirection: "column",
-        gap: "15px"
-      }}>
-        <h1 style={{ color: "#0077cc", fontSize: "24px", marginBottom: "30px" }}>ZenCare</h1>
-        <button style={buttonStyle}>Dashboard</button>
-        <button
-          style={location.pathname === "/MyProfile" ? activeButtonStyle : buttonStyle}
-          onClick={() => navigate("/MyProfile")}
-        >My Profile</button>
-        <button
-          style={location.pathname === "/Cancel" ? activeButtonStyle : buttonStyle}
-          onClick={() => navigate("/Cancel")}
-        >Appointments</button>
-        <button style={buttonStyle}>Lab Reports</button>
-        <button style={buttonStyle}>Change Password</button>
-        <button
-          style={{ ...buttonStyle, backgroundColor: "#ff4d4f", color: "#fff" }}
-          onClick={() => {
-            localStorage.removeItem('access_token');
-            navigate("/login");
-          }}
-        >Log Out</button>
+      <div className='profile-sidebar'>
+        <button className='mp-button'>Dashboard</button>
+        <button className={`mp-button ${location.pathname === "/MyProfile" ? "active" : ""}`} onClick={() => navigate("/MyProfile")}>My Profile</button>
+        <button className={`mp-button ${location.pathname === "/Cancel" ? "active" : ""}`} onClick={() => navigate("/Cancel")}>Appointments</button>
+        <button className='mp-button'>Lab Reports</button>
+        <button className='mp-button'>Change Password</button>
+        <button className='mp-button2' onClick={() => {
+          localStorage.removeItem('access_token');
+          navigate("/login");
+        }}>Log Out</button>
       </div>
 
       {/* Main Content */}
-      <div style={{ flex: 1, padding: "20px" }}>
-        {/* Topbar */}
-        <div style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          borderBottom: "1px solid #ddd",
-          paddingBottom: "10px",
-          marginBottom: "20px"
-        }}>
-          <div>
-            <button style={navBtnStyle} onClick={() => navigate("/PatientHome")}>Home</button>
-            <button style={navBtnStyle} onClick={() => navigate("/find-doctor")}>Find Doctors</button>
-          </div>
-          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-            <img src={user} alt='Profile' style={{ width: "40px", borderRadius: "50%" }} />
-            <span>{profileData ? `${profileData.first_name} ${profileData.last_name}` : 'User'}</span>
-          </div>
-        </div>
+      <div className='mp-main-content'>
+        <h2 className='mp-myprofile-title'>Appointments</h2>
 
-        <h2 style={{ marginBottom: "20px" }}>Appointments</h2>
-
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr 1fr auto",
-          fontWeight: "bold",
-          paddingBottom: "10px",
-          borderBottom: "2px solid #ccc",
-          marginBottom: "10px"
-        }}>
+        <div className="appointment-header">
           <div>Doctor</div>
           <div>Date</div>
           <div>Time</div>
-          <div>Action</div>
         </div>
 
-        {appointments.length > 0 ? (
+        {Array.isArray(appointments) && appointments.length > 0 ? (
           appointments.map((appt) => (
-            <div key={appt.id} style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr 1fr auto",
-              padding: "10px 0",
-              borderBottom: "1px solid #eee",
-              alignItems: "center"
-            }}>
-              <div>{appt.doctor_name || "Dr. Unknown"}</div>
-              <div>{appt.appointment_date}</div>
-              <div>{appt.appointment_time}</div>
-              <div>
-                <button
-                  style={{
-                    backgroundColor: "#e63946",
-                    color: "#fff",
-                    border: "none",
-                    padding: "6px 12px",
-                    borderRadius: "6px",
-                    cursor: "pointer"
-                  }}
-                  onClick={() => handleDelete(appt.id)}
-                >
-                  Cancel
-                </button>
-              </div>
+            <div key={appt.id} className="appointment-row">
+              <p>{appt.doctor_name || "Dr. Unknown"}</p>
+              <p>{appt.appointment_date}</p>
+              <p>{appt.appointment_time}</p>
+              <p>
+                <button className="delete-icon" onClick={() => handleDelete(appt.id)}>Cancel</button>
+              </p>
             </div>
           ))
         ) : (
-          <p style={{ color: "#777", textAlign: "center" }}>No appointments booked yet.</p>
+          <p>No appointments booked yet.</p>
         )}
       </div>
     </div>
@@ -180,29 +156,3 @@ const Cancel = () => {
 };
 
 export default Cancel;
-
-// Styles
-const buttonStyle = {
-  padding: "10px",
-  backgroundColor: "#e6e6e6",
-  border: "none",
-  borderRadius: "5px",
-  cursor: "pointer",
-  textAlign: "left"
-};
-
-const activeButtonStyle = {
-  ...buttonStyle,
-  backgroundColor: "#0077cc",
-  color: "#fff"
-};
-
-const navBtnStyle = {
-  marginRight: "10px",
-  padding: "8px 16px",
-  backgroundColor: "#0077cc",
-  color: "#fff",
-  border: "none",
-  borderRadius: "4px",
-  cursor: "pointer"
-};
