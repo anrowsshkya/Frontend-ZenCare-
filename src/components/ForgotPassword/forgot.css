@@ -11,7 +11,7 @@
     position: absolute;
     top: 20px;
     left: 30px;
-    font-size: 20px;
+    font-size: 28px;
     font-weight: bold;
 }
 
@@ -90,3 +90,10 @@ button {
     cursor: pointer;
     font-size: 14px;
 }
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin: 5px 0 10px;
+    text-align: left;
+  }
+  
