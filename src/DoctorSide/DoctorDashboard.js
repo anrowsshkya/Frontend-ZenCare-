@@ -14,7 +14,7 @@ const DoctorDashboard = () => {
                     <button className="nav-btn">Dashboard</button>
                     <button className="nav-btn" onClick={() => navigate("/appointments-doctor")}>Appointments</button>
                     <button className="nav-btn">Patient Records</button>
-                    <button className="nav-btn logout" onClick={() => navigate("/login")}>Log out</button>
+                    <button className="nav-btn-logout" onClick={() => navigate("/login")}>Log out</button>
                 </nav>
             </aside>
 
