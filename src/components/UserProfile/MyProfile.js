@@ -11,8 +11,9 @@ const MyProfile = () => {
 
   useEffect(() => {
     const fetchProfile = async () => {
+      const token = localStorage.getItem('access_token');
       try {
-        const response = await userProfile();
+        const response = await userProfile(token);
         setProfileData(response.data);
       } catch (error) {
         console.error("Failed to fetch user profile:", error);
@@ -20,6 +21,7 @@ const MyProfile = () => {
     };
     fetchProfile();
   }, []);
+
 
   return (
     <div className='MyProfile'>
