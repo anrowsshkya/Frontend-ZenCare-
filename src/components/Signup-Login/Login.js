@@ -37,6 +37,7 @@ const Login = () => {
     ) {
       localStorage.clear();
       localStorage.setItem("userRole", "labtech");
+      localStorage.setItem("email", email);
       alert("Lab Technician Login Successful!");
       navigate("/lab-tech-dash");
       return;
@@ -58,6 +59,7 @@ const Login = () => {
         const userType = data.user_type.toLowerCase();
 
         if (userType === "doctor") {
+          localStorage.setItem("email", email);
           alert("Doctor Login Successful!");
           navigate("/doc-dash");
         } else if (userType === "patient") {
