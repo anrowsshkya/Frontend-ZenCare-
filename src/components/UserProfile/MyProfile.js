@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import user from "../../assets/circle-user.png";
 import user1 from "../../assets/content-user.png";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import './MyProfile.css';
 import { userProfile } from "../api";
 
 const MyProfile = () => {
+  const location = useLocation();
   const navigate = useNavigate();
   const [profileData, setProfileData] = useState(null);
 
@@ -43,7 +44,7 @@ const MyProfile = () => {
       {/* Sidebar */}
       <div className='profile-sidebar'>
         <button className='mp-button'>Dashboard</button>
-        <button className='mp-button'>My Profile</button>
+        <button className={`mp-button ${location.pathname === "/MyProfile" ? "active" : ""}`} onClick={() => navigate("/MyProfile")}>My Profile</button>
         <button className='mp-button' onClick={() => navigate("/Cancel")}>Appointments</button>
         <button className='mp-button'>Lab Reports</button>
         <button className='mp-button'>Change Password</button>
