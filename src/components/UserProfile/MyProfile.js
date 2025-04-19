@@ -26,7 +26,7 @@ const MyProfile = () => {
       {/* Topbar */}
       <div className='mp-topbar'>
         <div className='ZenCare'><h1>ZenCare</h1></div>
-        <div className='nav-buttons'>
+        <div className='mp-nav-buttons'>
           <button className='top-btn' onClick={() => navigate("/PatientHome")}>Home</button>
           <button className='top-btn2' onClick={() => navigate("/find-doctor")}>Find Doctors</button>
         </div>
@@ -39,22 +39,22 @@ const MyProfile = () => {
       </div>
 
       {/* Sidebar */}
-      <div className='sidebar'>
-        <button className='button'>Dashboard</button>
-        <button className='button'>My Profile</button>
-        <button className='button'>Appointments</button>
-        <button className='button'>Lab Reports</button>
-        <button className='button'>Change Password</button>
-        <button className='button2' onClick={() => navigate("/login")}>Log Out</button>
+      <div className='profile-sidebar'>
+        <button className='mp-button'>Dashboard</button>
+        <button className='mp-button'>My Profile</button>
+        <button className='mp-button' onClick={() => navigate("/Cancel")}>Appointments</button>
+        <button className='mp-button'>Lab Reports</button>
+        <button className='mp-button'>Change Password</button>
+        <button className='mp-button2' onClick={() => navigate("/login")}>Log Out</button>
       </div>
 
       {/* Main Content */}
-      <div className='main-content'>
-        <h2 className='myprofile-title'>My Profile</h2>
+      <div className='mp-main-content'>
+        <h2 className='mp-myprofile-title'>My Profile</h2>
 
-        <div className='profile-card'>
-          <img src={user1} alt='content-profile' />
-          <div className='profile-text'>
+        <div className='mp-profile-card'>
+          <img src={user1} alt='mp-content-profile' />
+          <div className='mp-profile-text'>
             <h3>{profileData ? `${profileData.first_name} ${profileData.last_name}` : 'Loading...'}</h3>
             <p>Email: {profileData?.email || 'Loading...'}</p>
             <p>Phone: {profileData?.phone_number || 'Loading...'}</p>
@@ -63,9 +63,9 @@ const MyProfile = () => {
           {/* <button className='content-button'>Edit</button> */}
         </div>
 
-        <div className='info-section'>
+        <div className='mp-info-section'>
           <h3>Personal Information</h3>
-          <div className='info-grid'>
+          <div className='mp-info-grid'>
             <div><strong>Date of Birth:</strong> {profileData?.date_of_birth || '-'}</div>
             <div><strong>Gender:</strong> {profileData?.gender_display || '-'}</div>
             <div><strong>City:</strong> {profileData?.city || '-'}</div>
