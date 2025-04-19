@@ -46,6 +46,13 @@ const Login = () => {
     try {
       const response = await loginUser({ email, password });
 
+
+      localStorage.setItem("access_token", response.data.access);
+      // If login is successful (status 200), store tokens in localStorage
+
+      console.log("Login Response:", response); // Debugging API response
+
+
       if (response.status === 200) {
         const data = response.data;
 
