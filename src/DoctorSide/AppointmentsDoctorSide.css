@@ -41,3 +41,31 @@
     background-color: #1D4189;
     color: white;
 }
+
+/*This is css of ShowReport.js*/
+.sr-main-content {
+    flex-grow: 1;
+    padding: 40px;
+    background-color: white;
+    margin-top: 100px;
+}
+
+/* Welcome Section */
+.sr-main-content .sr-welcome-section {
+    background-color: #E0F2FE;
+    padding: 30px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+}
+
+.sr-main-content .sr-welcome-section h1 {
+    margin: 0;
+    color: #1D4189;
+    font-size: 32px;
+}
+
+.sr-patient-record-container p {
+    color: #000000;
+    font-size: 18px;;
+    margin-top: 20px;
+} 
