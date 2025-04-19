@@ -18,7 +18,7 @@ export const registerUser = async (userData) => {
       },
     });
     return response; // Return the response data (e.g., success message)
-  }  catch (error) {
+  } catch (error) {
     // Log error message from server or general error
     console.error("Error:", error.response ? error.response.data : error.message);
     throw (error);
@@ -57,9 +57,9 @@ export const book = async (appointmentData) => {
       description: appointmentData.description,
       user: appointmentData.userId // Send user as a primary key value
     };
-    
+
     console.log("Sending to API:", formattedData);
-    
+
     // Make POST request to backend with appointment data
     const response = await axios.post(`${API_BASE_URL}/appointment/create/`, formattedData, {
       headers: {
@@ -134,7 +134,7 @@ export const findDoctor = async () => {
       },
     });
     return response; // Return the response data (e.g., success message)
-  }catch (error) {
+  } catch (error) {
     console.error("Error:", error.response ? error.response.data : error.message);
     throw (error);
   }
