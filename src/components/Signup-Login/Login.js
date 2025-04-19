@@ -112,7 +112,7 @@ const Login = () => {
     if (!localStorage.getItem("userInfoSubmitted")) {
       localStorage.setItem("showUserInfoModal", "true");
     }
-    navigate("/PatientHome");
+    // navigate("/PatientHome");
 
 
   };
