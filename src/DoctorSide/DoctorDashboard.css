@@ -16,21 +16,23 @@
     box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
 }
 
-.logo {
-    font-size: 22px;
+.sidebar .logo {
+    font-size: 28px;
     font-weight: bold;
-    margin-bottom: 40px;
-    text-align: center;
     color: #1D4189;
+    margin-top: 30px;
 }
-
+.sidebar nav {
+    margin-top: 50px;
+    gap: 20px;
+    display: flex;
+    flex-direction: column;
+}
 .nav-btn {
+    width: 150px;
     background-color: white;
     color: #1D4189;
     border: 2px solid #1D4189;
-    padding: 12px;
-    margin-bottom: 20px;
-    text-align: left;
     border-radius: 8px;
     cursor: pointer;
     font-size: 16px;
@@ -42,8 +44,17 @@
     color: white;
 }
 
-.logout {
+.nav-btn-logout {
     margin-top: auto;
+    color: #FF4D4D;
+    background-color: white;
+    border: 2px solid #1D4189;
+    margin-top: 350px;
+    width: 150px;
+}
+.nav-btn-logout:hover {
+    background-color: #FF4D4D;
+    color: white;
 }
 
 /* Main Content */
@@ -70,11 +81,11 @@
 .welcome-section p {
     color: #1D4189;
     font-size: 18px;
-    margin-top: 10px;
+    /* margin-top: 20px; */
 }
 
 /* Placeholder Section */
-.content-placeholder {
+.doc-content-placeholder {
     text-align: center;
     padding: 50px;
     color: #1D4189;
