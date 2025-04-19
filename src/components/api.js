@@ -139,3 +139,27 @@ export const findDoctor = async () => {
     throw (error);
   }
 };
+
+
+// ================================
+// Function to Cancel Appointments 
+// ================================
+export const getAppointments = async (token) => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/appointment/`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    // Check if it's an object with data
+    console.log("Raw response for appointments:", response.data);
+
+    // Fix if it's wrapped in an object like { results: [...] }
+    return Array.isArray(response.data) ? response.data : response.data.results || [];
+  } catch (error) {
+    console.error("Failed to fetch appointments:", error);
+    return []; // Fallback to empty array
+  }
+};
+
