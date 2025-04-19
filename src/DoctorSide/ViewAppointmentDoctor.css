@@ -7,6 +7,9 @@
     width: 100%;
 }
 
+.patient-record-container p {
+    margin-bottom: 20px;
+}
 .patient-info {
     margin: 20px 0;
 }
@@ -45,4 +48,10 @@ select {
     border: none;
     border-radius: 6px;
     cursor: pointer;
+}
+.action-button:hover {
+    border: 2px solid #3a8eb5;
+    transition: all 0.3s ease;
+    background-color: white;
+    color: #1D4189;
 }
