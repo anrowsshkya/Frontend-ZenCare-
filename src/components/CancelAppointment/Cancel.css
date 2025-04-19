@@ -20,6 +20,8 @@
   width: 915px;
   font-weight: 500;
   font-size: 20px;
+  height: 75px;
+  margin-bottom: 10px;
 }
 .appointment-row p {
     margin: 0;
@@ -34,6 +36,7 @@
   font-size: 20px;
   text-align: right;
   color: #ff2024;
+  height: 45px;
 }
 
 .delete-icon:hover {
@@ -42,4 +45,11 @@
      /* darker red on hover */
     transform: scale(1.1);
     transition: all 0.2s ease-in-out;
+}
+.view-icon {
+    background-color: #2B4D90;
+}
+.view-icon:hover{
+    background-color: #E0F2FE;
+    color: #2B4D90;
 }
