@@ -6,7 +6,7 @@
 }
 
 /* Sidebar */
-.sidebar {
+.lb-sidebar {
     width: 220px;
     background-color: #E0F2FE;
     color: #1D4189;
@@ -16,65 +16,75 @@
     box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
 }
 
-.logo {
-    font-size: 22px;
+.lb-sidebar .lb-logo {
+    font-size: 28px;
     font-weight: bold;
-    margin-bottom: 40px;
-    text-align: center;
     color: #1D4189;
+    margin-top: 30px;
 }
-
-.nav-btn {
+.lb-sidebar nav {
+    margin-top: 60px;
+    gap: 20px;
+    display: flex;
+    flex-direction: column;
+}
+.lb-nav-btn {
+    width: 150px;
     background-color: white;
     color: #1D4189;
     border: 2px solid #1D4189;
-    padding: 12px;
-    margin-bottom: 20px;
-    text-align: left;
     border-radius: 8px;
     cursor: pointer;
     font-size: 16px;
     transition: background 0.3s, color 0.3s;
 }
 
-.nav-btn:hover {
+.lb-nav-btn:hover {
     background-color: #1D4189;
     color: white;
 }
 
-.logout {
+.lb-nav-btn-logout {
     margin-top: auto;
+    color: #FF4D4D;
+    background-color: white;
+    border: 2px solid #1D4189;
+    margin-top: 350px;
+    width: 150px;
 }
-
+.lb-nav-btn-logout:hover {
+    background-color: #FF4D4D;
+    color: white;
+}
 /* Main Content */
-.main-content {
+.lb-main-content {
     flex-grow: 1;
     padding: 40px;
     background-color: white;
 }
 
 /* Welcome Section */
-.welcome-section {
+.lb-welcome-section {
     background-color: #E0F2FE;
     padding: 30px;
     border-radius: 12px;
     margin-bottom: 30px;
 }
 
-.welcome-section h1 {
+.lb-welcome-section h1 {
     margin: 0;
     color: #1D4189;
     font-size: 32px;
 }
 
-.welcome-section p {
+.lb-welcome-section p {
     color: #1D4189;
     font-size: 18px;
     margin-top: 10px;
 }
 
 /* Placeholder Section */
-.content-placeholder {
+.lb-content-placeholder {
     text-align: center;
     padding: 50px;
     color: #1D4189;

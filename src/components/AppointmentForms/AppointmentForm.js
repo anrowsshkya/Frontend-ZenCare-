@@ -1,119 +1,93 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import user from "../../assets/circle-user.png";
-import axios from "axios"; // You can use fetch if you prefer
-import "./AppointmentForm.css";
 import { book } from "../api";
+import "./AppointmentForm.css";
 
 const AppointmentForm = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const doctor = location.state?.doctor;
-  const [description, setDescription] = useState("");
-  
-  // Get today's date in YYYY-MM-DD format
+
   const today = new Date();
   const formattedToday = today.toISOString().split('T')[0];
-  
+
   const [selectedDate, setSelectedDate] = useState(formattedToday);
   const [bookedSlot, setBookedSlot] = useState(null);
-  const userId = 2; // Replace this with the actual logged-in user's ID (probably from context or localStorage)
+  const [description, setDescription] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  // Function to handle booking the appointment
+  const userId = 2; // Replace with actual user ID from context or localStorage
+
   const handleBookAppointment = async () => {
+    setErrorMessage(""); // Clear any previous error
+
     if (!bookedSlot) {
-      alert("Please select a time slot.");
+      setErrorMessage("Please select a time slot.");
       return;
     }
-  
+
+    if (!description.trim()) {
+      setErrorMessage("Please enter a reason for the appointment.");
+      return;
+    }
+
+    const selected = new Date(selectedDate);
+    if (selected < new Date(formattedToday)) {
+      setErrorMessage("You cannot book an appointment in the past.");
+      return;
+    }
+
     try {
-      // Ensure date is in YYYY-MM-DD format
-      const formattedDate = selectedDate;
-      
-      // Ensure time is in hh:mm format
-      const formattedTime = bookedSlot;
-      
-      // Log the doctor object to see its structure
-      console.log("Doctor object:", doctor);
-      console.log("Doctor ID:", doctor?.id);
-      console.log("Doctor ID type:", typeof doctor?.id);
-      
-      // Ensure doctor ID is available
-      if (!doctor || !doctor.id) {
-        alert("Doctor information is missing. Please try again.");
-        return;
-      }
-      
-      console.log("Sending appointment data:", {
-        doctorId: doctor.id,
-        doctorName: doctor.name,
-        userId: userId,
-        date: formattedDate,
-        time: formattedTime,
-        description: description,
-      });
-      
+      setLoading(true);
+
       const response = await book({
-        doctorId: doctor.id,
-        doctorName: doctor.name,
-        userId: userId,
-        date: formattedDate,
-        time: formattedTime,
-        description: description,
+        doctorId: doctor?.id,
+        doctorName: doctor?.name,
+        userId,
+        date: selectedDate,
+        time: bookedSlot,
+        description,
       });
-  
+
       if (response.status === 200 || response.status === 201) {
         alert("Appointment booked successfully!");
-        navigate("/PatientHome"); // Redirect to home or appointment confirmation page
+        navigate("/PatientHome");
       } else {
-        alert("Failed to book appointment.");
+        setErrorMessage("Failed to book appointment.");
       }
     } catch (error) {
       console.error("Error booking appointment:", error);
-      
-      // Provide more detailed error message to the user
-      let errorMessage = "There was an error booking the appointment.";
-      
-      if (error.response && error.response.data) {
-        // Try to extract a meaningful error message
-        const errorData = error.response.data;
-        if (typeof errorData === 'object') {
-          const errorKeys = Object.keys(errorData);
-          if (errorKeys.length > 0) {
-            errorMessage = `Error: ${errorKeys.join(', ')}`;
-          }
-        }
+      let errorMsg = "There was an error booking the appointment.";
+      if (error.response?.data) {
+        const keys = Object.keys(error.response.data);
+        if (keys.length > 0) errorMsg = `Error: ${keys.join(', ')}`;
       }
-      
-      alert(errorMessage);
+      setErrorMessage(errorMsg);
+    } finally {
+      setLoading(false);
     }
   };
 
-  // Generate dates for the next 7 days
   const getNextSevenDays = () => {
     const dates = [];
     for (let i = 0; i < 7; i++) {
       const date = new Date();
       date.setDate(date.getDate() + i);
-      // Format date as YYYY-MM-DD
       const year = date.getFullYear();
       const month = String(date.getMonth() + 1).padStart(2, '0');
       const day = String(date.getDate()).padStart(2, '0');
       const formattedDate = `${year}-${month}-${day}`;
-      
-      // Format display date as MM/DD
       const displayDate = `${month}/${day}`;
-      
       dates.push({
         date: formattedDate,
         day: date.toLocaleDateString('en-US', { weekday: 'long' }),
-        displayDate: displayDate
+        displayDate
       });
     }
     return dates;
   };
-
-  const availableDates = getNextSevenDays();
 
   const handleTimeClick = (slot) => {
     setBookedSlot(bookedSlot === slot ? null : slot);
@@ -140,71 +114,106 @@ const AppointmentForm = () => {
 
       <div className="profile-container">
         <div className="profile-card">
-            <img
-              src={doctor?.profileImage || user}
-              alt="Doctor"
-              className="profile-photo"
-            />
-            <div className="profile-info">
-              <h2>PROFILE</h2>
-              <h3>{doctor?.name || "Doctor Name"}</h3>
-              <p><strong>{doctor?.title || "Specialty"}</strong></p>
-              <p>Experience: {doctor?.experience || "N/A"}</p>
-              <span className="price">Rs. 700</span>
-            </div>
+          <img
+            src={doctor?.profileImage || user}
+            alt="Doctor"
+            className="profile-photo"
+          />
+          <div className="profile-info">
+            <h2>PROFILE</h2>
+            <h3>{doctor?.name || "Doctor Name"}</h3>
+            <p><strong>{doctor?.title || "Specialty"}</strong></p>
+            <p>Experience: {doctor?.experience || "N/A"}</p>
+            <span className="price">Rs. 700</span>
+          </div>
         </div>
       </div>
 
-      {/* Time Selector */}
       <div className="ap-contain">
-        {/* Day Selector */}
-      <div className="selector-section">
-        <h3>Choose a day for an appointment</h3>
-        <div className="day-selector">
-          {availableDates.map((dateObj) => (
-            <button
-              key={dateObj.date}
-              className={`day-button ${selectedDate === dateObj.date ? "selected" : ""}`}
-              onClick={() => setSelectedDate(dateObj.date)}
-            >
-              <div className="day-name">{dateObj.day}</div>
-              <div className="day-date">{dateObj.displayDate}</div>
-            </button>
-          ))}
-        </div>
-      </div>
-      <div className="selector-section">
-        <h3>Choose a time for an appointment</h3>
-        <div className="time-selector">
-          {["09:00", "09:45", "10:25", "11:00", "11:45", "13:30", "15:00", "15:45"].map((slot, index) => (
-            <button
-              key={index}
-              className={`time-button ${bookedSlot === slot ? "booked" : ""}`}
-              onClick={() => handleTimeClick(slot)}
-            >
-              {slot}
-            </button>
-          ))}
-        </div>
-      </div>
+        {errorMessage && (
+          <div style={{
+            color: "red",
+            backgroundColor: "#ffe5e5",
+            padding: "10px",
+            borderRadius: "8px",
+            marginBottom: "15px",
+            textAlign: "center",
+            fontWeight: "bold"
+          }}>
+            {errorMessage}
+          </div>
+        )}
 
-      {/* Description */}
-      <div className="description-section">
-        <h3>Reason for Appointment</h3>
-        <textarea
-          className="description-box"
-          placeholder="Write a short description..."
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          rows={4}
-        ></textarea>
-      </div>
+        <div className="selector-section">
+          <h3>Choose a day for an appointment</h3>
+          <div className="day-selector">
+            {getNextSevenDays().map((dateObj) => (
+              <button
+                key={dateObj.date}
+                className={`day-button ${selectedDate === dateObj.date ? "selected" : ""}`}
+                onClick={() => setSelectedDate(dateObj.date)}
+              >
+                <div className="day-name">{dateObj.day}</div>
+                <div className="day-date">{dateObj.displayDate}</div>
+              </button>
+            ))}
+          </div>
+        </div>
 
-      <div className="last">
-        <button className="lastbutton" onClick={handleBookAppointment}>Book Appointment</button>
+        <div className="selector-section">
+          <h3>Choose a time for an appointment</h3>
+          <div
+            className="time-selector"
+            style={{
+              border: !bookedSlot ? "2px dashed red" : "none",
+              padding: "10px",
+              borderRadius: "10px"
+            }}
+          >
+            {["09:00", "09:45", "10:25", "11:00", "11:45", "13:30", "15:00", "15:45"].map((slot, index) => (
+              <button
+                key={index}
+                className={`time-button ${bookedSlot === slot ? "booked" : ""}`}
+                onClick={() => handleTimeClick(slot)}
+              >
+                {slot}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="description-section">
+          <h3>Reason for Appointment</h3>
+          <textarea
+            className="description-box"
+            placeholder="Write a short description..."
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            rows={4}
+            style={{
+              border: !description.trim() ? "2px solid red" : "1px solid #ccc",
+              outline: "none",
+              padding: "10px",
+              borderRadius: "8px"
+            }}
+          ></textarea>
+        </div>
+
+        <div className="last">
+          <button
+            className="lastbutton"
+            onClick={handleBookAppointment}
+            disabled={loading}
+            style={{
+              opacity: loading ? 0.6 : 1,
+              cursor: loading ? "not-allowed" : "pointer"
+            }}
+          >
+            {loading ? "Booking..." : "Book Appointment"}
+          </button>
+        </div>
       </div>
     </div>
-      </div>
   );
 };
 

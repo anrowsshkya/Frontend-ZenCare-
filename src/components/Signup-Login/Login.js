@@ -94,6 +94,13 @@ const Login = () => {
         </span>
       );
     }
+
+
+    if (!localStorage.getItem("userInfoSubmitted")) {
+      localStorage.setItem("showUserInfoModal", "true");
+    }
+ 
+
   };
 
   return (

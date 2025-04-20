@@ -1,18 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./forgot.css";
 import forgot from "../../assets/forgot.png";
-import Verify from "./Verify";
 
 const ForgotPassword = () => {
-  // Hook to navigate between routes programmatically
   const navigate = useNavigate();
+
+  const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
+
+  const handleNext = () => {
+    // Basic email validation
+    if (!email) {
+      setError("Email is required.");
+    } else if (!/^\S+@\S+\.\S+$/.test(email)) {
+      setError("Enter a valid email address.");
+    } else {
+      setError("");
+      navigate("/Verify");
+    }
+  };
 
   return (
     <div className="forgot-container">
       <h2 className="logo">ZenCare</h2>
 
-      {/* Main box that contains the forgot password form */}
       <div className="forgot-box">
         <div className="forgot-icon-container">
           <img src={forgot} alt="Forgot Icon" className="forgot-icon" />
@@ -22,12 +34,17 @@ const ForgotPassword = () => {
         <p>Enter your valid email so we can send you a verification code</p>
 
         <label>Email</label>
-        <input type="email" placeholder="Enter your email" />
+        <input
+          type="email"
+          placeholder="Enter your email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
 
-        {/* Button to proceed to the verification step */}
-        <button onClick={() => navigate("/Verify")}>Next</button>
+        {error && <p className="error-message">{error}</p>}
 
-        {/* Link to go back to the login page */}
+        <button onClick={handleNext}>Next</button>
+
         <p className="back-link" onClick={() => navigate("/login")}>
           &lt; Back to login
         </p>

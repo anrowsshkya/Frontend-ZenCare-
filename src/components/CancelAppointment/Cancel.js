@@ -32,7 +32,6 @@ const Cancel = () => {
         const appointmentsData = await getAppointments(token);
         console.log("Fetched appointments:", appointmentsData);
 
-        // Check if the data is an array or an object
         if (Array.isArray(appointmentsData)) {
           setAppointments(appointmentsData);
         } else if (appointmentsData && appointmentsData.results) {
@@ -74,8 +73,28 @@ const Cancel = () => {
     }
   };
 
-  if (loading) return <div className="loading">Loading...</div>;
-  if (error) return <div className="error-message">{error}</div>;
+  if (loading) return (
+    <div style={{
+      textAlign: 'center',
+      marginTop: '50px',
+      fontSize: '18px',
+      color: '#333',
+    }}>
+      Loading...
+    </div>
+  );
+
+  if (error) return (
+    <div style={{
+      color: 'red',
+      textAlign: 'center',
+      fontWeight: 'bold',
+      marginTop: '30px',
+      fontSize: '18px',
+    }}>
+      {error}
+    </div>
+  );
 
   return (
     <div className='MyProfile'>
@@ -115,7 +134,6 @@ const Cancel = () => {
           <div>Doctor</div>
           <div>Date</div>
           <div>Time</div>
-          {/* <div>Action</div> */}
         </div>
 
         {Array.isArray(appointments) && appointments.length > 0 ? (
