@@ -63,6 +63,16 @@ const ZenCare = () => {
                 </div>
             </section>
 
+            {/* -------------------------------------About Section---------------------------------------------- */}
+
+            <section className="about">
+                <div className="about-info">
+                    <h3>About</h3>
+                    <p>Awarded with the top doctor app since 2020. With the collection of most exceptional doctors. We have the greatest appointment system.</p>
+                    <a onClick={() => navigate("/about_patient")} className="learn-more">Learn more</a>                </div>
+                <img src="/photos/about2.jpg" alt="About" className="about-img" />
+            </section>
+
             {/* -------------------------------------Top Doctors Section -------------------------------------- */}
 
             <section className="top-doctors">
