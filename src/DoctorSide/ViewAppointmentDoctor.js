@@ -44,7 +44,6 @@ const ViewAppointmentDoctor = () => {
                 appointment: appointmentId,
                 prescription_text: prescription,
 
-                // ✅ Optional fields to send
                 patient_name: appointment.patient_name,
                 doctor_name: appointment.doctor_name,
                 doctor_profession: appointment.doctor_profession,
