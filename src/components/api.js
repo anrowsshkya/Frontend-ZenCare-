@@ -2,83 +2,72 @@ import axios from "axios";
 
 // Base URL of your backend API
 const API_BASE_URL = "https://zencare-backend-2.onrender.com";
-
 const token = localStorage.getItem("access_token");
-
 
 // ================================
 // Function to Register a New User
 // ================================
 export const registerUser = async (userData) => {
   try {
-    // Make POST request to backend with user data
     const response = await axios.post(`${API_BASE_URL}/auth/register/`, userData, {
       headers: {
-        "Content-Type": "application/json", // Ensures data is sent in JSON format
+        "Content-Type": "application/json",
       },
     });
-    return response; // Return the response data (e.g., success message)
+    return response;
   } catch (error) {
-    // Log error message from server or general error
     console.error("Error:", error.response ? error.response.data : error.message);
-    throw (error);
+    throw error;
   }
 };
-
 
 // ============================
 // Function to Log in a User
 // ============================
 export const loginUser = async (userData) => {
   try {
-    // Make POST request to login endpoint with credentials
     const response = await axios.post(`${API_BASE_URL}/auth/login/`, userData, {
       headers: {
-        "Content-Type": "application/json", // Sends data in JSON format
+        "Content-Type": "application/json",
       },
     });
-    return response; // Return token or user info on success
+    return response;
   } catch (error) {
-    // Log error message from server or general error
     console.error("Error:", error.response ? error.response.data : error.message);
-    throw (error);
+    throw error;
   }
 };
 
+// ============================
+// Function to Book Appointment
+// ============================
 export const book = async (appointmentData) => {
   try {
-    // Transform the data to match the expected field names
     const formattedData = {
-      // Send doctor as a primary key value
       doctor: appointmentData.doctorId,
-      doctor_name: appointmentData.doctorName, // Include doctor's name
-      appointment_date: appointmentData.date, // Should be in YYYY-MM-DD format
-      appointment_time: appointmentData.time, // Should be in hh:mm format
+      doctor_name: appointmentData.doctorName,
+      appointment_date: appointmentData.date,
+      appointment_time: appointmentData.time,
       description: appointmentData.description,
-      user: appointmentData.userId // Send user as a primary key value
+      user: appointmentData.userId
     };
 
-    console.log("Sending to API:", formattedData);
-
-    // Make POST request to backend with appointment data
     const response = await axios.post(`${API_BASE_URL}/appointment/create/`, formattedData, {
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
-    return response; // Return the response data (e.g., success message)
+    return response;
   } catch (error) {
-    // Log the full error response
-    console.error("Error booking appointment:", error.response ? error.response.data : error.message);
-    console.error("Full error response:", error.response);
-    throw error; // Re-throw the error to be handled by the component
+    console.error("Error booking appointment:", error.response?.data || error.message);
+    throw error;
   }
 };
 
-// ================================
-// Function to UserInfo a New User
-// ================================
+// ============================
+// Complete User Profile
+// ============================
 export const userInfo = async (formData, token) => {
   try {
     const response = await axios.put(`${API_BASE_URL}/complete-profile/`, formData, {
@@ -90,60 +79,49 @@ export const userInfo = async (formData, token) => {
     return response;
   } catch (error) {
     console.error("API Error:", error.response?.data || error.message);
-    throw (error);
+    throw error;
   }
 };
 
-
-
-// ================================
-// Function to userProfile a New User
-// ================================
+// ============================
+// Get User Profile Details
+// ============================
 export const userProfile = async (token) => {
-  console.log(token);
-
   try {
-    // Make POST request to backend with user data
     const response = await axios.get(`${API_BASE_URL}/profile-details/`, {
       headers: {
-        "Content-Type": "application/json", // Ensures data is sent in JSON format
-        "Authorization": `Bearer ${token}`, // attach token here
-
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
     });
-    return response; // Return the response data (e.g., success message)
+    return response;
   } catch (error) {
-    // Log error message from server or general error
     console.error("Error:", error.response ? error.response.data : error.message);
-    throw (error);
+    throw error;
   }
 };
 
-// ================================
-// Function to FindDoctors a New User
-// ================================
+// ============================
+// Fetch All Doctors
+// ============================
 export const findDoctor = async () => {
-  console.log(token);
-
   try {
-    // Make POST request to backend with user data
     const response = await axios.get(`${API_BASE_URL}/doctors/`, {
       headers: {
-        "Content-Type": "application/json", // Ensures data is sent in JSON format
-        "Authorization": `Bearer ${token}`, // attach token here
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
     });
-    return response; // Return the response data (e.g., success message)
+    return response;
   } catch (error) {
     console.error("Error:", error.response ? error.response.data : error.message);
-    throw (error);
+    throw error;
   }
 };
 
-
-// ================================
-// Function to Cancel Appointments 
-// ================================
+// ============================
+// Get Appointments
+// ============================
 export const getAppointments = async (token) => {
   try {
     const response = await axios.get(`${API_BASE_URL}/appointment/`, {
@@ -152,14 +130,108 @@ export const getAppointments = async (token) => {
       },
     });
 
-    // Check if it's an object with data
-    console.log("Raw response for appointments:", response.data);
-
-    // Fix if it's wrapped in an object like { results: [...] }
     return Array.isArray(response.data) ? response.data : response.data.results || [];
   } catch (error) {
     console.error("Failed to fetch appointments:", error);
-    return []; // Fallback to empty array
+    return [];
   }
 };
 
+// ============================
+// Get Prescriptions Needing Lab Tests
+// ============================
+export const getPrescriptionsNeedingLabTests = async () => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/appointment/lab-tests-required/`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching lab test prescriptions:", error.response?.data || error.message);
+    throw error;
+  }
+};
+
+// ============================
+// Get Prescription By ID
+// ============================
+export const getPrescriptionById = async (id) => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/appointment/prescriptions/${id}/`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching prescription:", error.response?.data || error.message);
+    throw error;
+  }
+};
+
+// ============================
+// Submit Lab Report
+// ============================
+export const submitLabReport = async (reportData) => {
+  try {
+    const response = await axios.post(`${API_BASE_URL}/appointment/reports/create/`, reportData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error submitting lab report:", error.response?.data || error.message);
+    throw error;
+  }
+};
+
+// ============================
+// Submit Lab Description
+// ============================
+export const submitLabDescription = async (id, description) => {
+  try {
+    await axios.put(`${API_BASE_URL}/appointment/prescriptions/${id}/`, {
+      lab_description: description,
+      status: "Report Submitted",
+    }, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  } catch (error) {
+    console.error("Error updating prescription description:", error.response?.data || error.message);
+    throw error;
+  }
+};
+
+// ============================
+// Get All Reports for Patient
+// ============================
+export const getPatientReports = async () => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/appointment/reports/`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching patient reports:", error.response?.data || error.message);
+    throw error;
+  }
+};
+
+
+const axiosInstance = axios.create({
+  baseURL: "http://localhost:8000/api", // or whatever your Django backend is
+  headers: {
+    Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+    "Content-Type": "application/json",
+  },
+});
+
+export default axiosInstance;

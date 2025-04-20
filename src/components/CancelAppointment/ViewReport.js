@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import user from "../../assets/circle-user.png";
 import { useNavigate, useLocation } from "react-router-dom";
 import '../UserProfile/MyProfile.css';
-import './Cancel.css'; // reuse same styling
+import './Cancel.css';
+import { getPatientReports } from "../api"; // ✅ Import API
 
 const ViewReport = () => {
   const location = useLocation();
@@ -13,20 +14,19 @@ const ViewReport = () => {
     last_name: "Smith"
   });
 
-  const [appointments, setAppointments] = useState([
-    {
-      id: 1,
-      doctor_name: "Dr. Ayesha Khan",
-      appointment_date: "2025-04-15",
-      appointment_time: "10:00 AM",
-    },
-    {
-      id: 2,
-      doctor_name: "Dr. Ravi Mehra",
-      appointment_date: "2025-04-18",
-      appointment_time: "2:00 PM",
-    }
-  ]);
+  const [appointments, setAppointments] = useState([]);
+
+  useEffect(() => {
+    const fetchReports = async () => {
+      try {
+        const data = await getPatientReports();
+        setAppointments(data); // API returns array of reports
+      } catch (error) {
+        console.error("Failed to fetch patient reports:", error);
+      }
+    };
+    fetchReports();
+  }, []);
 
   return (
     <div className='MyProfile'>
@@ -49,8 +49,7 @@ const ViewReport = () => {
       <div className='profile-sidebar'>
         <button className='mp-button'>Dashboard</button>
         <button className={`mp-button ${location.pathname === "/MyProfile" ? "active" : ""}`} onClick={() => navigate("/MyProfile")}>My Profile</button>
-        <button className={`mp-button ${location.pathname === "/ViewReport" ? "active" : ""}`} onClick={() => navigate("/ViewReport")}>Reports</button>
-        <button className='mp-button'>Lab Reports</button>
+        <button className={`mp-button ${location.pathname === "/ViewReport" ? "active" : ""}`} onClick={() => navigate("/ViewReport")}>Lab Reports</button>
         <button className='mp-button'>Change Password</button>
         <button className='mp-button2' onClick={() => {
           localStorage.removeItem('access_token');
@@ -66,6 +65,7 @@ const ViewReport = () => {
           <div>Doctor</div>
           <div>Date</div>
           <div>Time</div>
+          <div>Action</div>
         </div>
 
         {appointments.map((appt) => (
@@ -75,7 +75,7 @@ const ViewReport = () => {
             <p>{appt.appointment_time}</p>
             <p>
               <button className="view-icon" onClick={() => navigate("/ShowReport", {
-                state: { appointmentId: appt.id }
+                state: { report: appt }
               })}>View</button>
             </p>
           </div>

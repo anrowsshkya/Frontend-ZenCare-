@@ -52,6 +52,11 @@
     margin-top: 350px;
     width: 150px;
 }
+.nav-btn.active{
+    background-color: #1D4189;
+    color: white;
+    transform: translateY(2px);
+}
 .nav-btn-logout:hover {
     background-color: #FF4D4D;
     color: white;

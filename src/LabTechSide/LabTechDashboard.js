@@ -1,18 +1,29 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "./LabTechDashboard.css";
 
 const LabTechDashboard = () => {
     const navigate = useNavigate();
+    const location = useLocation();
+    console.log("Current location:", location.pathname); // Debugging line
 
     return (
         <div className="labtech-dashboard">
             <aside className="lb-sidebar">
                 <div className="lb-logo">ZenCare</div>
                 <nav>
-                    <button className="lb-nav-btn">Dashboard</button>
-                    <button className="lb-nav-btn" onClick={() => navigate("/appointments-lab")}>Lab Reports</button>
-                    <button className="lb-nav-btn">Patient Records</button>
+                    <button
+                        className={`lb-nav-btn ${location.pathname === "/lab-tech-dash" ? "active" : ""}`}
+                        onClick={() => navigate("/lab-tech-dash")}
+                    >
+                        Dashboard
+                    </button>
+                    <button
+                        className={`lb-nav-btn ${location.pathname === "/appointments-lab" ? "active" : ""}`}
+                        onClick={() => navigate("/appointments-lab")}
+                    >
+                        Lab Reports
+                    </button>                    
                     <button className="lb-nav-btn-logout" onClick={() => navigate("/login")}>Log out</button>
                 </nav>
             </aside>
