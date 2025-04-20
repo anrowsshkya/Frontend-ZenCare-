@@ -1,23 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { getAppointments } from "../components/api"; // Adjust this path based on where your api.js is
 import "./DoctorDashboard.css";
 import "./AppointmentsDoctorSide.css";
 
 const AppointmentsDoctorSide = () => {
     const navigate = useNavigate();
-
-    // Placeholder for appointment data
     const [appointments, setAppointments] = useState([]);
 
-    // ---------------------------
-    // when API is ready:
-    /*
     useEffect(() => {
         const fetchAppointments = async () => {
             try {
-                const response = await fetch("YOUR_API_ENDPOINT_HERE");
-                const data = await response.json();
-                setAppointments(data); // Adjust based on your API response structure
+                const token = localStorage.getItem("access_token");
+                const data = await getAppointments(token);
+
+                // Optional: Format data based on actual response structure
+                const formattedAppointments = data.map(appt => ({
+                    id: appt.id, // <-- add this
+                    name: appt.patient_name,
+                    date: appt.appointment_date,
+                    time: appt.appointment_time,
+                    status: "View",
+                }));
+
+                setAppointments(formattedAppointments);
             } catch (error) {
                 console.error("Error fetching appointments:", error);
             }
@@ -25,19 +31,6 @@ const AppointmentsDoctorSide = () => {
 
         fetchAppointments();
     }, []);
-    */
-    // ---------------------------
-
-    //Temporarily using hardcoded data for now:
-    const dummyAppointments = [
-        { name: "Sarada Pandey", date: "01/04/2025", time: "10:00 AM", status: "View" },
-        { name: "Arpan Ghale", date: "01/09/2025", time: "1:30 PM", status: "View" },
-        { name: "Aryan Adhikari", date: "12/04/2024", time: "3:00 PM", status: "View" },
-        { name: "Divya Giri", date: "06/07/2023", time: "5 PM", status: "View" },
-    ];
-
-    //Comment out the below line once API is connected
-    const displayData = appointments.length > 0 ? appointments : dummyAppointments;
 
     return (
         <div className="doctor-dashboard">
@@ -46,7 +39,6 @@ const AppointmentsDoctorSide = () => {
                 <nav>
                     <button className="nav-btn" onClick={() => navigate("/doc-dash")}>Dashboard</button>
                     <button className="nav-btn">Appointments</button>
-                    <button className="nav-btn">Patient Records</button>
                     <button className="nav-btn logout" onClick={() => navigate("/login")}>Log out</button>
                 </nav>
             </aside>
@@ -57,10 +49,6 @@ const AppointmentsDoctorSide = () => {
                 </div>
 
                 <div className="appointments-container">
-                    {/* <div className="search-bar">
-                        <input type="text" placeholder="Search" />
-                    </div> */}
-
                     <table className="appointments-table">
                         <thead>
                             <tr>
@@ -71,21 +59,31 @@ const AppointmentsDoctorSide = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {displayData.map((appt, index) => (
+                            {appointments.map((appt, index) => (
                                 <tr key={index}>
                                     <td>{appt.name}</td>
                                     <td>{appt.date}</td>
                                     <td>{appt.time}</td>
                                     <td>
-                                        <span className="status confirmed" onClick={() => navigate("/view-appointment-doctor")}>{appt.status}</span>
+                                        <span
+                                            className="status confirmed"
+                                            onClick={() =>
+                                                navigate("/view-appointment-doctor", {
+                                                    state: { appointmentId: appt.id }
+                                                })
+                                            }
+
+                                        >
+                                            {appt.status}
+                                        </span>
                                     </td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
                 </div>
-            </main >
-        </div >
+            </main>
+        </div>
     );
 };
 

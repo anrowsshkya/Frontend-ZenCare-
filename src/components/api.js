@@ -163,3 +163,29 @@ export const getAppointments = async (token) => {
   }
 };
 
+
+
+// ================================
+// Function to Save Prescription
+// ================================
+export const savePrescription = async (data) => {
+  const token = localStorage.getItem("access_token");
+
+  try {
+    const response = await axios.post(
+      `${API_BASE_URL}/appointment/prescriptions/create/`,
+      data,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error saving prescription:", error.response?.data || error.message);
+    throw error;
+  }
+};
+
