@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getAppointments } from "../components/api"; // Adjust this path based on where your api.js is
+import { getAppointments } from "../components/api";
 import "./DoctorDashboard.css";
 import "./AppointmentsDoctorSide.css";
 
