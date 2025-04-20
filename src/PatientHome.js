@@ -80,9 +80,9 @@ const ZenCare = () => {
                 <div className="doctor-list">
                     <h3>Top Doctors</h3>
                     <ol>
-                        <li>Dr. Arrows Shakya</li>
-                        <li>Dr. Sushi Gautam</li>
-                        <li>Dr. Brook Magar</li>
+                        <li>We hire only the best doctors.</li>
+                        <li>The doctors are well qualified and experts.</li>
+                        <li>Look through out top listed doctors.</li>
                     </ol>
                     <a onClick={() => navigate("/topdoc")} className="learn-more">Learn more</a>
                 </div>

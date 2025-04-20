@@ -8,6 +8,7 @@
 /* Sidebar */
 .sidebar {
     width: 220px;
+    height: auto;
     background-color: #E0F2FE;
     color: #1D4189;
     display: flex;
