@@ -1,13 +1,15 @@
 .MyProfile {
   display: flex;
   flex-direction: row;
-  margin-right: 0px;
+  margin-right: 80px;
+  margin-top: -10px;
 }
 
 .mp-topbar {
-  position: fixed;
-  height: 100px;
-  width: 1200px;
+  position: absolute;
+  margin-left: -55px;
+  height: 90px;
+  width: 1550px;
   background-color: #E0F2FE;
   display: flex;
   padding: 0 30px;
@@ -23,25 +25,35 @@
   display: flex;
   gap: 15px;
   margin-right: auto;
-  margin-left: 520px;
-  /* height: 20px; */
+  margin-left: 800px;
 }
 
-.top-btn,
-.top-btn2 {
+.top-btn, .top-btn2 {
+  position: relative;
   background-color: #E0F2FE;
   color: #2B4D90;
-  border: none;
   font-weight: bold;
-  padding: 8px 16px;
-  border-radius: 4px;
   cursor: pointer;
 }
 
-.top-btn:hover,
-.top-btn2:hover {
-  background-color: #ffffff;
+.top-btn::after,
+.top-btn2::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #2B4D90;
+  transition: width 0.4s ease;
 }
+
+.top-btn:hover::after,
+.top-btn2:hover::after {
+  width: 100%;
+}
+
+
 
 .mp-profile {
   height: 60px;
@@ -53,12 +65,13 @@
   border: 1px solid #2B4D90;
   border-radius: 20px;
   padding: 8px 12px;
+  margin-right: 20px;
 }
 
 .mp-profile img {
   width: 40px;
   height: 40px;
-  border-radius: 50%;
+  /* border-radius: 100%; */
 }
 
 .profile-name {
@@ -67,18 +80,19 @@
 }
 
 .profile-sidebar {
-  margin-top: 100px;
+  margin-top: 110px;
   background-color: #E0F2FE;
   width: 250px;
-  height: calc(100vh - 100px);
+  height: 570px;
   padding: 20px;
   display: flex;
   flex-direction: column;
   gap: 30px;
+  border: 1px solid #2B4D90;
+  border-radius: 10px;
 }
 
-.mp-button,
-.mp-button2 {
+.mp-button {
   border: 1px solid #2B4D90;
   padding: 10px;
   font-weight: bold;
@@ -89,7 +103,8 @@
 
 .mp-button2 {
   color: #D91316;
-  margin-top: auto;
+  background-color: #ffffff;
+  margin-top: 100px;
 }
 
 .mp-button:hover {
@@ -103,7 +118,7 @@
 }
 
 .mp-main-content {
-  margin-left: 10px;
+  margin-left: 200px;
   margin-top: 75px;
   padding: 20px;
   width: calc(100% - 270px);
@@ -113,26 +128,28 @@
   color: #2B4D90;
   font-weight: bold;
   font-size: 24px;
-  margin-bottom: 25px;
-  margin-top: 30px;
+  margin-bottom: 95px;
+  margin-top: 20px;
+  margin-left: -120px;
 }
 
 .mp-profile-card {
-  background-color: #E0F2FE;
-  border: 1px solid #2B4D90;
-  border-radius: 10px;
+  position: absolute;
   padding: 20px;
   display: flex;
+  flex-direction: column;
   gap: 20px;
   align-items: center;
-  margin-bottom: 80px;
-  width: 915px;
+  margin-bottom: 10px;
+  margin-left: 300px;
+  /* width: 915px; */
 }
 
 .mp-profile-card img {
+  margin-top: -100px;
   height: 150px;
   width: 150px;
-  border-radius: 20px;
+  border-radius: 100px;
   object-fit: cover;
   border: 2px solid #2B4D90;
 }
@@ -169,16 +186,19 @@
 }
 
 .mp-info-section {
-  margin-left: 2px;
+  margin-top: 80px;
+  margin-left: -60px;
   background-color: #E0F2FE;
   border: 1px solid #2B4D90;
   border-radius: 10px;
   padding: 20px;
   color: #2B4D90;
   width: 915px;
+  height: 425px;
 }
 
 .mp-info-section h3 {
+  margin-top: 150px;
   margin-bottom: 30px;
   /* margin-top: 20px; */
 }

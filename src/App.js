@@ -19,12 +19,13 @@ import ViewAppointmentDoctor from "./DoctorSide/ViewAppointmentDoctor";
 import AppointmentForm from "./components/AppointmentForms/AppointmentForm";
 import Cancel from "./components/CancelAppointment/Cancel";
 import LabTechReport from "./LabTechSide/LabTechReport";
-import AppointmentsLab from "./LabTechSide/AppointmentLab";
+import AppointmentLab from "./LabTechSide/AppointmentLab";
 import ViewReport from "./components/CancelAppointment/ViewReport";
 import ShowReport from "./components/CancelAppointment/ShowReport";
-// import ForgotPassword from "./components/ForgotPassword/ForgotPassword";
-// import ResetPassword from "./components/ForgotPassword/ResetPassword";
-// import Verify from "./components/ForgotPassword/Verify";
+import ForgotPassword from "./components/ForgotPassword/ForgotPassword";
+import ResetPassword from "./components/ForgotPassword/ResetPassword";
+import Verify from "./components/ForgotPassword/Verify";
+import ChangePassword from "./components/UserProfile/ChangePassword";
 
 import "./App.css";
 
@@ -52,13 +53,14 @@ function App() {
           <Route path="/Form" element={<AppointmentForm />} />
           <Route path="/Cancel" element={<Cancel />} />
           <Route path="/lab-tech-report" element={<LabTechReport />} />
-          <Route path="/appointments-lab" element={<AppointmentsLab />} />
+          <Route path="/appointments-lab" element={<AppointmentLab />} />
           <Route path="/ViewReport" element={<ViewReport />} />
           <Route path="/ShowReport" element={<ShowReport />} />
-          {/* <Route path="/forgotPassword" element={<ForgotPassword />} />
+          <Route path="/forgotPassword" element={<ForgotPassword />} />
           <Route path="/resetPassword" element={<ResetPassword />} />
-          <Route path="/verify" element={<Verify />} /> */}
-          {/* Add more routes as needed */}
+          <Route path="/verify" element={<Verify />} /> 
+          <Route path="/changePassword" element={<ChangePassword />} />
+          
 
         </Routes>
       </div>

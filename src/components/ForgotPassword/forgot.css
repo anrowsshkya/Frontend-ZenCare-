@@ -7,7 +7,7 @@
     background-color: #f8f9fc;
 }
 
-.logo {
+.f-logo {
     position: absolute;
     top: 20px;
     left: 30px;
@@ -57,7 +57,7 @@ p {
     margin-bottom: 10px;
 }
 
-label {
+.f-label {
     display: block;
     font-weight: bold;
     margin-top: 10px;
@@ -71,9 +71,11 @@ input {
     margin-top: 5px;
     border: 1px solid #cbd5e1;
     border-radius: 5px;
+    background-color: #ffffff;
+    color: black;
 }
 
-button {
+.f-button {
     width: 100%;
     padding: 10px;
     margin-top: 25px;
@@ -96,4 +98,8 @@ button {
     margin: 5px 0 10px;
     text-align: left;
   }
-  
+  .f-button:hover{
+    background-color: white;
+    color: #1d3b6b;
+    border: 1px solid #1d3b6b;
+  }

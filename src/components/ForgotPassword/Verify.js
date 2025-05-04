@@ -31,7 +31,7 @@ const Verify = () => {
 
   return (
     <div className="forgot-container">
-      <h2 className="logo">ZenCare</h2>
+      <h2 className="f-logo">ZenCare</h2>
 
       {/* Main box */}
       <div className="forgot-box">
@@ -65,7 +65,7 @@ const Verify = () => {
         </div>
 
         {/* Submit button */}
-        <button onClick={handleSubmit}>Check</button>
+        <button className="f-button" onClick={handleSubmit}>Check</button>
 
         {/* Back navigation link */}
         <p className="back-link" onClick={() => navigate("/ForgotPassword")}>
