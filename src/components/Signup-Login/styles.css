@@ -50,6 +50,7 @@ p {
 
 label {
     display: block;
+    color: #333;
     font-size: 14px;
     margin-bottom: 5px;
 }

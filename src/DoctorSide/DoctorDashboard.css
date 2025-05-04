@@ -1,5 +1,6 @@
 .doctor-dashboard {
     display: flex;
+    margin-left: -320px;
     height: 100vh;
     font-family: "Segoe UI", sans-serif;
     background-color: white;
@@ -43,7 +44,7 @@
     color: white;
 }
 
-.logout {
+.nav-btn-logout {
     margin-top: auto;
     color: #FF4D4D;
     background-color: white;
@@ -63,6 +64,8 @@
 
 /* Main Content */
 .main-content {
+    margin-top: 100px;
+    margin-left: 100px;
     flex-grow: 1;
     padding: 40px;
     background-color: white;
@@ -71,6 +74,8 @@
 /* Welcome Section */
 .welcome-section {
     background-color: #E0F2FE;
+    width: 700px;
+    text-align: center;
     padding: 30px;
     border-radius: 12px;
     margin-bottom: 30px;

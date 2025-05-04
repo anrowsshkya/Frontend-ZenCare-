@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import user from "../../assets/circle-user.png";
 import user1 from "../../assets/content-user.png";
+import bell from "../../assets/bell.png";
 import { useNavigate, useLocation } from "react-router-dom";
 import './MyProfile.css';
 import { userProfile } from "../api";
@@ -32,6 +33,7 @@ const MyProfile = () => {
         <div className='mp-nav-buttons'>
           <button className='top-btn' onClick={() => navigate("/PatientHome")}>Home</button>
           <button className='top-btn2' onClick={() => navigate("/find-doctor")}>Find Doctors</button>
+          <button onClick={() => navigate("/PatientHome")}><img src={bell} alt="Notifications" width="24" height="24" /></button>
         </div>
         <div className='mp-profile'>
           <img src={user} alt='Profile' />

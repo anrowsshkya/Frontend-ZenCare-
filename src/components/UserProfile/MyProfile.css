@@ -25,7 +25,10 @@
   display: flex;
   gap: 15px;
   margin-right: auto;
-  margin-left: 800px;
+  margin-left: 750px;
+}
+.iconbtn{
+  background-color: #E0F2FE;
 }
 
 .top-btn, .top-btn2 {
@@ -43,7 +46,7 @@
   bottom: 4px;
   left: 0;
   width: 0;
-  height: 2px;
+  /* height: 2px; */
   background-color: #2B4D90;
   transition: width 0.4s ease;
 }
