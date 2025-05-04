@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./forgot.css";
+import "../ForgotPassword/forgot.css";
 import reset from "../../assets/reset.png";
 
-const ResetPassword = () => {
+const ChangePassword = () => {
   const navigate = useNavigate();
 
   // State to store the new password input
@@ -56,7 +56,15 @@ const ResetPassword = () => {
 
         {/* Input fields for password and confirm password */}
         <div className="password-fields">
-          <label className="f-label">Enter new password</label>
+          
+          <label>Enter Current Password</label>
+          <input
+            type="password"
+            placeholder="Current Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <label>Enter new password</label>
           <input
             type="password"
             placeholder="New password"
@@ -64,7 +72,7 @@ const ResetPassword = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
 
-          <label className="f-label">Confirm password</label>
+          <label>Confirm password</label>
           <input
             type="password"
             placeholder="Confirm password"
@@ -83,4 +91,4 @@ const ResetPassword = () => {
   );
 };
 
-export default ResetPassword;
+export default ChangePassword;

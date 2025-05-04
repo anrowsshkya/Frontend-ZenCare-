@@ -1,92 +1,104 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import "../DoctorSide/DoctorDashboard.css";
-import "../DoctorSide/AppointmentsDoctorSide.css";
+// import React, { useEffect, useState } from "react";
+// import { useNavigate, useLocation } from "react-router-dom";
+// import "../DoctorSide/DoctorDashboard.css";
+// import "../DoctorSide/AppointmentsDoctorSide.css";
+// import { getPrescriptionsNeedingLabTests } from "../components/api";
 
-const AppointmentsLab = () => {
-    const navigate = useNavigate();
+// const AppointmentLab = () => {
+//     const navigate = useNavigate();
+//     const location = useLocation();
+//     const [appointments, setAppointments] = useState([]);
+//     const [loading, setLoading] = useState(true);
 
-    // Placeholder for appointment data
-    const [appointments, setAppointments] = useState([]);
+//     useEffect(() => {
+//         const fetchAppointments = async () => {
+//             const token = localStorage.getItem("access_token");
+//             if (!token) {
+//                 console.error("Access token not found.");
+//                 // navigate("/login");
+//                 return;
+//             }
+    
+//             try {
+//                 const data = await getPrescriptionsNeedingLabTests();
+//                 setAppointments(data);
+//             } catch (error) {
+//                 console.error("Error fetching appointments:", error);
+//             } finally {
+//                 setLoading(false);
+//             }
+//         };
+    
+//         fetchAppointments();
+//     }, [navigate]);
+    
 
-    // ---------------------------
-    // when API is ready:
-    /*
-    useEffect(() => {
-        const fetchAppointments = async () => {
-            try {
-                const response = await fetch("YOUR_API_ENDPOINT_HERE");
-                const data = await response.json();
-                setAppointments(data); // Adjust based on your API response structure
-            } catch (error) {
-                console.error("Error fetching appointments:", error);
-            }
-        };
+//     return (
+//         <div className="doctor-dashboard">
+//             <aside className="sidebar">
+//                 <div className="logo">ZenCare</div>
+//                 <nav>
+//                     <button
+//                         className={`nav-btn ${location.pathname === "/lab-tech-dash" ? "active" : ""}`}
+//                         onClick={() => navigate("/lab-tech-dash")}
+//                     >
+//                         Dashboard
+//                     </button>
+//                     <button
+//                         className={`nav-btn ${location.pathname === "/appointments-lab" ? "active" : ""}`}
+//                         onClick={() => navigate("/appointments-lab")}
+//                     >
+//                         Lab Reports
+//                     </button>
+//                     <button className="nav-btn-logout" onClick={() => navigate("/login")}>
+//                         Log out
+//                     </button>
+//                 </nav>
+//             </aside>
 
-        fetchAppointments();
-    }, []);
-    */
-    // ---------------------------
+//             <main className="main-content">
+//                 <div className="welcome-section">
+//                     <h1>Prescriptions for Lab Tests</h1>
+//                 </div>
 
-    //Temporarily using hardcoded data for now:
-    const dummyAppointments = [
-        { name: "Sarada Pandey", date: "01/04/2025", time: "10:00 AM", status: "View" },
-        { name: "Arpan Ghale", date: "01/09/2025", time: "1:30 PM", status: "View" },
-        { name: "Aryan Adhikari", date: "12/04/2024", time: "3:00 PM", status: "View" },
-        { name: "Divya Giri", date: "06/07/2023", time: "5 PM", status: "View" },
-    ];
+//                 <div className="appointments-container">
+//                     {loading ? (
+//                         <p>Loading prescriptions...</p>
+//                     ) : appointments.length === 0 ? (
+//                         <p>No prescriptions available for lab tests.</p>
+//                     ) : (
+//                         <table className="appointments-table">
+//                             <thead>
+//                                 <tr>
+//                                     <th>Patient Name</th>
+//                                     <th>Date</th>
+//                                     <th>Time</th>
+//                                     <th>Action</th>
+//                                 </tr>
+//                             </thead>
+//                             <tbody>
+//                                 {appointments.map((appt) => (
+//                                     <tr key={appt.id}>
+//                                         <td>{appt.patient_name || appt.name}</td>
+//                                         <td>{appt.appointment_date || appt.date}</td>
+//                                         <td>{appt.appointment_time || appt.time}</td>
+//                                         <td>
+//                                             <button
+//                                                 className="view-btn"
+//                                                 onClick={() => navigate(`/lab-tech-report/${appt.id}`)}
+//                                             >
+//                                                 View
+//                                             </button>
+//                                         </td>
+//                                     </tr>
+//                                 ))}
+//                             </tbody>
+//                         </table>
+//                     )}
+//                 </div>
+//             </main>
+//         </div>
+//     );
+// };
 
-    //Comment out the below line once API is connected
-    const displayData = appointments.length > 0 ? appointments : dummyAppointments;
-
-    return (
-        <div className="doctor-dashboard">
-            <aside className="sidebar">
-                <div className="logo">ZenCare</div>
-                <nav>
-                    <button className="nav-btn" onClick={() => navigate("/Lab-tech-dash")}>Dashboard</button>
-                    <button className="nav-btn" onClick={() => navigate("/appointments-lab")}>Lab Report</button>
-                    <button className="nav-btn">Patient Records</button>
-                    <button className="nav-btn-logout" onClick={() => navigate("/login")}>Log out</button>
-                </nav>
-            </aside>
-
-            <main className="main-content">
-                <div className="welcome-section">
-                    <h1>Appointments</h1>
-                </div>
-
-                <div className="appointments-container">
-                    {/* <div className="search-bar">
-                        <input type="text" placeholder="Search" />
-                    </div> */}
-
-                    <table className="appointments-table">
-                        <thead>
-                            <tr>
-                                <th>Patient's Name</th>
-                                <th>Date</th>
-                                <th>Time</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {displayData.map((appt, index) => (
-                                <tr key={index}>
-                                    <td>{appt.name}</td>
-                                    <td>{appt.date}</td>
-                                    <td>{appt.time}</td>
-                                    <td>
-                                        <span className="status confirmed" onClick={() => navigate("/lab-tech-report")}>{appt.status}</span>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-            </main >
-        </div >
-    );
-};
-
-export default AppointmentsLab;
+// export default AppointmentLab;

@@ -23,7 +23,7 @@ const ForgotPassword = () => {
 
   return (
     <div className="forgot-container">
-      <h2 className="logo">ZenCare</h2>
+      <h2 className="f-logo">ZenCare</h2>
 
       <div className="forgot-box">
         <div className="forgot-icon-container">
@@ -33,7 +33,7 @@ const ForgotPassword = () => {
         <h2>Forgot your Password??</h2>
         <p>Enter your valid email so we can send you a verification code</p>
 
-        <label>Email</label>
+        <label className="f-label">Email</label>
         <input
           type="email"
           placeholder="Enter your email"
@@ -43,7 +43,7 @@ const ForgotPassword = () => {
 
         {error && <p className="error-message">{error}</p>}
 
-        <button onClick={handleNext}>Next</button>
+        <button className="f-button" onClick={handleNext}>Next</button>
 
         <p className="back-link" onClick={() => navigate("/login")}>
           &lt; Back to login

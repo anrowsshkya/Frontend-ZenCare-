@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import user from "../../assets/circle-user.png";
 import user1 from "../../assets/content-user.png";
+import bell from "../../assets/bell.png";
 import { useNavigate, useLocation } from "react-router-dom";
 import './MyProfile.css';
 import { userProfile } from "../api";
@@ -32,6 +33,7 @@ const MyProfile = () => {
         <div className='mp-nav-buttons'>
           <button className='top-btn' onClick={() => navigate("/PatientHome")}>Home</button>
           <button className='top-btn2' onClick={() => navigate("/find-doctor")}>Find Doctors</button>
+          <button onClick={() => navigate("/PatientHome")}><img src={bell} alt="Notifications" width="24" height="24" /></button>
         </div>
         <div className='mp-profile'>
           <img src={user} alt='Profile' />
@@ -46,9 +48,9 @@ const MyProfile = () => {
         <button className='mp-button'>Dashboard</button>
         <button className={`mp-button ${location.pathname === "/MyProfile" ? "active" : ""}`} onClick={() => navigate("/MyProfile")}>My Profile</button>
         <button className='mp-button' onClick={() => navigate("/Cancel")}>Appointments</button>
-        <button className='mp-button'>Lab Reports</button>
-        <button className='mp-button'>Change Password</button>
-        <button className='mp-button2' onClick={() => navigate("/login")}>Log Out</button>
+        <button className='mp-button' onClick={() => navigate("/ViewReport")}>Lab Reports</button>
+        <button className='mp-button' onClick={() => navigate("/changePassword")}>Change Password</button>
+        <button className={`mp-button2 ${location.pathname === "/MyProfile" ? "active" : ""}`} onClick={() => navigate("/Login")}>Log Out</button>
       </div>
 
       {/* Main Content */}
@@ -59,9 +61,6 @@ const MyProfile = () => {
           <img src={user1} alt='mp-content-profile' />
           <div className='mp-profile-text'>
             <h3>{profileData ? `${profileData.first_name} ${profileData.last_name}` : 'Loading...'}</h3>
-            <p>Email: {profileData?.email || 'Loading...'}</p>
-            <p>Phone: {profileData?.phone_number || 'Loading...'}</p>
-            <p>Phone (Alt): {profileData?.phone_number_2 || '-'}</p>
           </div>
           {/* <button className='content-button'>Edit</button> */}
         </div>
@@ -69,6 +68,8 @@ const MyProfile = () => {
         <div className='mp-info-section'>
           <h3>Personal Information</h3>
           <div className='mp-info-grid'>
+            <div><strong>Email:</strong> {profileData?.email || 'Loading...'}</div>
+            <div><strong>Phone: </strong> {profileData?.phone_number || 'Loading...'}</div>
             <div><strong>Date of Birth:</strong> {profileData?.date_of_birth || '-'}</div>
             <div><strong>Gender:</strong> {profileData?.gender_display || '-'}</div>
             <div><strong>City:</strong> {profileData?.city || '-'}</div>
