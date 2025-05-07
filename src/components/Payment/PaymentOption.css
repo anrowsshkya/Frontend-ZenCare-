@@ -1,0 +1,157 @@
+.payment-option{
+    margin-top: -350px;
+    margin-left: -720px;
+}
+.payment-container {
+    position: absolute;
+    width: 600px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', sans-serif;
+    margin-left: 400px;
+    margin-top: 100px;
+  }
+  
+  .payment-back-button {
+    font-size: 24px;
+    color: #003087;
+    cursor: pointer;
+    margin-bottom: 20px;
+  }
+  
+  h2 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-top: -40px;
+    margin-bottom: 8px;
+    text-align: center;
+  }
+  
+  p {
+    font-size: 14px;
+    color: #555;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .payment-doctor-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #f7f9fc;
+    padding: 16px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+  }
+  
+  .payment-doctor-card img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 16px;
+  }
+  
+  .payment-doctor-card div:nth-child(2) {
+    flex-grow: 1;
+  }
+  
+  .payment-doctor-card h3 {
+    margin: 0;
+    font-size: 16px;
+  }
+  
+  .payment-doctor-card p {
+    margin: 2px 0;
+    font-size: 13px;
+    text-align: left;
+  }
+  
+  .payment-doctor-card > div:last-child {
+    font-weight: 600;
+    font-size: 16px;
+  }
+  
+  .payment-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .payment-options label {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    background-color: #fff;
+  }
+  
+  .payment-options input[type="radio"] {
+    accent-color: #003087;
+  }
+  
+  .promo {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .promo input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+  }
+  
+  .promo button {
+    padding: 10px 16px;
+    background-color: #1D4189;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  .summary {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 14px;
+  }
+  
+  .summary p {
+    margin: 4px 0;
+    text-align: left;
+  }
+  
+  .total {
+    font-weight: bold;
+  }
+  
+  .payment-proceed-button {
+    width: 100%;
+    padding: 14px;
+    background-color: #1D4189;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 12px;
+  }
+  
+  a {
+    display: block;
+    text-align: center;
+    color: #0052cc;
+    font-size: 14px;
+    text-decoration: none;
+  }
+  
