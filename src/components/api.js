@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // Base URL of your backend API
-const API_BASE_URL = "https://zencare-backend-2.onrender.com";
+const API_BASE_URL = "https://zencare-backend-2.onrender.com/api/v1";
 
 const token = localStorage.getItem("access_token");
 

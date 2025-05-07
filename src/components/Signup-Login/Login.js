@@ -69,6 +69,10 @@ const Login = () => {
           localStorage.setItem("email", email);
           alert("Doctor Login Successful!");
           navigate("/doc-dash");
+        } else if (userType === "lab_technician") {
+          localStorage.setItem("email", email);
+          alert("Lab technician Login Successful!");
+          navigate("/lab-tech-dash");
         } else if (userType === "patient") {
           alert("Patient Login Successful!");
 
@@ -99,7 +103,7 @@ const Login = () => {
     if (!localStorage.getItem("userInfoSubmitted")) {
       localStorage.setItem("showUserInfoModal", "true");
     }
- 
+
 
   };
 
