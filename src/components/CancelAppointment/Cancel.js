@@ -118,7 +118,7 @@ const Cancel = () => {
         <button className='mp-button'>Dashboard</button>
         <button className={`mp-button ${location.pathname === "/MyProfile" ? "active" : ""}`} onClick={() => navigate("/MyProfile")}>My Profile</button>
         <button className={`mp-button ${location.pathname === "/Cancel" ? "active" : ""}`} onClick={() => navigate("/Cancel")}>Appointments</button>
-        <button className='mp-button'>Lab Reports</button>
+        <button className={`mp-button ${location.pathname === "/ViewReport" ? "active" : ""}`} onClick={() => navigate("/ViewReport")}>Lab Reports</button>
         <button className='mp-button'>Change Password</button>
         <button className='mp-button2' onClick={() => {
           localStorage.removeItem('access_token');

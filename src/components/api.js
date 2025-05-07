@@ -188,4 +188,3 @@ export const savePrescription = async (data) => {
     throw error;
   }
 };
-
