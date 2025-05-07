@@ -3,6 +3,7 @@ import user from "../../assets/circle-user.png";
 import user1 from "../../assets/content-user.png";
 import bell from "../../assets/bell.png";
 import { useNavigate, useLocation } from "react-router-dom";
+import Notification from "../../components/Notification/Notification";
 import './MyProfile.css';
 import { userProfile } from "../api";
 
@@ -10,6 +11,7 @@ const MyProfile = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [profileData, setProfileData] = useState(null);
+  const [showNotification, setShowNotification] = useState(false);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -24,6 +26,10 @@ const MyProfile = () => {
     fetchProfile();
   }, []);
 
+  const notifications = [
+    { id: 1, message: "Your appointment for 2025-05-10 at 11:00 AM has been successfully booked." },
+    { id: 2, message: "Your appointment for 2025-05-05 at 03:30 PM has been canceled." }
+  ];
 
   return (
     <div className='MyProfile'>
@@ -33,7 +39,19 @@ const MyProfile = () => {
         <div className='mp-nav-buttons'>
           <button className='top-btn' onClick={() => navigate("/PatientHome")}>Home</button>
           <button className='top-btn2' onClick={() => navigate("/find-doctor")}>Find Doctors</button>
-          <button onClick={() => navigate("/PatientHome")}><img src={bell} alt="Notifications" width="24" height="24" /></button>
+          <button
+            onClick={() => setShowNotification(!showNotification)}
+            className="notification-button"
+            style={{
+              backgroundColor: "#f0f0f0",
+              border: "none",
+              borderRadius: "50%",
+              padding: "8px",
+              cursor: "pointer"
+            }}
+          >
+            <img src={bell} alt="Notifications" width="24" height="24" />
+          </button>
         </div>
         <div className='mp-profile'>
           <img src={user} alt='Profile' />
@@ -42,6 +60,14 @@ const MyProfile = () => {
           </span>
         </div>
       </div>
+
+      {/* Notification Overlay */}
+      {showNotification && (
+        <Notification
+          notifications={notifications}
+          onClose={() => setShowNotification(false)}
+        />
+      )}
 
       {/* Sidebar */}
       <div className='profile-sidebar'>
@@ -62,7 +88,6 @@ const MyProfile = () => {
           <div className='mp-profile-text'>
             <h3>{profileData ? `${profileData.first_name} ${profileData.last_name}` : 'Loading...'}</h3>
           </div>
-          {/* <button className='content-button'>Edit</button> */}
         </div>
 
         <div className='mp-info-section'>
