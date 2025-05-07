@@ -22,12 +22,12 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="forgot-container">
-      <h2 className="logo">ZenCare</h2>
+    <div className="forgot-container-fp">
+      <h2 className="forgot-logo-fp">ZenCare</h2>
 
-      <div className="forgot-box">
-        <div className="forgot-icon-container">
-          <img src={forgot} alt="Forgot Icon" className="forgot-icon" />
+      <div className="forgot-box-fp">
+        <div className="forgot-icon-container-fp">
+          <img src={forgot} alt="Forgot Icon" className="forgot-icon-fp" />
         </div>
 
         <h2>Forgot your Password??</h2>
@@ -41,15 +41,16 @@ const ForgotPassword = () => {
           onChange={(e) => setEmail(e.target.value)}
         />
 
-        {error && <p className="error-message">{error}</p>}
+        {error && <p className="error-message-fp">{error}</p>}
 
         <button onClick={handleNext}>Next</button>
 
-        <p className="back-link" onClick={() => navigate("/login")}>
+        <p className="back-link-fp" onClick={() => navigate("/login")}>
           &lt; Back to login
         </p>
       </div>
     </div>
+
   );
 };
 

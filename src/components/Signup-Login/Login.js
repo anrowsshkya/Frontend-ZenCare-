@@ -135,9 +135,13 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
 
-        <Link to="/forgotPassword" className="forgot-password">
+        {/* <Link to="/forgotPassword" className="forgot-password">
           Forget Password?
-        </Link>
+        </Link> */}
+
+        <p className="forgot-password" onClick={() => navigate("/ForgotPassword")}>
+          Forgot Password?
+        </p>
 
         <button className="login-btn" onClick={handleLogin}>
           Log in

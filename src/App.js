@@ -18,6 +18,7 @@ import AppointmentsDoctorSide from "./DoctorSide/AppointmentsDoctorSide";
 import ViewAppointmentDoctor from "./DoctorSide/ViewAppointmentDoctor";
 import AppointmentForm from "./components/AppointmentForms/AppointmentForm";
 import Cancel from "./components/CancelAppointment/Cancel";
+import ForgotPassword from "./components/ForgotPassword/ForgotPassword";
 
 import "./App.css";
 
@@ -44,7 +45,7 @@ function App() {
           <Route path="/view-appointment-doctor" element={<ViewAppointmentDoctor />} />
           <Route path="/Form" element={<AppointmentForm />} />
           <Route path="/Cancel" element={<Cancel />} />
-          {/* Add more routes as needed */}
+          <Route path="/ForgotPassword" element={<ForgotPassword />} />
 
         </Routes>
       </div>
