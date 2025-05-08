@@ -222,6 +222,10 @@ const AppointmentForm = () => {
             <button className="go-home" onClick={() => navigate("/PatientHome")}>
               Go to Home
             </button>
+
+            <button className="view-appointment" onClick={() => navigate("/Cancel")}>
+              View Appointment?
+            </button>
           </div>
         </div>
       )}
