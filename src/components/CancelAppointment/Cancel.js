@@ -16,6 +16,10 @@ const Cancel = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const [showPopup, setShowPopup] = useState(false);
+  const [selectedApptId, setSelectedApptId] = useState(null);
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false); // success popup state
+
   useEffect(() => {
     const fetchData = async () => {
       const token = localStorage.getItem('access_token');
@@ -52,24 +56,33 @@ const Cancel = () => {
     fetchData();
   }, []);
 
-  const handleDelete = async (id) => {
-    const token = localStorage.getItem('access_token');
-    if (!token) return;
+  const confirmCancel = (id) => {
+    setSelectedApptId(id);
+    setShowPopup(true);
+  };
 
-    if (!window.confirm("Are you sure you want to cancel this appointment?")) return;
+  const handleConfirmDelete = async () => {
+    const token = localStorage.getItem('access_token');
+    if (!token || !selectedApptId) return;
 
     try {
-      await axios.delete(`${API_BASE_URL}/appointment/${id}/`, {
+      await axios.delete(`${API_BASE_URL}/appointment/${selectedApptId}/`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
-      setAppointments((prev) => prev.filter((appt) => appt.id !== id));
-      alert("Appointment cancelled.");
+      setAppointments((prev) => prev.filter((appt) => appt.id !== selectedApptId));
+      setShowPopup(false);
+      setSelectedApptId(null);
+      setShowSuccessPopup(true); // show success popup
+      setTimeout(() => {
+        setShowSuccessPopup(false);
+      }, 2500);
     } catch (error) {
       console.error("Failed to delete appointment:", error);
       alert("Could not cancel the appointment.");
+      setShowPopup(false);
     }
   };
 
@@ -143,7 +156,7 @@ const Cancel = () => {
               <p>{appt.appointment_date}</p>
               <p>{appt.appointment_time}</p>
               <p>
-                <button className="delete-icon" onClick={() => handleDelete(appt.id)}>Cancel</button>
+                <button className="delete-icon" onClick={() => confirmCancel(appt.id)}>Cancel</button>
               </p>
             </div>
           ))
@@ -151,6 +164,28 @@ const Cancel = () => {
           <p>No appointments booked yet.</p>
         )}
       </div>
+
+      {/* Cancel Confirmation Popup */}
+      {showPopup && (
+        <div className="popup-overlay">
+          <div className="popup-content">
+            <h3>Are you sure you want to cancel this appointment?</h3>
+            <div className="popup-actions">
+              <button className="popup-confirm" onClick={handleConfirmDelete}>Yes, Cancel</button>
+              <button className="popup-cancel" onClick={() => setShowPopup(false)}>No, Go Back</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Success Popup */}
+      {showSuccessPopup && (
+        <div className="success-popup-overlay">
+          <div className="success-popup-content">
+            <h3>Appointment cancelled successfully!</h3>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
