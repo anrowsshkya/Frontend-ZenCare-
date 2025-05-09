@@ -12,6 +12,7 @@ const MyProfile = () => {
   const navigate = useNavigate();
   const [profileData, setProfileData] = useState(null);
   const [showNotification, setShowNotification] = useState(false);
+  const [notificationsData, setNotificationsData] = useState([]);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -23,13 +24,33 @@ const MyProfile = () => {
         console.error("Failed to fetch user profile:", error);
       }
     };
+
+    const fetchNotifications = async () => {
+      const token = localStorage.getItem('access_token');
+      try {
+        const res = await fetch("http://127.0.0.1:8000/notifications/", {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        const data = await res.json();
+        setNotificationsData(data);
+      } catch (err) {
+        console.error("Failed to fetch notifications:", err);
+      }
+    };
+
     fetchProfile();
+    fetchNotifications();
   }, []);
 
+  // Dummy notifications (commented, kept for reference)
+  /*
   const notifications = [
     { id: 1, message: "Your appointment for 2025-05-10 at 11:00 AM has been successfully booked." },
     { id: 2, message: "Your appointment for 2025-05-05 at 03:30 PM has been canceled." }
   ];
+  */
 
   return (
     <div className='MyProfile'>
@@ -64,7 +85,7 @@ const MyProfile = () => {
       {/* Notification Overlay */}
       {showNotification && (
         <Notification
-          notifications={notifications}
+          notifications={notificationsData}
           onClose={() => setShowNotification(false)}
         />
       )}
