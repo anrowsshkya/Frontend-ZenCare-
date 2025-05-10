@@ -92,7 +92,7 @@ const AppointmentsDoctorSide = () => {
 
             {/* Sidebar */}
             <div className="profile-sidebar">
-                <button className="mp-button">Dashboard</button>
+                <button className="mp-button" onClick={() => navigate("/doc-dash")}>Dashboard</button>
                 {/* <button
             className={`mp-button ${
                 location.pathname === "/MyProfile" ? "active" : ""
