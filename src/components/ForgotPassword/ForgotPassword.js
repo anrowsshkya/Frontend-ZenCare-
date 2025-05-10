@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./forgot.css";
 import forgot from "../../assets/forgot.png";
+import { requestPasswordReset } from "../api";
+
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
@@ -9,7 +11,19 @@ const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
 
-  const handleNext = () => {
+  // const handleNext = () => {
+  //   // Basic email validation
+  //   if (!email) {
+  //     setError("Email is required.");
+  //   } else if (!/^\S+@\S+\.\S+$/.test(email)) {
+  //     setError("Enter a valid email address.");
+  //   } else {
+  //     setError("");
+  //     navigate("/Verify");
+  //   }
+  // };
+
+  const handleNext = async () => {
     // Basic email validation
     if (!email) {
       setError("Email is required.");
@@ -17,7 +31,15 @@ const ForgotPassword = () => {
       setError("Enter a valid email address.");
     } else {
       setError("");
-      navigate("/Verify");
+
+      try {
+        await requestPasswordReset(email); // Send the request to backend
+        localStorage.setItem("reset_email", email); // store for Verify page if needed
+        navigate("/Verify"); // Go to next step
+      } catch (err) {
+        setError("Failed to send reset email. Try again later.");
+        console.error(err);
+      }
     }
   };
 

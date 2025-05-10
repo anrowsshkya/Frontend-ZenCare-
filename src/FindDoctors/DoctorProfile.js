@@ -1,8 +1,10 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./DoctorProfile.css";
+import { useParams } from "react-router-dom";
 
 const DoctorProfile = () => {
+    const { id } = useParams();
     const location = useLocation();
     const navigate = useNavigate();
     const doctor = location.state?.doctor;

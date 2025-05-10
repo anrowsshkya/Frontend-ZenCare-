@@ -66,21 +66,20 @@ const DoctorDashboard = () => {
       {/* Sidebar */}
       <div className="profile-sidebar">
         <button className="mp-button">Dashboard</button>
-        <button
+        {/* <button
           className={`mp-button ${
             location.pathname === "/MyProfile" ? "active" : ""
           }`}
           onClick={() => navigate("/MyProfile")}
         >
           My Profile
-        </button>
+        </button> */}
         <button className="mp-button" onClick={() => navigate("/appointments-doctor")}>
           Appointments
         </button>
         <button
-          className={`mp-button2 ${
-            location.pathname === "/MyProfile" ? "active" : ""
-          }`}
+          className={`mp-button2 ${location.pathname === "/MyProfile" ? "active" : ""
+            }`}
           onClick={() => navigate("/Login")}
         >
           Log Out

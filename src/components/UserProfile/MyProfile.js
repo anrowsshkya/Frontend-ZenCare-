@@ -6,6 +6,8 @@ import { useNavigate, useLocation } from "react-router-dom";
 import Notification from "../../components/Notification/Notification";
 import './MyProfile.css';
 import { userProfile } from "../api";
+import { getNotifications } from "../api";
+
 
 const MyProfile = () => {
   const location = useLocation();
@@ -25,15 +27,10 @@ const MyProfile = () => {
       }
     };
 
+
     const fetchNotifications = async () => {
-      const token = localStorage.getItem('access_token');
       try {
-        const res = await fetch("http://127.0.0.1:8000/notifications/", {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        });
-        const data = await res.json();
+        const data = await getNotifications(); // it uses token and fallback logic
         setNotificationsData(data);
       } catch (err) {
         console.error("Failed to fetch notifications:", err);

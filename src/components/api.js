@@ -275,3 +275,49 @@ export const markAllAsRead = async () => {
     throw error; // Handle error
   }
 };
+
+
+
+
+
+// ================================
+// requestPasswordReset
+// ================================
+export const requestPasswordReset = async (email) => {
+  try {
+    const response = await axios.post(`${API_BASE_URL}/auth/password-reset/`, {
+      email,
+    }, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    return response.data; // Expected: success message like "Password reset e-mail has been sent."
+  } catch (error) {
+    console.error("Error requesting password reset:", error.response?.data || error.message);
+    throw error;
+  }
+};
+
+
+
+// ================================
+// resetPasswordConfirm
+// ================================
+export const resetPasswordConfirm = async (uidb64, token, newPassword) => {
+  try {
+    const response = await axios.post(`${API_BASE_URL}/auth/reset/${uidb64}/${token}/`, {
+      password: newPassword,
+    }, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    return response.data; // Expected: success message like "Password has been reset with the new password."
+  } catch (error) {
+    console.error("Error confirming password reset:", error.response?.data || error.message);
+    throw error;
+  }
+};

@@ -66,6 +66,17 @@
 
 .sr-patient-record-container p {
     color: #000000;
-    font-size: 18px;;
+    font-size: 18px;
+    ;
     margin-top: 20px;
-} 
+}
+
+
+
+.confirmed-green {
+    background-color: #4CAF50;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}

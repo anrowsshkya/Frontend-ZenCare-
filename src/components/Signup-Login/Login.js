@@ -86,6 +86,8 @@ const Login = () => {
           }
 
           navigate("/PatientHome");
+          return;
+
         } else {
           alert("Unknown user type!");
         }
@@ -100,9 +102,9 @@ const Login = () => {
     }
 
 
-    if (!localStorage.getItem("userInfoSubmitted")) {
-      localStorage.setItem("showUserInfoModal", "true");
-    }
+    // if (!localStorage.getItem("userInfoSubmitted")) {
+    //   localStorage.setItem("showUserInfoModal", "true");
+    // }
 
 
   };

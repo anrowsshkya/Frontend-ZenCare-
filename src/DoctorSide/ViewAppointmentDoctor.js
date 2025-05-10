@@ -18,6 +18,8 @@ const ViewAppointmentDoctor = () => {
     const [appointment, setAppointment] = useState(null);
     const [prescription, setPrescription] = useState("");
     const [currentDoctor, setCurrentDoctor] = useState(null);
+    const [prescriptionExists, setPrescriptionExists] = useState(false);
+
 
     useEffect(() => {
         const fetchAppointment = async () => {
@@ -27,12 +29,23 @@ const ViewAppointmentDoctor = () => {
                 const selectedAppointment = appointments.find(appt => appt.id === appointmentId);
                 setAppointment(selectedAppointment);
 
+                // Set prescription if already written
+                const localPrescription = localStorage.getItem(`prescription_${appointmentId}`);
+                if (localPrescription) {
+                    setPrescription(localPrescription);
+                    setPrescriptionExists(true);
+                } else if (selectedAppointment.prescription_text) {
+                    setPrescription(selectedAppointment.prescription_text);
+                    setPrescriptionExists(true);
+                }
+
                 // Optional: Save locally for logging or printing later
                 localStorage.setItem("lastViewedAppointment", JSON.stringify(selectedAppointment));
             } catch (error) {
                 console.error("Error fetching appointment details:", error);
             }
         };
+
 
         if (appointmentId) {
             fetchAppointment();
@@ -41,22 +54,22 @@ const ViewAppointmentDoctor = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-          try {
-            const doctorsResponse = await findDoctor();
-            const allDoctors = doctorsResponse.data.results;
-            setDoctorList(allDoctors);
-      
-            const matchedDoctor = allDoctors.find((doc) => doc.email === email);
-            setCurrentDoctor(matchedDoctor);
-          } catch (error) {
-            console.error("Failed to fetch doctor data:", error);
-          } finally {
-            setLoading(false);
-          }
+            try {
+                const doctorsResponse = await findDoctor();
+                const allDoctors = doctorsResponse.data.results;
+                setDoctorList(allDoctors);
+
+                const matchedDoctor = allDoctors.find((doc) => doc.email === email);
+                setCurrentDoctor(matchedDoctor);
+            } catch (error) {
+                console.error("Failed to fetch doctor data:", error);
+            } finally {
+                setLoading(false);
+            }
         };
-      
+
         fetchData();
-      }, [email]);        
+    }, [email]);
 
     const handleConfirm = async () => {
         if (!prescription.trim()) {
@@ -68,7 +81,6 @@ const ViewAppointmentDoctor = () => {
             const dataToSend = {
                 appointment: appointmentId,
                 prescription_text: prescription,
-
                 patient_name: appointment.patient_name,
                 doctor_name: appointment.doctor_name,
                 doctor_profession: appointment.doctor_profession,
@@ -80,8 +92,12 @@ const ViewAppointmentDoctor = () => {
             console.log("Submitting Prescription Data:", dataToSend);
 
             await savePrescription(dataToSend);
+
+            // Save in localStorage
+            localStorage.setItem(`prescription_${appointmentId}`, prescription);
+
             alert("Prescription successfully saved!");
-            navigate("/appointments-doctor");
+            navigate("/appointments-doctor", { state: { updated: true } });
         } catch (error) {
             alert("Failed to save prescription. Try again.");
             console.error("Prescription save failed:", error);
@@ -96,50 +112,49 @@ const ViewAppointmentDoctor = () => {
         <div className="doctor-dashboard">
             <div className="mp-topbar">
                 <div className="ZenCare">
-                <h1>ZenCare</h1>
+                    <h1>ZenCare</h1>
                 </div>
                 <div className="mp-nav-buttons">
-                <button className="top-btn" onClick={() => navigate("/PatientHome")}>
-                    Home
-                </button>
-                <button className='top-btn2' onClick={() => navigate("/find-doctor")}>Find Doctors</button>
-                <button className="iconbtn" onClick={() => navigate("/PatientHome")}>
-                    <img src={bell} alt="Notifications" width="24" height="24" />
-                </button>
+                    <button className="top-btn" onClick={() => navigate("/PatientHome")}>
+                        Home
+                    </button>
+                    <button className='top-btn2' onClick={() => navigate("/find-doctor")}>Find Doctors</button>
+                    <button className="iconbtn" onClick={() => navigate("/PatientHome")}>
+                        <img src={bell} alt="Notifications" width="24" height="24" />
+                    </button>
                 </div>
                 <div className="mp-profile">
-                <img src={user} alt="Profile" />
-                <span className="profile-name">
-                    {currentDoctor
-                    ? `${currentDoctor.full_name}`
-                    : "Loading..."}
-                </span>
+                    <img src={user} alt="Profile" />
+                    <span className="profile-name">
+                        {currentDoctor
+                            ? `${currentDoctor.full_name}`
+                            : "Loading..."}
+                    </span>
                 </div>
             </div>
 
-      {/* Sidebar */}
-        <div className="profile-sidebar">
-            <button className="mp-button">Dashboard</button>
-            <button
+            {/* Sidebar */}
+            <div className="profile-sidebar">
+                <button className="mp-button">Dashboard</button>
+                {/* <button
             className={`mp-button ${
                 location.pathname === "/MyProfile" ? "active" : ""
             }`}
             onClick={() => navigate("/MyProfile")}
             >
             My Profile
-            </button>
-            <button className="mp-button" onClick={() => navigate("/appointments-doctor")}>
-            Appointments
-            </button>
-            <button
-            className={`mp-button2 ${
-                location.pathname === "/MyProfile" ? "active" : ""
-            }`}
-            onClick={() => navigate("/Login")}
-            >
-            Log Out
-            </button>
-        </div>
+            </button> */}
+                <button className="mp-button" onClick={() => navigate("/appointments-doctor")}>
+                    Appointments
+                </button>
+                <button
+                    className={`mp-button2 ${location.pathname === "/MyProfile" ? "active" : ""
+                        }`}
+                    onClick={() => navigate("/Login")}
+                >
+                    Log Out
+                </button>
+            </div>
 
             <main className="main-content">
                 <div className="welcome-section">
@@ -161,12 +176,18 @@ const ViewAppointmentDoctor = () => {
                             value={prescription}
                             onChange={(e) => setPrescription(e.target.value)}
                             placeholder="Write prescription here..."
-                        ></textarea>
+                            disabled={prescriptionExists}
+                        />
+
                     </div>
 
                     <div className="button-row">
-                        <button className="action-button" onClick={handleConfirm}>
-                            Confirm
+                        <button
+                            className="action-button"
+                            onClick={handleConfirm}
+                            disabled={prescriptionExists}
+                        >
+                            {prescriptionExists ? "Confirmed" : "Confirm"}
                         </button>
                     </div>
                 </div>
