@@ -29,7 +29,7 @@ const ViewAppointmentDoctor = () => {
                 const selectedAppointment = appointments.find(appt => appt.id === appointmentId);
                 setAppointment(selectedAppointment);
 
-                // Set prescription if already written
+                //if already written prescription then show that
                 const localPrescription = localStorage.getItem(`prescription_${appointmentId}`);
                 if (localPrescription) {
                     setPrescription(localPrescription);
@@ -39,7 +39,6 @@ const ViewAppointmentDoctor = () => {
                     setPrescriptionExists(true);
                 }
 
-                // Optional: Save locally for logging or printing later
                 localStorage.setItem("lastViewedAppointment", JSON.stringify(selectedAppointment));
             } catch (error) {
                 console.error("Error fetching appointment details:", error);
