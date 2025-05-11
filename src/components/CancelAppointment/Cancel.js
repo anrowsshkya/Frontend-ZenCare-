@@ -7,7 +7,7 @@ import './Cancel.css';
 import axios from 'axios';
 
 const Cancel = () => {
-  const API_BASE_URL = "https://zencare-backend-2.onrender.com";
+  const API_BASE_URL = "https://zencare-backend-2.onrender.com/api/v1";
   const location = useLocation();
   const navigate = useNavigate();
 
