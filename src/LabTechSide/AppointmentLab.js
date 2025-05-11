@@ -92,7 +92,7 @@ const AppointmentLab = () => {
                                         <td>
                                             <button
                                                 className="view-btn"
-                                                onClick={() => navigate(`/lab-tech-report/${appt.id}`)}
+                                                onClick={() => navigate(`/lab-tech-report/${appt.id || appt.appointment_id}`)}
                                             >
                                                 View
                                             </button>
