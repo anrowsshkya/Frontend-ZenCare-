@@ -48,7 +48,7 @@ const DoctorDashboard = () => {
           <button className="top-btn" onClick={() => navigate("/PatientHome")}>
             Home
           </button>
-          <button className='top-btn2' onClick={() => navigate("/find-doctor")}>Find Doctors</button>
+          {/* <button className='top-btn2' onClick={() => navigate("/find-doctor")}>Find Doctors</button> */}
           <button className="iconbtn" onClick={() => navigate("/PatientHome")}>
             <img src={bell} alt="Notifications" width="24" height="24" />
           </button>
@@ -66,14 +66,6 @@ const DoctorDashboard = () => {
       {/* Sidebar */}
       <div className="profile-sidebar">
         <button className="mp-button">Dashboard</button>
-        <button
-          className={`mp-button ${
-            location.pathname === "/MyProfile" ? "active" : ""
-          }`}
-          onClick={() => navigate("/MyProfile")}
-        >
-          My Profile
-        </button>
         <button className="mp-button" onClick={() => navigate("/appointments-doctor")}>
           Appointments
         </button>
