@@ -1,12 +1,13 @@
 /* global KhaltiCheckout */
 
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom'; // Added useNavigate
 import axios from 'axios';
 import './PaymentAmount.css';
 
 const PaymentAmount = () => {
     const location = useLocation();
+    const navigate = useNavigate(); // Initialize navigate
     const [amount, setAmount] = useState('');
     const [productName, setProductName] = useState('');
     const [loading, setLoading] = useState(false);
@@ -42,7 +43,7 @@ const PaymentAmount = () => {
         }
 
         const config = {
-            publicKey: "test_public_key_dc74b7b5a8b84956a2b440f8aa7d67dc", // Your Khalti public key
+            publicKey: "live_secret_key_68791341fdd94846a146f0457ff7b455", // Your Khalti public key
             productIdentity: "1234567890",
             productName: productName,  // Dynamic product name from the form
             productUrl: "http://localhost:3000",  // Update this URL to where the user should be redirected after successful payment
@@ -55,7 +56,11 @@ const PaymentAmount = () => {
                         amount: payload.amount,
                     })
                         .then((response) => {
-                            alert(response.data.success ? 'Payment Verified!' : 'Verification Failed!');
+                            if (response.data.success) {
+                                console.log('Payment Verified');
+                            } else {
+                                alert('Verification Failed!');
+                            }
                         })
                         .catch((err) => {
                             console.error('Verification error:', err);
@@ -78,6 +83,19 @@ const PaymentAmount = () => {
 
         // Show the Khalti payment widget
         checkout.show({ amount: amountInPaisa });
+
+        // ⬇️ Navigate to confirmation page immediately after widget is shown
+        navigate('/paymentConfirm', {
+            state: {
+                paymentData: {
+                    doctorName,
+                    appointmentDate: bookedDate,
+                    appointmentSlot: bookedSlot,
+                    amount,
+                    doctorImageUrl: null, // You can pass actual image URL if needed
+                }
+            }
+        });
 
         setLoading(false);
     };
