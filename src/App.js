@@ -27,6 +27,7 @@ import ResetPassword from "./components/ForgotPassword/ResetPassword";
 import Verify from "./components/ForgotPassword/Verify";
 import ChangePassword from "./components/UserProfile/ChangePassword";
 import PaymentConfirm from "./components/Payment/PaymentConfirm";
+import PaymentAmount from "./components/Payment/PaymentAmount";
 
 import "./App.css";
 
@@ -62,6 +63,8 @@ function App() {
           <Route path="/verify" element={<Verify />} />
           <Route path="/changePassword" element={<ChangePassword />} />
           <Route path="/paymentConfirm" element={<PaymentConfirm />} />
+          <Route path="/paymentAmount" element={<PaymentAmount />} />
+
 
 
         </Routes>

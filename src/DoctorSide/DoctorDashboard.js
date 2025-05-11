@@ -36,9 +36,10 @@ const DoctorDashboard = () => {
     const fetchNotifications = async () => {
       try {
         const data = await getNotifications();
-        setNotificationsData(data);
+        setNotificationsData(data.results || []);
       } catch (err) {
         console.error("Failed to fetch notifications:", err);
+        setNotificationsData([]);
       }
     };
 
