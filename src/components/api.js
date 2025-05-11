@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // Base URL of your backend API
-const API_BASE_URL = "https://zencare-backend-2.onrender.com";
+const API_BASE_URL = "https://zencare-backend-2.onrender.com/api/v1";
 
 const token = localStorage.getItem("access_token");
 
@@ -188,3 +188,82 @@ export const savePrescription = async (data) => {
     throw error;
   }
 };
+
+
+// ================================
+// Function to Get Prescriptions That Need Lab Tests
+// ================================
+export const getPrescriptionsNeedingLabTests = async () => {
+  const token = localStorage.getItem("access_token");
+  try {
+    const response = await axios.get(`${API_BASE_URL}/appointment/prescriptions/`, {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
+      },
+    });
+
+    // Check for the expected structure
+    if (!response.data || !Array.isArray(response.data.results)) {
+      console.warn("Unexpected response structure:", response.data);
+      return [];
+    }
+
+    return response.data.results;  // return only the `results` array
+  } catch (error) {
+    console.error("Error fetching lab test prescriptions:", error.response?.data || error.message);
+    throw error;
+  }
+};
+
+
+
+
+// Get a specific prescription by ID
+export const getPrescriptionById = async (id, token) => {
+    try {
+        const response = await fetch(`${API_BASE_URL}/appointment/prescriptions/${id}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
+        if (!response.ok) {
+            throw new Error(`Failed to fetch prescription: ${response.status}`);
+        }
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error("API Error (getPrescriptionById):", error);
+        throw error;
+    }
+};
+
+
+
+// Submit lab technician's description for a prescription
+export const submitLabDescription = async (formData, token) => {
+    try {
+        const response = await fetch(`${API_BASE_URL}/appointment/reports/create/`, {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+            body: formData
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            console.error("Backend error:", errorData);
+            throw new Error("Failed to submit lab description");
+        }
+
+        return await response.json();
+    } catch (error) {
+        console.error("API Error (submitLabDescription):", error);
+        throw error;
+    }
+};
+
+
+
