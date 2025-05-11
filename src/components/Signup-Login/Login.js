@@ -82,12 +82,16 @@ const Login = () => {
           }
 
           navigate("/PatientHome");
-        } else {
-          alert("Unknown user type!");
+          } else if (userType === "lab_technician") {
+            localStorage.setItem("email", email);
+            alert("Lab Technician Login Successful!");
+            navigate("/lab-tech-dash");
+          } else {
+              alert("Unknown user type!");
+          }
         }
-      }
-    } catch (err) {
-      console.error("Login error:", err.response?.data || err.message);
+      } catch (err) {
+        console.error("Login error:", err.response?.data || err.message);
       setError(
         <span style={{ color: "red" }}>
           {err.response?.data?.error || "Invalid credentials"}
