@@ -35,7 +35,7 @@ const ForgotPassword = () => {
       try {
         await requestPasswordReset(email); // Send the request to backend
         localStorage.setItem("reset_email", email); // store for Verify page if needed
-        navigate("/Verify"); // Go to next step
+        navigate("/login"); // Go to next step
       } catch (err) {
         setError("Failed to send reset email. Try again later.");
         console.error(err);
