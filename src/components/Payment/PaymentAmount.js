@@ -1,22 +1,46 @@
-import React, { useState } from 'react';
+/* global KhaltiCheckout */
+
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import './PaymentAmount.css';
 
 const PaymentAmount = () => {
+    const location = useLocation();
     const [amount, setAmount] = useState('');
-    const [customerName, setCustomerName] = useState('');
-    const [customerEmail, setCustomerEmail] = useState('');
-    const [customerPhone, setCustomerPhone] = useState('');
     const [productName, setProductName] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
+
+    const { doctorName, doctorFee, bookedDate, bookedSlot } = location.state || {};
+
+    useEffect(() => {
+        if (window.KhaltiCheckout) {
+            // KhaltiCheckout is available globally
+            console.log('KhaltiCheckout is loaded');
+        }
+    }, []);
+
+    useEffect(() => {
+        if (doctorFee) {
+            setAmount(doctorFee); // Set the fee from the appointment
+        }
+        if (doctorName) {
+            setProductName(`Appointment with Dr. ${doctorName} on ${bookedDate} at ${bookedSlot}`);
+        }
+    }, [doctorFee, doctorName, bookedDate, bookedSlot]);
 
     const handlePayment = async (e) => {
         e.preventDefault();
         setLoading(true);
         setError('');
 
-        // Define the Khalti checkout configuration
+        if (!amount || !productName) {
+            setError('Please fill in all fields.');
+            setLoading(false);
+            return;
+        }
+
         const config = {
             publicKey: "test_public_key_dc74b7b5a8b84956a2b440f8aa7d67dc", // Your Khalti public key
             productIdentity: "1234567890",
@@ -61,35 +85,11 @@ const PaymentAmount = () => {
     return (
         <div className="payment-container">
             <h2>Make a Payment</h2>
+            <div className="payment-details">
+                <p><strong>Product Name:</strong> {productName}</p>
+                <p><strong>Amount:</strong> Rs {amount}</p>
+            </div>
             <form onSubmit={handlePayment} className="payment-form">
-                <input
-                    type="text"
-                    placeholder="Customer Name"
-                    value={customerName}
-                    onChange={(e) => setCustomerName(e.target.value)}
-                    required
-                />
-                <input
-                    type="email"
-                    placeholder="Customer Email"
-                    value={customerEmail}
-                    onChange={(e) => setCustomerEmail(e.target.value)}
-                    required
-                />
-                <input
-                    type="tel"
-                    placeholder="Customer Phone"
-                    value={customerPhone}
-                    onChange={(e) => setCustomerPhone(e.target.value)}
-                    required
-                />
-                <input
-                    type="text"
-                    placeholder="Product Name"
-                    value={productName}
-                    onChange={(e) => setProductName(e.target.value)}
-                    required
-                />
                 <input
                     type="number"
                     placeholder="Amount (in Rs)"

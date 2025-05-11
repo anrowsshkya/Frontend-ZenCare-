@@ -54,6 +54,15 @@ const AppointmentForm = () => {
 
       if (response.status === 200 || response.status === 201) {
         setShowSuccessModal(true); // Show modal
+        navigate("/paymentAmount", {
+          state: {
+            doctorName: doctor?.name,
+            doctorFee: doctor?.consultation_fee,
+            bookedDate: selectedDate,
+            bookedSlot,
+            description,
+          },
+        });
       } else {
         setErrorMessage("Failed to book appointment.");
       }
@@ -124,7 +133,7 @@ const AppointmentForm = () => {
             <h3>{doctor?.name || "Doctor Name"}</h3>
             <p><strong>{doctor?.title || "Specialty"}</strong></p>
             <p>Experience: {doctor?.experience || "N/A"}</p>
-            <span className="price">Rs. 700</span>
+            <span className="price">Rs. {doctor?.consultation_fee || "0"}</span>
           </div>
         </div>
       </div>
