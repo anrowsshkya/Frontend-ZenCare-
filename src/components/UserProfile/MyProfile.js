@@ -41,12 +41,9 @@ const MyProfile = () => {
           <button className='top-btn2' onClick={() => navigate("/find-doctor")}>Find Doctors</button>
           <button
             onClick={() => setShowNotification(!showNotification)}
-            className="notification-button"
+            className="da-notification"
             style={{
-              backgroundColor: "#f0f0f0",
-              border: "none",
-              borderRadius: "50%",
-              padding: "8px",
+              backgroundColor: "#E0F2FE",
               cursor: "pointer"
             }}
           >
