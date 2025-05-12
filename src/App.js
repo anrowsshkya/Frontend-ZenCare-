@@ -57,7 +57,7 @@ function App() {
           <Route path="/lab-tech-report/:id" element={<LabTechReport />} />
           <Route path="/appointments-lab" element={<AppointmentLab />} />
           <Route path="/ViewReport" element={<ViewReport />} />
-          <Route path="/ShowReport" element={<ShowReport />} />
+          <Route path="/ShowReport/:id" element={<ShowReport />} />
           <Route path="/forgotPassword" element={<ForgotPassword />} />
           <Route path="/resetPassword" element={<ResetPassword />} />
           <Route path="/verify" element={<Verify />} /> 
