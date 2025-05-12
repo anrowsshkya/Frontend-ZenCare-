@@ -1,5 +1,6 @@
 import axios from "axios";
 
+
 // Base URL of your backend API
 const API_BASE_URL = "https://zencare-backend-2.onrender.com/api/v1";
 
@@ -265,5 +266,23 @@ export const submitLabDescription = async (formData, token) => {
     }
 };
 
+// src/components/api.js
+
+export const getSingleLabReport = async (id) => {
+  const token = localStorage.getItem("access_token");
+
+  try {
+    const response = await axios.get(`${API_BASE_URL}/appointment/reports/${id}/`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Failed to fetch lab report by ID:", error.response?.data || error.message);
+    throw error;
+  }
+};
 
 
