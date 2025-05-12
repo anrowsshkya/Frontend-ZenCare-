@@ -6,12 +6,15 @@ import { useNavigate, useLocation } from "react-router-dom";
 import Notification from "../../components/Notification/Notification";
 import './MyProfile.css';
 import { userProfile } from "../api";
+import { getNotifications } from "../api";
+
 
 const MyProfile = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [profileData, setProfileData] = useState(null);
   const [showNotification, setShowNotification] = useState(false);
+  const [notificationsData, setNotificationsData] = useState([]);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -23,13 +26,28 @@ const MyProfile = () => {
         console.error("Failed to fetch user profile:", error);
       }
     };
+
+
+    const fetchNotifications = async () => {
+      try {
+        const data = await getNotifications(); // it uses token and fallback logic
+        setNotificationsData(data);
+      } catch (err) {
+        console.error("Failed to fetch notifications:", err);
+      }
+    };
+
     fetchProfile();
+    fetchNotifications();
   }, []);
 
+  // Dummy notifications (commented, kept for reference)
+  /*
   const notifications = [
     { id: 1, message: "Your appointment for 2025-05-10 at 11:00 AM has been successfully booked." },
     { id: 2, message: "Your appointment for 2025-05-05 at 03:30 PM has been canceled." }
   ];
+  */
 
   return (
     <div className='MyProfile'>
@@ -61,7 +79,7 @@ const MyProfile = () => {
       {/* Notification Overlay */}
       {showNotification && (
         <Notification
-          notifications={notifications}
+          notifications={notificationsData}
           onClose={() => setShowNotification(false)}
         />
       )}

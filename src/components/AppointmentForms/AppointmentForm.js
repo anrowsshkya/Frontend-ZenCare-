@@ -17,6 +17,7 @@ const AppointmentForm = () => {
   const [description, setDescription] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false); // Success modal state
 
   const userId = 2; // Replace with actual user ID from context or localStorage
 
@@ -52,8 +53,16 @@ const AppointmentForm = () => {
       });
 
       if (response.status === 200 || response.status === 201) {
-        alert("Appointment booked successfully!");
-        navigate("/PatientHome");
+        setShowSuccessModal(true); // Show modal
+        navigate("/paymentAmount", {
+          state: {
+            doctorName: doctor?.name,
+            doctorFee: doctor?.consultation_fee,
+            bookedDate: selectedDate,
+            bookedSlot,
+            description,
+          },
+        });
       } else {
         setErrorMessage("Failed to book appointment.");
       }
@@ -124,7 +133,7 @@ const AppointmentForm = () => {
             <h3>{doctor?.name || "Doctor Name"}</h3>
             <p><strong>{doctor?.title || "Specialty"}</strong></p>
             <p>Experience: {doctor?.experience || "N/A"}</p>
-            <span className="price">Rs. 700</span>
+            <span className="price">Rs. {doctor?.consultation_fee || "0"}</span>
           </div>
         </div>
       </div>
@@ -213,6 +222,22 @@ const AppointmentForm = () => {
           </button>
         </div>
       </div>
+
+      {showSuccessModal && (
+        <div className="success-modal">
+          <div className="success-content">
+            <h2>✅ Appointment Booked!</h2>
+            <p>Your appointment has been successfully scheduled.</p>
+            <button className="go-home" onClick={() => navigate("/PatientHome")}>
+              Go to Home
+            </button>
+
+            <button className="view-appointment" onClick={() => navigate("/Cancel")}>
+              View Appointment?
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

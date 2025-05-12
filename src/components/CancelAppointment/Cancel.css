@@ -1,16 +1,17 @@
 .appointment-header {
-    display: grid;
-    grid-template-columns: 1.7fr 1.5fr 1fr 1fr;
-    color: #2B4D90;
-    background-color: #E0F2FE;
-    font-weight: bold;
-    font-size: 20px;
-    padding: 12px 20px;
-    border-radius: 8px;
-    margin-bottom: 15px;
-    width: 915px;
-  }
-  .appointment-row {
+  display: grid;
+  grid-template-columns: 1.7fr 1.5fr 1fr 1fr;
+  color: #2B4D90;
+  background-color: #E0F2FE;
+  font-weight: bold;
+  font-size: 20px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  width: 915px;
+}
+
+.appointment-row {
   display: grid;
   grid-template-columns: 1.7fr 1.5fr 1fr 1fr;
   background-color: #E0F2FE;
@@ -23,12 +24,13 @@
   height: 75px;
   margin-bottom: 10px;
 }
+
 .appointment-row p {
-    margin: 0;
-    padding: 0;
-    color: #2B4D90;
-    margin-bottom: 20px;
-  }
+  margin: 0;
+  padding: 0;
+  color: #2B4D90;
+  margin-bottom: 20px;
+}
 
 .delete-icon {
   background-color: #ffffff;
@@ -40,16 +42,100 @@
 }
 
 .delete-icon:hover {
-    background-color: #ff2024;
-    color: #ffffff;
-     /* darker red on hover */
-    transform: scale(1.1);
-    transition: all 0.2s ease-in-out;
+  background-color: #ff2024;
+  color: #ffffff;
+  /* darker red on hover */
+  transform: scale(1.1);
+  transition: all 0.2s ease-in-out;
 }
+
 .view-icon {
-    background-color: #2B4D90;
+  background-color: #2B4D90;
 }
-.view-icon:hover{
-    background-color: #E0F2FE;
-    color: #2B4D90;
+
+.view-icon:hover {
+  background-color: #E0F2FE;
+  color: #2B4D90;
+}
+
+
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.popup-content {
+  background-color: white;
+  padding: 30px 40px;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  max-width: 400px;
+  color: #2B4D90;
+}
+
+.popup-actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.popup-confirm {
+  background-color: #ff2024;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.popup-cancel {
+  background-color: #2B4D90;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.popup-confirm:hover,
+.popup-cancel:hover {
+  transform: scale(1.05);
+  transition: all 0.2s ease-in-out;
+}
+
+
+.success-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.success-popup-content {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 20px 30px;
+  border: 2px solid #c3e6cb;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
 }
