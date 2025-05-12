@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Redirect after signup
-// import google from "../../assets/google.png";
-// import doctor1 from "../../assets/doctor1.jpg";
+import { useNavigate } from "react-router-dom";
 import "./styles.css";
-import { registerUser } from "../api"; // Import API function
+import { registerUser } from "../api";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -23,14 +21,26 @@ const SignUp = () => {
 
     setLoading(true); // Start loading
     try {
-      const response = await registerUser({ email, password, password2: confirmPassword }); // Call API function
+      const response = await registerUser({
+        email,
+        password,
+        password2: confirmPassword,
+        user_type: "patient", // ✅ Required by backend
+      });
 
       if (response.status === 201) {
-        console.log("Registration Successful:", response.data); // Debugging API response
+        console.log("Registration Successful:", response.data);
         navigate("/login"); // Redirect to login page
       }
     } catch (err) {
-      setError(err.response?.data?.error || "Registration failed. Try again.");
+      const errorData = err.response?.data;
+      // Combine multiple field errors if available
+      if (typeof errorData === "object") {
+        const messages = Object.values(errorData).flat().join(" ");
+        setError(messages || "Registration failed. Try again.");
+      } else {
+        setError("Registration failed. Try again.");
+      }
     } finally {
       setLoading(false); // Stop loading
     }
@@ -42,23 +52,38 @@ const SignUp = () => {
         <h2>Sign Up</h2>
         <p id="instructions">Create an account by entering your details</p>
 
-        {error && <p className="error-message">{error}</p>} {/* Display error */}
+        {error && <p className="error-message">{error}</p>}
 
         <label htmlFor="email">Enter your email</label>
-        <input type="email" id="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+        <input
+          type="email"
+          id="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
 
         <label htmlFor="password">Enter your password</label>
-        <input type="password" id="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+        <input
+          type="password"
+          id="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
 
         <label htmlFor="confirm-password">Confirm your password</label>
-        <input type="password" id="confirm-password" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+        <input
+          type="password"
+          id="confirm-password"
+          placeholder="Confirm Password"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+        />
 
         <button className="signup-btn" onClick={handleSignUp} disabled={loading}>
           {loading ? "Signing Up..." : "Sign Up"}
         </button>
-
-        {/* To sign up with google */}
-        {/* <button className="google-btn"><img src={google} alt="Google Logo" />Sign up with Google</button> */}
 
         <p className="login-text">
           Already have an account? <a href="/Login">Log in</a>

@@ -24,7 +24,7 @@
 }
 
 .profile-info {
-    margin-top: 10px;
+    margin-top: -45px;
     padding-top: 30px;
     flex: 1;
     min-width: 250px;
@@ -38,7 +38,7 @@
 }
 
 .profile-info h3 {
-    font-size: 22px;
+    font-size: 18px;
     font-weight: bold;
     margin-bottom: 5px;
 }
@@ -50,8 +50,7 @@
 }
 
 .book-appointment {
-    background-color: #4B5563;
-    color: white;
+    color: #1D4189;
     padding: 10px 20px;
     border: none;
     font-weight: bold;

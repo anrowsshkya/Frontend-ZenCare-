@@ -54,7 +54,7 @@ const DoctorProfile = () => {
                         <h2>PROFILE</h2>
                         <h3>{doctor.name}</h3>
                         <p><strong>{doctor.title}</strong></p>
-                        <p>Experience: {doctor.experience}</p>
+                        <p>Experience: {doctor.experience} years</p>
                         <p>Phone: {doctor.phone}</p>
                         <p>Address: {doctor.address}</p>
                         <p>Consultation Fee: ${doctor.consultationFee}</p>

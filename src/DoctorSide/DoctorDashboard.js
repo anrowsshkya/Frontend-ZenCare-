@@ -62,6 +62,7 @@ const DoctorDashboard = () => {
           <button className="top-btn" onClick={() => navigate("/PatientHome")}>
             Home
           </button>
+
           <button className="top-btn2" onClick={() => navigate("/find-doctor")}>
             Find Doctors
           </button>

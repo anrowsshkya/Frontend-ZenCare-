@@ -29,6 +29,7 @@ import ChangePassword from "./components/UserProfile/ChangePassword";
 import PaymentConfirm from "./components/Payment/PaymentConfirm";
 import PaymentAmount from "./components/Payment/PaymentAmount";
 
+
 import "./App.css";
 
 function App() {
@@ -54,17 +55,16 @@ function App() {
           <Route path="/view-appointment-doctor" element={<ViewAppointmentDoctor />} />
           <Route path="/Form" element={<AppointmentForm />} />
           <Route path="/Cancel" element={<Cancel />} />
-          <Route path="/lab-tech-report" element={<LabTechReport />} />
+          <Route path="/lab-tech-report/:id" element={<LabTechReport />} />
           <Route path="/appointments-lab" element={<AppointmentLab />} />
           <Route path="/ViewReport" element={<ViewReport />} />
-          <Route path="/ShowReport" element={<ShowReport />} />
+          <Route path="/ShowReport/:id" element={<ShowReport />} />
           <Route path="/forgotPassword" element={<ForgotPassword />} />
           <Route path="/resetPassword" element={<ResetPassword />} />
           <Route path="/verify" element={<Verify />} />
           <Route path="/changePassword" element={<ChangePassword />} />
           <Route path="/paymentConfirm" element={<PaymentConfirm />} />
           <Route path="/paymentAmount" element={<PaymentAmount />} />
-
 
 
         </Routes>
