@@ -1,45 +1,53 @@
-// import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import React, { useState } from 'react';
 import UserInfo from './UserInfo';
+import Notification from "./components/Notification/Notification";
+import bell from "./assets/bell.png";
 import "./HomePage.css";
 
 const ZenCare = () => {
     const navigate = useNavigate();
 
-    // Function to handle profile image click
+    const [showModal, setShowModal] = useState(
+        localStorage.getItem("showUserInfoModal") === "true" && !localStorage.getItem("userInfoSubmitted")
+    );
+
+    const [showNotification, setShowNotification] = useState(false);
+
     const handleClick = () => {
         console.log("Profile image clicked!");
         navigate("/MyProfile");
     };
 
-    const [showModal, setShowModal] = useState(
-        localStorage.getItem("showUserInfoModal") === "true" && !localStorage.getItem("userInfoSubmitted")
-    );
-
     const handleModalClose = () => {
-        localStorage.setItem("userInfoSubmitted", "true"); // Marking that the user info has been submitted
-        localStorage.removeItem("showUserInfoModal"); // Remove the flag to show the modal
-        setShowModal(false); // Close the modal
+        localStorage.setItem("userInfoSubmitted", "true");
+        localStorage.removeItem("showUserInfoModal");
+        setShowModal(false);
 
-        // Log the user info from localStorage
         const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-        console.log("User Info Submitted:", userInfo)
+        console.log("User Info Submitted:", userInfo);
     };
-    React.useEffect(() => {
+
+    useEffect(() => {
         if (localStorage.getItem("userInfoSubmitted")) {
-            navigate("/PatientHome"); // Automatically navigate if the info is already submitted
+            navigate("/PatientHome");
         }
     }, [navigate]);
+
+    const notifications = [
+        { id: 1, message: "Your appointment for 2025-05-10 at 11:00 AM has been successfully booked." },
+        { id: 2, message: "Your appointment for 2025-05-05 at 03:30 PM has been canceled." }
+    ];
 
     return (
         <div className="container_home">
 
-            {/* ------------------------------------------Header Part------------------------------------------ */}
-
             <header className="navbar">
                 <h1 className="logo">ZenCare</h1>
-                <div className="profile-button">
+                <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
+                    <button onClick={() => setShowNotification(!showNotification)} className="notification-button">
+                        <img src={bell} alt="Notifications" style={{ background:'#E0F2FE', width: '24px', height: '24px' }} />
+                    </button>
                     <input
                         type="image"
                         src="/photos/profile_image.png"
@@ -50,12 +58,10 @@ const ZenCare = () => {
                 </div>
             </header>
 
-            {/* ------------------------Navigation--------------------- */}
-
             <nav className="navigation">
                 <a href="#">Home</a>  |  <a onClick={() => navigate("/find-doctor")}>Find Doctors</a>
-
             </nav>
+
             <section className="hero">
                 <div className="hero-text">
                     <h2>Health Can't Be Compromised</h2>
@@ -63,17 +69,14 @@ const ZenCare = () => {
                 </div>
             </section>
 
-            {/* -------------------------------------About Section---------------------------------------------- */}
-
             <section className="about">
                 <div className="about-info">
                     <h3>About</h3>
                     <p>Awarded with the top doctor app since 2020. With the collection of most exceptional doctors. We have the greatest appointment system.</p>
-                    <a onClick={() => navigate("/about_patient")} className="learn-more">Learn more</a>                </div>
+                    <a onClick={() => navigate("/about_patient")} className="learn-more">Learn more</a>
+                </div>
                 <img src="/photos/about2.jpg" alt="About" className="about-img" />
             </section>
-
-            {/* -------------------------------------Top Doctors Section -------------------------------------- */}
 
             <section className="top-doctors">
                 <img src="/photos/topdoc3.jpg" alt="Doctor" className="doctor-img" />
@@ -82,36 +85,12 @@ const ZenCare = () => {
                     <ol>
                         <li>We hire only the best doctors.</li>
                         <li>The doctors are well qualified and experts.</li>
-                        <li>Look through out top listed doctors.</li>
+                        <li>Look through our top listed doctors.</li>
                     </ol>
                     <a onClick={() => navigate("/topdoc")} className="learn-more">Learn more</a>
                 </div>
             </section>
 
-            {/* ------------------------------------------Review Section-------------------------------------- */}
-
-            {/* <section className="reviews">
-                <h3>Review</h3>
-                <div className="review-box">
-                    <div className="review-item">
-                        <img src="/photos/person.jpg" alt="User" />
-                        <p><strong>Anrows</strong></p>
-                        <p>I had a great experience using this website.</p>
-                    </div>
-                    <div className="review-item">
-                        <img src="/photos/person.jpg" alt="User" />
-                        <p><strong>Anrows</strong></p>
-                        <p>I had a great experience using this website.</p>
-                    </div>
-                    <div className="review-item">
-                        <img src="/photos/person.jpg" alt="User" />
-                        <p><strong>Anrows</strong></p>
-                        <p>I had a great experience using this website.</p>
-                    </div>
-                </div>
-            </section> */}
-
-            {/* --------------------------------------Footer Part----------------------------------------------- */}
             <footer className="footer">
                 <h2>ZenCare</h2>
                 <p>ZenCare is the largest growing website with 1000+ professional doctors.</p>
@@ -119,9 +98,8 @@ const ZenCare = () => {
                 <p>&copy; Copy Rights Reserved</p>
             </footer>
 
-
-            {showModal && <UserInfo onClose={() => setShowModal(false)} />}
-
+            {showModal && <UserInfo onClose={handleModalClose} />}
+            {showNotification && <Notification notifications={notifications} onClose={() => setShowNotification(false)} />}
         </div>
     );
 };
