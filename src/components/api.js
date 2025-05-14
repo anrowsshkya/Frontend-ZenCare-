@@ -239,6 +239,7 @@ export const getNotifications = async () => {
 
     console.error("Error fetching notifications:", error);
     throw error;
+    // error checking
   }
 };
 
