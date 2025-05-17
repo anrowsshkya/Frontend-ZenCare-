@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import user from "../../assets/circle-user.png";
-import user1 from "../../assets/content-user.png";
+import user1 from "../../assets/user.jpg";
 import bell from "../../assets/bell.png";
 import { useNavigate, useLocation } from "react-router-dom";
 import Notification from "../../components/Notification/Notification";
@@ -59,12 +59,9 @@ const MyProfile = () => {
           <button className='top-btn2' onClick={() => navigate("/find-doctor")}>Find Doctors</button>
           <button
             onClick={() => setShowNotification(!showNotification)}
-            className="notification-button"
+            className="da-notification"
             style={{
               backgroundColor: "#E0F2FE",
-              border: "none",
-              borderRadius: "50%",
-              padding: "8px",
               cursor: "pointer"
             }}
           >
