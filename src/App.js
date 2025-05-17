@@ -27,8 +27,9 @@ import ForgotPassword from "./components/ForgotPassword/ForgotPassword";
 import ResetPassword from "./components/ForgotPassword/ResetPassword";
 import Verify from "./components/ForgotPassword/Verify";
 import ChangePassword from "./components/UserProfile/ChangePassword";
-import PaymentOption from "./components/Payment/PaymentOption";
 import PaymentConfirm from "./components/Payment/PaymentConfirm";
+import PaymentAmount from "./components/Payment/PaymentAmount";
+
 
 import "./App.css";
 
@@ -61,12 +62,14 @@ function App() {
           <Route path="/ShowReport/:id" element={<ShowReport />} />
           <Route path="/forgotPassword" element={<ForgotPassword />} />
           <Route path="/resetPassword" element={<ResetPassword />} />
-          <Route path="/verify" element={<Verify />} /> 
+          <Route path="/verify" element={<Verify />} />
           <Route path="/changePassword" element={<ChangePassword />} />
-          <Route path="/PaymentOption" element={<PaymentOption />} />
-          <Route path="/PaymentConfirm" element={<PaymentConfirm />} />
           {/* <Route path="/lab-tech-report/:id" element={<LabTechReport />} /> */}
           <Route path="/lab-check" element={<LabCheck />} />
+          <Route path="/paymentConfirm" element={<PaymentConfirm />} />
+          <Route path="/paymentAmount" element={<PaymentAmount />} />
+
+
         </Routes>
       </div>
     </Router>

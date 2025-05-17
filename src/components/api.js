@@ -191,6 +191,56 @@ export const savePrescription = async (data) => {
 };
 
 
+
+export const refreshAccessToken = async () => {
+  const refreshToken = localStorage.getItem("refresh_token");
+
+  try {
+    const response = await axios.post(`${API_BASE_URL}/token/refresh/`, {
+      refresh: refreshToken,
+    });
+
+    const newAccessToken = response.data.access;
+    localStorage.setItem("access_token", newAccessToken);
+    return newAccessToken;
+  } catch (error) {
+    console.error("Refresh token expired or invalid", error);
+    localStorage.clear();
+    window.location.href = "/login"; // Or navigate using React if available
+  }
+};
+
+
+// ================================
+// Function to Fetch Notifications
+// ================================
+export const getNotifications = async () => {
+  let token = localStorage.getItem("access_token");
+
+  try {
+    const response = await axios.get(`${API_BASE_URL}/notifications/`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    if (error.response && error.response.status === 401) {
+      // Token might be expired
+      token = await refreshAccessToken();
+
+      // Retry request with new token
+      const retryResponse = await axios.get(`${API_BASE_URL}/notifications/`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      return retryResponse.data;
+    }
+
+    console.error("Error fetching notifications:", error);
+
 // ================================
 // Function to Get Prescriptions That Need Lab Tests
 // ================================
@@ -213,6 +263,88 @@ export const getPrescriptionsNeedingLabTests = async () => {
     return response.data.results;  // return only the `results` array
   } catch (error) {
     console.error("Error fetching lab test prescriptions:", error.response?.data || error.message);
+
+    throw error;
+  }
+};
+
+
+// ================================
+// Function to Mark a Notification as Read
+// ================================
+export const markAsRead = async (notificationId) => {
+  try {
+    const response = await axios.post(`${API_BASE_URL}/notifications/${notificationId}/mark_as_read/`, {}, {
+      headers: {
+        "Authorization": `Bearer ${token}`, // Authorization token
+      },
+    });
+    return response.data; // Return the response data
+  } catch (error) {
+    console.error("Error marking notification as read:", error);
+    throw error; // Handle error
+  }
+};
+
+// ================================
+// Function to Mark All Notifications as Read
+// ================================
+export const markAllAsRead = async () => {
+  try {
+    const response = await axios.post(`${API_BASE_URL}/notifications/mark_all_as_read/`, {}, {
+      headers: {
+        "Authorization": `Bearer ${token}`, // Authorization token
+      },
+    });
+    return response.data; // Return the response data
+  } catch (error) {
+    console.error("Error marking all notifications as read:", error);
+    throw error; // Handle error
+  }
+};
+
+
+
+
+
+// ================================
+// requestPasswordReset
+// ================================
+export const requestPasswordReset = async (email) => {
+  try {
+    const response = await axios.post(`${API_BASE_URL}/auth/password-reset/`, {
+      email,
+    }, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    return response.data; // Expected: success message like "Password reset e-mail has been sent."
+  } catch (error) {
+    console.error("Error requesting password reset:", error.response?.data || error.message);
+    throw error;
+  }
+};
+
+
+
+// ================================
+// resetPasswordConfirm
+// ================================
+export const resetPasswordConfirm = async (uidb64, token, newPassword) => {
+  try {
+    const response = await axios.post(`${API_BASE_URL}/auth/reset/${uidb64}/${token}/`, {
+      password: newPassword,
+    }, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    return response.data; // Expected: success message like "Password has been reset with the new password."
+  } catch (error) {
+    console.error("Error confirming password reset:", error.response?.data || error.message);
     throw error;
   }
 };
@@ -284,5 +416,6 @@ export const getSingleLabReport = async (id) => {
     throw error;
   }
 };
+
 
 
