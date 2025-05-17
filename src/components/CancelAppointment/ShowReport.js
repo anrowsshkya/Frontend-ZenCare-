@@ -1,13 +1,19 @@
 // src/components/ShowReport.js
 
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { getSingleLabReport } from "../api";
+import { user } from "../../assets/circle-user.png"; // if this is not a named export, remove the {}
 
 const ShowReport = () => {
   const { id } = useParams();
   const [report, setReport] = useState(null);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+
+  const handleViewReport = () => {
+    navigate("/lab-check");
+  };
 
   useEffect(() => {
     const fetchReport = async () => {
@@ -34,14 +40,20 @@ const ShowReport = () => {
       <p><strong>Lab Technician:</strong> {report.lab_technician_name}</p>
       <p><strong>Report Type:</strong> {report.report_type_display}</p>
       <p><strong>Description:</strong> {report.description}</p>
-      <a
-        href={report.report_file}
-        target="_blank"
-        rel="noopener noreferrer"
+      <button
+        onClick={handleViewReport}
         className="download-link"
+        style={{
+          padding: "10px 20px",
+          borderRadius: "6px",
+          backgroundColor: "#007bff",
+          color: "white",
+          border: "none",
+          cursor: "pointer"
+        }}
       >
-        View Report PDF
-      </a>
+        View Report
+      </button>
     </div>
   );
 };

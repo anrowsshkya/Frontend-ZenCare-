@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import user from "../../assets/circle-user.png";
-import user1 from "../../assets/content-user.png";
+import user1 from "../../assets/user.jpg";
 import bell from "../../assets/bell.png";
 import { useNavigate, useLocation } from "react-router-dom";
 import Notification from "../../components/Notification/Notification";

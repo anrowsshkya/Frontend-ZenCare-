@@ -13,6 +13,7 @@ import PopUp from "./PopUpHomepage/PopUp";
 import TopDoctors from "./TopDoc/TopDoctors";
 import DoctorDashboard from "./DoctorSide/DoctorDashboard";
 import LabTechDashboard from "./LabTechSide/LabTechDashboard";
+import LabCheck from "./components/CancelAppointment/LabCheck";
 // import AdminDashboard from "./AdminSide/AdminDashboard"
 import AppointmentsDoctorSide from "./DoctorSide/AppointmentsDoctorSide";
 import ViewAppointmentDoctor from "./DoctorSide/ViewAppointmentDoctor";
@@ -63,6 +64,8 @@ function App() {
           <Route path="/resetPassword" element={<ResetPassword />} />
           <Route path="/verify" element={<Verify />} />
           <Route path="/changePassword" element={<ChangePassword />} />
+          {/* <Route path="/lab-tech-report/:id" element={<LabTechReport />} /> */}
+          <Route path="/lab-check" element={<LabCheck />} />
           <Route path="/paymentConfirm" element={<PaymentConfirm />} />
           <Route path="/paymentAmount" element={<PaymentAmount />} />
 
