@@ -29,6 +29,7 @@ import Verify from "./components/ForgotPassword/Verify";
 import ChangePassword from "./components/UserProfile/ChangePassword";
 import PaymentConfirm from "./components/Payment/PaymentConfirm";
 import PaymentAmount from "./components/Payment/PaymentAmount";
+import NotificationProfile from "./components/Notification/NotificationProfile";
 
 
 import "./App.css";
@@ -68,6 +69,7 @@ function App() {
           <Route path="/lab-check" element={<LabCheck />} />
           <Route path="/paymentConfirm" element={<PaymentConfirm />} />
           <Route path="/paymentAmount" element={<PaymentAmount />} />
+          <Route path="/notification-report/:id" element={<NotificationProfile />} />
 
 
         </Routes>

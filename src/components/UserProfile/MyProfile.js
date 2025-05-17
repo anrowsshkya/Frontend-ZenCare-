@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import user from "../../assets/circle-user.png";
-import user1 from "../../assets/user.jpg";
+import user1 from "../../assets/content-user.png";
 import bell from "../../assets/bell.png";
 import { useNavigate, useLocation } from "react-router-dom";
-import Notification from "../../components/Notification/Notification";
+import NotificationProfile from "../../components/Notification/NotificationProfile";
 import './MyProfile.css';
 import { userProfile } from "../api";
 import { getNotifications } from "../api";
-
 
 const MyProfile = () => {
   const location = useLocation();
@@ -27,11 +26,12 @@ const MyProfile = () => {
       }
     };
 
-
     const fetchNotifications = async () => {
       try {
-        const data = await getNotifications(); // it uses token and fallback logic
-        setNotificationsData(data);
+        const data = await getNotifications();
+        console.log("Notifications fetched:", data); // debug
+
+        setNotificationsData(Array.isArray(data.results) ? data.results : []);
       } catch (err) {
         console.error("Failed to fetch notifications:", err);
       }
@@ -40,14 +40,6 @@ const MyProfile = () => {
     fetchProfile();
     fetchNotifications();
   }, []);
-
-  // Dummy notifications (commented, kept for reference)
-  /*
-  const notifications = [
-    { id: 1, message: "Your appointment for 2025-05-10 at 11:00 AM has been successfully booked." },
-    { id: 2, message: "Your appointment for 2025-05-05 at 03:30 PM has been canceled." }
-  ];
-  */
 
   return (
     <div className='MyProfile'>
@@ -59,9 +51,12 @@ const MyProfile = () => {
           <button className='top-btn2' onClick={() => navigate("/find-doctor")}>Find Doctors</button>
           <button
             onClick={() => setShowNotification(!showNotification)}
-            className="da-notification"
+            className="notification-button"
             style={{
               backgroundColor: "#E0F2FE",
+              border: "none",
+              borderRadius: "50%",
+              padding: "8px",
               cursor: "pointer"
             }}
           >
@@ -78,10 +73,12 @@ const MyProfile = () => {
 
       {/* Notification Overlay */}
       {showNotification && (
-        <Notification
-          notifications={notificationsData}
-          onClose={() => setShowNotification(false)}
-        />
+        <div className="notification-overlay">
+          <NotificationProfile
+            messages={notificationsData}
+            onClose={() => setShowNotification(false)}
+          />
+        </div>
       )}
 
       {/* Sidebar */}

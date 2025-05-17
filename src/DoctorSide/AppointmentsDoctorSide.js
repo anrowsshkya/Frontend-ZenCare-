@@ -1,17 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { getAppointments } from "../components/api";
+import { getAppointments, getNotifications } from "../components/api";
 import { findDoctor } from "../components/api";
 import bell from "../assets/bell.png";
 import user from "../assets/circle-user.png";
 import "./DoctorDashboard.css";
 import "./AppointmentsDoctorSide.css";
+import Notification from "../components/Notification/Notification";
+
 
 const AppointmentsDoctorSide = () => {
     const location = useLocation();
     const [currentDoctor, setCurrentDoctor] = useState(null);
     const navigate = useNavigate();
     const [appointments, setAppointments] = useState([]);
+    const [showNotification, setShowNotification] = useState(false);
+    const [notificationsData, setNotificationsData] = useState([]);
     const email = localStorage.getItem("email");
     const [loading, setLoading] = useState(true);
     const [doctorList, setDoctorList] = useState([]);
@@ -45,6 +49,27 @@ const AppointmentsDoctorSide = () => {
         }
     }, [location.state]); // triggers re-fetch if 'updated' flag is passed
 
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         try {
+    //             const doctorsResponse = await findDoctor();
+    //             const allDoctors = doctorsResponse.data.results;
+    //             setDoctorList(allDoctors);
+
+    //             const matchedDoctor = allDoctors.find((doc) => doc.email === email);
+    //             setCurrentDoctor(matchedDoctor);
+    //         } catch (error) {
+    //             console.error("Failed to fetch doctor data:", error);
+    //         } finally {
+    //             setLoading(false);
+    //         }
+    //     };
+
+    //     fetchData();
+    // }, [email]); // this now works
+
+
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -61,8 +86,19 @@ const AppointmentsDoctorSide = () => {
             }
         };
 
+        const fetchNotifications = async () => {
+            try {
+                const data = await getNotifications();
+                setNotificationsData(data.results || []);
+            } catch (err) {
+                console.error("Failed to fetch notifications:", err);
+                setNotificationsData([]);
+            }
+        };
+
         fetchData();
-    }, [email]); // this now works
+        fetchNotifications();
+    }, [email]);
 
 
     return (
@@ -72,11 +108,11 @@ const AppointmentsDoctorSide = () => {
                     <h1>ZenCare</h1>
                 </div>
                 <div className="mp-nav-buttons">
-                    <button className="top-btn" onClick={() => navigate("/PatientHome")}>
+                    {/* <button className="top-btn" onClick={() => navigate("/PatientHome")}>
                         Home
                     </button>
-                    <button className='top-btn2' onClick={() => navigate("/find-doctor")}>Find Doctors</button>
-                    <button className="iconbtn" onClick={() => navigate("/PatientHome")}>
+                    <button className='top-btn2' onClick={() => navigate("/find-doctor")}>Find Doctors</button> */}
+                    <button className="iconbtn" onClick={() => setShowNotification(!showNotification)}>
                         <img src={bell} alt="Notifications" width="24" height="24" />
                     </button>
                 </div>
@@ -89,6 +125,14 @@ const AppointmentsDoctorSide = () => {
                     </span>
                 </div>
             </div>
+
+            {/* Notification Overlay */}
+            {showNotification && (
+                <Notification
+                    notifications={notificationsData}
+                    onClose={() => setShowNotification(false)}
+                />
+            )}
 
             {/* Sidebar */}
             <div className="profile-sidebar">

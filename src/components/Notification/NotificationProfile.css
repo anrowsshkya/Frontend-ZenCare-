@@ -1,0 +1,22 @@
+/* src/components/NotificationProfile.css */
+
+.notification-profile {
+    background-color: #f4f8ff;
+    border-left: 4px solid #007bff;
+    padding: 16px;
+    margin: 20px auto;
+    max-width: 600px;
+    border-radius: 8px;
+    font-family: 'Segoe UI', sans-serif;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.notification-profile h3 {
+    margin-top: 0;
+    color: #007bff;
+}
+
+.notification-profile p {
+    margin: 8px 0;
+    font-size: 15px;
+}

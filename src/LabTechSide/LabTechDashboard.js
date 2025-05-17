@@ -23,7 +23,7 @@ const LabTechDashboard = () => {
                         onClick={() => navigate("/appointments-lab")}
                     >
                         Lab Reports
-                    </button>                    
+                    </button>
                     <button className="lb-nav-btn-logout" onClick={() => navigate("/login")}>Log out</button>
                 </nav>
             </aside>
