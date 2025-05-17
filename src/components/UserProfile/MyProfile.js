@@ -61,7 +61,7 @@ const MyProfile = () => {
             onClick={() => setShowNotification(!showNotification)}
             className="notification-button"
             style={{
-              backgroundColor: "#f0f0f0",
+              backgroundColor: "#E0F2FE",
               border: "none",
               borderRadius: "50%",
               padding: "8px",
