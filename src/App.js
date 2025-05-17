@@ -13,6 +13,7 @@ import PopUp from "./PopUpHomepage/PopUp";
 import TopDoctors from "./TopDoc/TopDoctors";
 import DoctorDashboard from "./DoctorSide/DoctorDashboard";
 import LabTechDashboard from "./LabTechSide/LabTechDashboard";
+import LabCheck from "./components/CancelAppointment/LabCheck";
 // import AdminDashboard from "./AdminSide/AdminDashboard"
 import AppointmentsDoctorSide from "./DoctorSide/AppointmentsDoctorSide";
 import ViewAppointmentDoctor from "./DoctorSide/ViewAppointmentDoctor";
@@ -65,6 +66,7 @@ function App() {
           <Route path="/PaymentOption" element={<PaymentOption />} />
           <Route path="/PaymentConfirm" element={<PaymentConfirm />} />
           {/* <Route path="/lab-tech-report/:id" element={<LabTechReport />} /> */}
+          <Route path="/lab-check" element={<LabCheck />} />
         </Routes>
       </div>
     </Router>

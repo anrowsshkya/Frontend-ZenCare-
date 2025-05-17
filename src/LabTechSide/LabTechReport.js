@@ -7,7 +7,7 @@ import { getPrescriptionById, submitLabDescription } from "../components/api";
 
 const LabTechReport = () => {
     const navigate = useNavigate();
-    const { id } = useParams(); // prescription ID
+    const { id } = useParams(); 
     const [prescriptionData, setPrescriptionData] = useState(null);
     const [description, setDescription] = useState("");
     const [file, setFile] = useState(null);
