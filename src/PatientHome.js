@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import UserInfo from './UserInfo';
-import Notification from "./components/Notification/Notification";
+import NotificationProfile from "./components/Notification/NotificationProfile";
+import { getNotifications } from "./components/api";
 import bell from "./assets/bell.png";
 import "./HomePage.css";
 
@@ -13,6 +14,7 @@ const ZenCare = () => {
     );
 
     const [showNotification, setShowNotification] = useState(false);
+    const [notificationsData, setNotificationsData] = useState([]);
 
     const handleClick = () => {
         console.log("Profile image clicked!");
@@ -34,10 +36,23 @@ const ZenCare = () => {
         }
     }, [navigate]);
 
-    const notifications = [
-        { id: 1, message: "Your appointment for 2025-05-10 at 11:00 AM has been successfully booked." },
-        { id: 2, message: "Your appointment for 2025-05-05 at 03:30 PM has been canceled." }
-    ];
+    // const notifications = [
+    //     { id: 1, message: "Your appointment for 2025-05-10 at 11:00 AM has been successfully booked." },
+    //     { id: 2, message: "Your appointment for 2025-05-05 at 03:30 PM has been canceled." }
+    // ];
+
+    useEffect(() => {
+        const fetchNotifications = async () => {
+            try {
+                const data = await getNotifications();
+                setNotificationsData(Array.isArray(data.results) ? data.results : []);
+            } catch (err) {
+                console.error("Failed to fetch notifications:", err);
+            }
+        };
+
+        fetchNotifications();
+    }, []);
 
     return (
         <div className="container_home">
@@ -46,7 +61,7 @@ const ZenCare = () => {
                 <h1 className="logo">ZenCare</h1>
                 <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
                     <button onClick={() => setShowNotification(!showNotification)} className="notification-button">
-                        <img src={bell} alt="Notifications" style={{ background:'#E0F2FE', width: '24px', height: '24px' }} />
+                        <img src={bell} alt="Notifications" style={{ background: '#E0F2FE', width: '24px', height: '24px' }} />
                     </button>
                     <input
                         type="image"
@@ -99,7 +114,14 @@ const ZenCare = () => {
             </footer>
 
             {showModal && <UserInfo onClose={handleModalClose} />}
-            {showNotification && <Notification notifications={notifications} onClose={() => setShowNotification(false)} />}
+            {showNotification && (
+                <div className="notification-overlay">
+                    <NotificationProfile
+                        messages={notificationsData}
+                        onClose={() => setShowNotification(false)}
+                    />
+                </div>
+            )}
         </div>
     );
 };

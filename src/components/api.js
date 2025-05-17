@@ -240,6 +240,8 @@ export const getNotifications = async () => {
     }
 
     console.error("Error fetching notifications:", error);
+  }
+};
 
 // ================================
 // Function to Get Prescriptions That Need Lab Tests
@@ -265,6 +267,7 @@ export const getPrescriptionsNeedingLabTests = async () => {
     console.error("Error fetching lab test prescriptions:", error.response?.data || error.message);
 
     throw error;
+    // error checking
   }
 };
 
@@ -354,48 +357,48 @@ export const resetPasswordConfirm = async (uidb64, token, newPassword) => {
 
 // Get a specific prescription by ID
 export const getPrescriptionById = async (id, token) => {
-    try {
-        const response = await fetch(`${API_BASE_URL}/appointment/prescriptions/${id}`, {
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            }
-        });
-        if (!response.ok) {
-            throw new Error(`Failed to fetch prescription: ${response.status}`);
-        }
-        const data = await response.json();
-        return data;
-    } catch (error) {
-        console.error("API Error (getPrescriptionById):", error);
-        throw error;
+  try {
+    const response = await fetch(`${API_BASE_URL}/appointment/prescriptions/${id}`, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    });
+    if (!response.ok) {
+      throw new Error(`Failed to fetch prescription: ${response.status}`);
     }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("API Error (getPrescriptionById):", error);
+    throw error;
+  }
 };
 
 
 
 // Submit lab technician's description for a prescription
 export const submitLabDescription = async (formData, token) => {
-    try {
-        const response = await fetch(`${API_BASE_URL}/appointment/reports/create/`, {
-            method: "POST",
-            headers: {
-                Authorization: `Bearer ${token}`
-            },
-            body: formData
-        });
+  try {
+    const response = await fetch(`${API_BASE_URL}/appointment/reports/create/`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
+      body: formData
+    });
 
-        if (!response.ok) {
-            const errorData = await response.json();
-            console.error("Backend error:", errorData);
-            throw new Error("Failed to submit lab description");
-        }
-
-        return await response.json();
-    } catch (error) {
-        console.error("API Error (submitLabDescription):", error);
-        throw error;
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error("Backend error:", errorData);
+      throw new Error("Failed to submit lab description");
     }
+
+    return await response.json();
+  } catch (error) {
+    console.error("API Error (submitLabDescription):", error);
+    throw error;
+  }
 };
 
 // src/components/api.js

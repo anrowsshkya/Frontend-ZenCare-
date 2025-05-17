@@ -63,11 +63,11 @@ const DoctorDashboard = () => {
             Home
           </button> */}
           {/* <button className='top-btn2' onClick={() => navigate("/find-doctor")}>Find Doctors</button> */}
-          </button>
+          {/* </button> */}
 
-          <button className="top-btn2" onClick={() => navigate("/find-doctor")}>
+          {/* <button className="top-btn2" onClick={() => navigate("/find-doctor")}>
             Find Doctors
-          </button>
+          </button> */}
           <button
             className="iconbtn"
             onClick={() => setShowNotification(!showNotification)}

@@ -76,6 +76,14 @@ const ViewReport = () => {
         >
           My Profile
         </button>
+
+        <button
+          className={`mp-button ${location.pathname === "/Cancel" ? "active" : ""}`}
+          onClick={() => navigate("/Cancel")}
+        >
+          Appointments
+        </button>
+
         <button
           className={`mp-button ${location.pathname === "/ViewReport" ? "active" : ""}`}
           onClick={() => navigate("/ViewReport")}
